@@ -1,0 +1,86 @@
+﻿<tools:FrameControl
+            xmlns:tools="clr-namespace:EtasaDesktop.Common.Tools" 
+             x:Class="EtasaDesktop.Distribution.Factories.FactoryFrame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EtasaDesktop.Distribution.Factories"
+             Background="White"
+             mc:Ignorable="d" >
+    <tools:FrameControl.DataContext>
+        <local:FactoryViewModel />
+    </tools:FrameControl.DataContext>
+    <tools:FrameControl.Resources>
+        <Style x:Key="HighlightCell"
+            BasedOn="{StaticResource {x:Type DataGridCell}}"
+            TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="#DDDDDD" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </tools:FrameControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9"
+            Margin="4"
+            Content="Factorías"
+            Style="{StaticResource Frame.Title}" />
+
+
+        <Button
+            Grid.Row="1" Grid.Column="3"
+            Height="28"
+            Padding="16,0"
+             Content="Ver Factoría"   Click="ShowFactoryButton_Click" />
+
+        <Button
+            Grid.Row="1" Grid.Column="5"
+            Height="28"
+            Padding="16,0" Margin="0,0,8,0"   Click="AddFactory_Click"  Content="Nuevo" Style="{StaticResource AccentButton}" />
+
+
+        <DataGrid Background="#F3F3F3" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="9"
+                AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="All"
+                IsReadOnly="True" ItemsSource="{Binding Factories}" SelectedItem="{Binding SelectedFactory}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Code}" CellStyle="{StaticResource HighlightCell}"
+                        Header="Código" />
+                <DataGridTextColumn Width="2*" Binding="{Binding Name}" Header="Nombre" />
+                <DataGridTextColumn Binding="{Binding Address}" 
+                        Header="Dirección" />
+                <DataGridTextColumn Binding="{Binding City}" 
+                        Header="Ciudad" />
+                <DataGridTextColumn Binding="{Binding PostCode}" 
+                        Header="Código Postal" />
+                <DataGridTextColumn Binding="{Binding Longitude}" CellStyle="{StaticResource HighlightCell}"
+                        Header="Longitud" />
+                <DataGridTextColumn Binding="{Binding Latitude}" CellStyle="{StaticResource HighlightCell}"
+                        Header="Latitud" />
+                <DataGridCheckBoxColumn Binding="{Binding Enabled}" Header="Enabled" />
+                <DataGridTextColumn Width="*" Binding="{Binding Observations}" Header="Observaciones" />
+            </DataGrid.Columns>
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+    </Grid>
+</tools:FrameControl>
+

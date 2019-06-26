@@ -1,0 +1,308 @@
+﻿<UserControl
+    x:Class="EtasaDesktop.Distribution.Planner.Map.MarkerClient"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:EtasaDesktop.Resources.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:data="clr-namespace:EtasaDesktop.Common.Data"
+    xmlns:local="clr-namespace:EtasaDesktop.Distribution.Planner.Map"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <local:MarkerClientViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <Geometry x:Key="Background">M445.841,201.423c0,152.012-171.608,292.797-171.608,292.797c-10.027,8.226-26.437,8.226-36.465,0c0,0-171.608-140.785-171.608-292.797c0-104.846,84.995-189.84,189.841-189.84S445.841,96.578,445.841,201.423z</Geometry>
+        <Geometry x:Key="Dot">M 256.001 285.361 C 203.335 285.361 172.063 254.107 172.063 201.443C 172.063 148.779 203.337 117.472 256.001 117.472C 308.664 117.472 339.938 148.826 339.938 201.490 C 339.938 254.154 308.664 285.361 256.001 285.361 Z</Geometry>
+        <Geometry x:Key="Border">M256.001,0C144.935,0,54.576,90.359,54.576,201.424c0,36.373,9.386,74.987,27.896,114.767c14.616,31.409,34.94,63.649,60.411,95.826c43.178,54.547,85.749,89.691,87.54,91.16c7.171,5.883,16.375,8.825,25.579,8.825c9.204,0,18.407-2.942,25.579-8.825c1.791-1.47,44.361-36.613,87.539-91.16c25.47-32.176,45.795-64.416,60.411-95.826c18.51-39.78,27.896-78.392,27.896-114.767C457.424,90.359,367.065,0,256.001,0zM351.247,397.268c-41.647,52.697-83.942,87.653-84.361,87.997c-5.799,4.758-15.972,4.757-21.768,0.002c-0.422-0.346-42.716-35.302-84.363-87.999c-37.869-47.918-83.012-120.791-83.012-195.844c-0.001-98.292,79.965-178.258,178.257-178.258s178.258,79.966,178.258,178.258C434.258,276.476,389.116,349.35,351.247,397.268z</Geometry>
+        <conv:VisibilityEmptyConverter x:Key="VisibilityEmptyConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <ToggleButton
+            x:Name="MarkerButton"
+            Width="42" Height="42"
+            Margin="0" Padding="0"
+            Background="Transparent" BorderThickness="0" ToolTipService.InitialShowDelay="0" ToolTipService.ShowDuration="86400">
+            <ToggleButton.Style>
+                <Style TargetType="{x:Type ToggleButton}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ToggleButton.Style>
+            <Grid Width="42" Height="42">
+                <Canvas>
+                    <Viewbox Width="42" Height="42">
+                        <Canvas Width="512" Height="512">
+
+                            <Path Data="{StaticResource Background}" Fill="{Binding Fill}" />
+
+                            <Path Data="{StaticResource Border}" Fill="White" />
+
+                            <Path
+                                Canvas.Left="120" Canvas.Top="50"
+                                Width="275" Height="275"
+                                Data="{StaticResource Dot}"
+                                Fill="White" Stretch="Fill" />
+
+                        </Canvas>
+
+                    </Viewbox>
+
+                    <Viewbox
+                        Canvas.Left="10.5" Canvas.Top="3"
+                        Width="21" Height="23">
+                        <TextBlock
+                            FontFamily="Segoe UI Semilight" FontSize="14" Foreground="#FF353535"
+                            Text="{Binding Num}"
+                            TextAlignment="Center" />
+                    </Viewbox>
+                </Canvas>
+            </Grid>
+
+
+            <ToggleButton.ToolTip>
+                <ToolTip
+                    Background="White" BorderBrush="#FFBDBDBD" BorderThickness="1" Placement="Left">
+                    <StackPanel MinWidth="200">
+
+                        <TextBlock
+                            Grid.Row="0"
+                            FontSize="16"
+                            Foreground="{Binding Fill}"
+                            Style="{StaticResource Header20}"
+                            Text="{Binding Title}" />
+                        <ListView
+                            Margin="0,5" Padding="0"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Orders}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type data:Order}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            FontSize="12"
+                                            Text="{Binding Product.Name}" />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            FontSize="14" FontWeight="SemiBold"
+                                            Text="{Binding RequestedAmount}" />
+                                    </Grid>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <TextBlock
+                            Margin="0,5"
+                            FontSize="12" FontWeight="Medium" Foreground="Red"
+                            Text="{Binding Alert}"
+                            Visibility="{Binding Alert, Converter={StaticResource VisibilityEmptyConverter}}" />
+                    </StackPanel>
+                </ToolTip>
+            </ToggleButton.ToolTip>
+        </ToggleButton>
+        <Popup
+            IsOpen="{Binding IsChecked, ElementName=MarkerButton}"
+            Placement="Left" StaysOpen="False" MaxWidth="250">
+            <Border
+                MinWidth="200"
+                Padding="5"
+                Background="White" BorderBrush="#FFBDBDBD" BorderThickness="1">
+                <StackPanel>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        FontSize="14"
+                        Foreground="{Binding Fill}"
+                        Style="{StaticResource Header20}"
+                        TextWrapping="Wrap">
+                        <Hyperlink Click="Client_Click" Foreground="{Binding Fill}">
+                            <Hyperlink.Style>
+                                <Style TargetType="{x:Type Hyperlink}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                    <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
+                                </Style>
+                            </Hyperlink.Style>
+                            <Run Text="{Binding Title}" />
+                        </Hyperlink>
+                    </TextBlock>
+
+                    <ListView
+                        x:Name="ListClientOrders"
+                        Margin="0,5" Padding="0"
+                        BorderThickness="0"
+                        ItemsSource="{Binding Orders}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Focusable" Value="False" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Margin" Value="0" />
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border
+                                                x:Name="Bd"
+                                                Padding="{TemplateBinding Padding}"
+                                                Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                SnapsToDevicePixels="true">
+                                                <ContentPresenter
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="IsMouseOver" Value="True" />
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="Bd" Property="Background" Value="WhiteSmoke" />
+                                                    <Setter TargetName="Bd" Property="BorderBrush" Value="WhiteSmoke" />
+                                                </MultiTrigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter TargetName="Bd" Property="TextElement.Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="{x:Type data:Order}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Margin="2"
+                                        FontSize="12"
+                                        Text="{Binding Product.Name}"
+                                            TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Margin="2"
+                                        FontSize="14" FontWeight="SemiBold"
+                                        Text="{Binding RequestedAmount}" />
+                                    <Border
+                                        Grid.Row="1" Grid.ColumnSpan="2"
+                                        Padding="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image
+                                                Height="16"
+                                                Margin="0,0,4,0"
+                                                SnapsToDevicePixels="True"
+                                                Source="{StaticResource Calendar.Outline}" />
+                                            <TextBlock FontSize="10">
+                                                <Run Text="{Binding StartDate, StringFormat=dd/MM/yyyy}" />
+                                                <Run Text=" - " />
+                                                <Run Text="{Binding FinalDate, StringFormat=dd/MM/yyyy}" />
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border
+                                        Grid.Row="2" Grid.ColumnSpan="2"
+                                        Padding="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image
+                                                Height="16"
+                                                Margin="0,0,4,0"
+                                                SnapsToDevicePixels="True"
+                                                Source="{StaticResource Vehicle.Outline}" />
+                                            <TextBlock FontSize="10" Text="{Binding SizeName}" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="3" Grid.ColumnSpan="2" Padding="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Height="16" Margin="0,0,4,0" SnapsToDevicePixels="True"
+                                                    Source="{StaticResource City.Outline}" />
+                                            <TextBlock FontSize="10" Text="{Binding Client.Location.City}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Grid.Row="4" Grid.ColumnSpan="2" Padding="2"
+                                            Visibility="{Binding Observations, Converter={StaticResource VisibilityEmptyConverter}}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Height="16" Margin="0,0,4,0" SnapsToDevicePixels="True"
+                                                    Source="{StaticResource Comment.Outline}" />
+                                            <TextBlock FontSize="10" Text="{Binding Description}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </Border>
+
+                                    <TextBlock
+                                        Grid.Row="5" Grid.ColumnSpan="2"
+                                        Padding="2"
+                                        FontSize="10" FontWeight="Medium" Foreground="Red"
+                                        Visibility="{Binding Alert, Converter={StaticResource VisibilityEmptyConverter}}" />
+
+                                    <StackPanel
+                                        Grid.Row="6" Grid.ColumnSpan="2"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <!--<Button
+                                            Padding="2"
+                                            Click="EditOrder_Click"
+                                            Style="{StaticResource BorderlessButton}">
+                                            <Image
+                                                Height="16"
+                                                SnapsToDevicePixels="True"
+                                                Source="{StaticResource Edit.Outline}" />
+                                        </Button>-->
+                                        <Button
+                                            Padding="2"
+                                            Style="{StaticResource BorderlessButton}"
+                                            ToolTip="{Binding Notes}"
+                                            Visibility="{Binding Notes, Converter={StaticResource VisibilityEmptyConverter}}">
+                                            <Image
+                                                Height="16"
+                                                SnapsToDevicePixels="True"
+                                                Source="{StaticResource Note.Outline}" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

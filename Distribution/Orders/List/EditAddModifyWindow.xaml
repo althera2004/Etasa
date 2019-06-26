@@ -1,0 +1,26 @@
+﻿<Window x:Class="EtasaDesktop.Distribution.Orders.EditAddModifyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EtasaDesktop.Distribution.Orders"
+        mc:Ignorable="d"
+        Title="Editar/Añadir Registro" Height="450" Width="800">
+    <Border BorderThickness="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <StackPanel Grid.Row="0" Name="PanelEditAdd"></StackPanel>
+            </ScrollViewer>
+            <WrapPanel Grid.Row="1" Orientation="Horizontal">
+                <Button HorizontalAlignment="Right" Name="EditAddWindowAccept" Click="EditAddWindowAccept_Click" >Guardar</Button>
+                <Button HorizontalAlignment="Right" Name="EditAddWindowReset" Click="EditAddWindowReset_Click" >Resetear</Button>
+                <Button HorizontalAlignment="Right" Name="EditAddWindowCancel" Click="EditAddWindowCancel_Click" >Cancelar</Button>
+            </WrapPanel>
+        </Grid>
+    </Border>
+</Window>

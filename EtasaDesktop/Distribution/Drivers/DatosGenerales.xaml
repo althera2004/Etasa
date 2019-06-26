@@ -1,0 +1,237 @@
+﻿<UserControl x:Class="EtasaDesktop.Distribution.Conductores.DatosGenerales"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EtasaDesktop.Distribution.Conductores"
+             mc:Ignorable="d" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Content="Nombre" Grid.Column="0" Grid.Row="0"/>
+        <TextBox Grid.Column="1" Grid.Row="0"/>
+        <Label Content="Empresa" Grid.Column="2" Grid.Row="0"/>
+        <ComboBox Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="0"/>
+
+        <Label Content="Apodo" Grid.Column="0" Grid.Row="1"/>
+        <TextBox Grid.Column="1" Grid.Row="1"/>
+        <Label Content="Alquilado" Grid.Column="2" Grid.Row="1"/>
+        <Grid Grid.Column="3" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="35"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" IsReadOnly="True"></TextBox>
+            <Button Grid.Column="1">
+                <Image Source="{StaticResource Search}" Width="15"></Image>
+            </Button>
+        </Grid>
+
+        <Label Content="Fecha nacimiento" Grid.Column="0" Grid.Row="2"/>
+        <TextBox Grid.Column="1" Grid.Row="2"/>
+        <Label Content="Uniforme" Grid.Column="2" Grid.Row="2"/>
+        <ComboBox Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="2"/>
+
+        <Label Content="DNI" Grid.Column="0" Grid.Row="3"/>
+        <Grid Grid.Column="1" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="35"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" IsReadOnly="True"></TextBox>
+            <Button Grid.Column="1" Content="..."></Button>
+        </Grid>
+        <Label Content="Zona" Grid.Column="2" Grid.Row="3"/>
+        <Grid Grid.Column="3" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0"></ComboBox>
+            <Label Content="Hora Inicio" Grid.Column="1"/>
+            <TextBox Grid.Column="2" ></TextBox>
+        </Grid>
+
+        <Label Content="Fecha vto. DNI" Grid.Column="0" Grid.Row="4"/>
+        <TextBox Grid.Column="1" Grid.Row="4"></TextBox>
+        <Label Content="Turno" Grid.Column="2" Grid.Row="4"/>
+        <Grid Grid.Column="3" Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0" ></ComboBox>
+            <Label Grid.Column="1" Content="Situación"/>
+            <ComboBox Grid.Column="2" ></ComboBox>
+        </Grid>
+
+        <Label Content="País" Grid.Column="0" Grid.Row="5" />
+        <Grid Grid.Column="1" Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="35"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox IsReadOnly="True" Grid.Column="0"></TextBox>
+            <Button Grid.Column="1">
+                <Image Source="{StaticResource Search}" Width="15"></Image>
+            </Button>
+        </Grid>
+        <Label Content="Grupo tacógrafo" Grid.Column="2" Grid.Row="5"></Label>
+        <Grid Grid.Column="3" Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="35"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox IsReadOnly="True" Grid.Column="0"></TextBox>
+            <Button Grid.Column="1">
+                <Image Source="{StaticResource Search}" Width="15"></Image>
+            </Button>
+        </Grid>
+
+        <Label Content="Provincia" Grid.Column="0" Grid.Row="6" />
+        <Grid Grid.Column="1" Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="35"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox IsReadOnly="True" Grid.Column="0"></TextBox>
+            <Button Grid.Column="1">
+                <Image Source="{StaticResource Search}" Width="15"></Image>
+            </Button>
+        </Grid>
+
+        <Label Content="Fecha alta" Grid.Column="2" Grid.Row="6"></Label>
+        <Grid Grid.Column="3" Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox IsReadOnly="True" Grid.Column="0"></TextBox>
+            <Label Grid.Column="1" Content="Fecha baja" />
+            <TextBox Grid.Column="2" IsReadOnly="True"></TextBox>
+        </Grid>
+
+        <Label Content="Poblacion" Grid.Column="0" Grid.Row="7" />
+        <Grid Grid.Column="1" Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="35"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox IsReadOnly="True" Grid.Column="0"></TextBox>
+            <Button Grid.Column="1">
+                <Image Source="{StaticResource Search}" Width="15"></Image>
+            </Button>
+        </Grid>
+
+        <Label Content="Fecha ADR" Grid.Column="2" Grid.Row="7"/>
+        <Grid Grid.Column="3" Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox IsReadOnly="True" Grid.Column="0"></TextBox>
+            <Label Grid.Column="1" Content="Revision medica" />
+            <TextBox Grid.Column="2" IsReadOnly="True"></TextBox>
+        </Grid>
+
+        <Label Content="Dirección" Grid.Column="0" Grid.Row="8"></Label>
+        <TextBox Grid.Column="1" Grid.Row="8"></TextBox>
+        <Label Content="Fecha carnet" Grid.Column="2" Grid.Row="8"></Label>
+        <Grid Grid.Column="3" Grid.Row="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0"></TextBox>
+            <Label Content="Fecha vto. SEF" Grid.Column="1"></Label>
+            <TextBox Grid.Column="2"></TextBox>
+        </Grid>
+
+        <Label Content="Cód postal" Grid.Column="0" Grid.Row="9"></Label>
+        <Grid Grid.Column="1" Grid.Row="9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="35"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox IsReadOnly="True" Grid.Column="0"></TextBox>
+            <Button Grid.Column="1">
+                <Image Source="{StaticResource Search}" Width="15"></Image>
+            </Button>
+        </Grid>
+
+        <Label Content="Fecha vto. tacógrafo" Grid.Column="2" Grid.Row="9"></Label>
+        <Grid Grid.Column="3" Grid.Row="9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0"></TextBox>
+            <Label Content="Fecha vto. CAP" Grid.Column="1"></Label>
+            <TextBox Grid.Column="2"></TextBox>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0">
+                <Label Content="Teléfono" DockPanel.Dock="top"></Label>
+                <TextBox DockPanel.Dock="Bottom"></TextBox>
+            </DockPanel>
+
+            <DockPanel Grid.Column="1">
+                <Label Content="Móvil personal" DockPanel.Dock="Top"></Label>
+                <TextBox DockPanel.Dock="Bottom"></TextBox>
+            </DockPanel>
+
+            <DockPanel Grid.Column="2">
+                <Label Content="Móvil trabajo" DockPanel.Dock="Top"></Label>
+                <TextBox DockPanel.Dock="Bottom"></TextBox>
+            </DockPanel>
+        </Grid>
+
+        <DockPanel Grid.Column="0" Grid.Row="11">
+            <Label Content="Extension" DockPanel.Dock="top"></Label>
+            <TextBox DockPanel.Dock="Bottom"></TextBox>
+        </DockPanel>
+
+        <DockPanel Grid.Column="1" Grid.Row="11">
+            <Label Content="Contraseña hoja ruta" DockPanel.Dock="Top"></Label>
+            <TextBox DockPanel.Dock="Bottom"></TextBox>
+        </DockPanel>
+
+        <Image Grid.Column="2" Grid.Row="11" Grid.ColumnSpan="2"/>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,186 @@
+﻿<Window x:Class="EtasaDesktop.Distribution.MarkerColors.ColorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:planner="clr-namespace:EtasaDesktop.Distribution.Planner"
+        xmlns:conv="clr-namespace:EtasaDesktop.Resources.Converters"
+        mc:Ignorable="d" Title="Colores" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <Grid Name="ColorListHeader" Margin="12,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="64" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="2" Text="Factoria" FontSize="14" FontWeight="Medium"
+                        HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="2,0" />
+                <TextBlock Grid.Column="3" Text="Cliente" FontSize="14" FontWeight="Medium" HorizontalAlignment="Center"
+                        TextTrimming="CharacterEllipsis" Margin="2,0" />
+                <TextBlock Grid.Column="4" Text="Urgencia" FontSize="14" FontWeight="Medium"
+                        HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="2,0" />
+                <TextBlock Grid.Column="5" Text="Preferencia" FontSize="14" FontWeight="Medium"
+                        HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="2,0" />
+                <TextBlock Grid.Column=" 6" Text=" Último" FontSize="14" FontWeight="Medium"
+                        HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="2,0" />
+                <TextBlock Grid.Column=" 7" Text=" Programado" FontSize="14" FontWeight="Medium"
+                        HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="2,0" />
+                <TextBlock Grid.Column=" 8" Text=" Servidor" FontSize="14" FontWeight="Medium"
+                        HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="2,0" />
+            </Grid>
+
+
+            <ListView Name="ColorListView"
+                    ItemsSource="{Binding ColorCollection, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    BorderThickness="0" ScrollViewer.CanContentScroll="False">
+
+                <ListView.Resources>
+                    <conv:HexColorToBrushConverter x:Key="HexColorConverter" />
+                </ListView.Resources>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListViewItemStyle}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Height" Value="48" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}"
+                                            Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                        <ContentPresenter
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type planner:FactoryColors}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="64" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding FactoryId}" FontSize="16" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Text="{Binding FactoryName}" FontSize="12" Margin="8,0" />
+
+                            <ToggleButton Grid.Column="2" Margin="8" Height="Auto" BorderThickness="1"
+                                    BorderBrush="#BDBDBD"
+                                    Background="{Binding ColorFactory, Converter={StaticResource HexColorConverter}}" />
+                            <ToggleButton Grid.Column="3" Margin="8" Height="Auto" BorderThickness="1"
+                                    BorderBrush="#BDBDBD"
+                                    Background="{Binding ColorClient, Converter={StaticResource HexColorConverter}}" />
+                            <ToggleButton Grid.Column="4" Margin="8" Height="Auto" BorderThickness="1"
+                                    BorderBrush="#BDBDBD"
+                                    Background="{Binding ColorUrgent, Converter={StaticResource HexColorConverter}}" />
+
+                            <!-- Cuando no hay color -->
+                            <ToggleButton Grid.Column="6" Margin="8" Height="Auto" BorderThickness="0"
+                                    BorderBrush="#BDBDBD"
+                                    Background="{Binding ColorPreferred, Converter={StaticResource HexColorConverter}}">
+                                <Image Source="{StaticResource Test}" MaxWidth="16" />
+                            </ToggleButton>
+
+                            <ToggleButton Name="Button" Grid.Column="8" Margin="8" Height="Auto" BorderThickness="1"
+                                    BorderBrush="#BDBDBD"
+                                    Background="{Binding ColorLast, Converter={StaticResource HexColorConverter}}">
+
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                            Background="{TemplateBinding Background}"
+                                                            SnapsToDevicePixels="true">
+                                                        <ContentPresenter x:Name="contentPresenter" Focusable="False"
+                                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                Margin="{TemplateBinding Padding}"
+                                                                RecognizesAccessKey="True"
+                                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="Button.IsDefaulted" Value="true">
+                                                            <Setter Property="BorderThickness" TargetName="border"
+                                                                    Value="2" />
+                                                            <Setter Property="BorderBrush" TargetName="border"
+                                                                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="true">
+                                                            <Setter Property="BorderThickness" TargetName="border"
+                                                                    Value="2" />
+                                                            <Setter Property="BorderBrush" TargetName="border"
+                                                                    Value="{StaticResource Button.MouseOver.Border}" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="true">
+                                                            <Setter Property="BorderThickness" TargetName="border"
+                                                                    Value="2" />
+                                                            <Setter Property="BorderBrush" TargetName="border"
+                                                                    Value="{StaticResource ToggleButton.Pressed.Border}" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsChecked" Value="true">
+                                                            <Setter Property="BorderThickness" TargetName="border"
+                                                                    Value="2" />
+                                                            <Setter Property="BorderBrush" TargetName="border"
+                                                                    Value="{StaticResource ToggleButton.Pressed.Border}" />
+                                                        </Trigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsChecked" Value="true" />
+                                                                <Condition Property="IsMouseOver" Value="true" />
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="BorderBrush" TargetName="border"
+                                                                    Value="{StaticResource ToggleButton.Pressed.Border}" />
+                                                        </MultiTrigger>
+                                                        <Trigger Property="IsEnabled" Value="false">
+                                                            <Setter Property="BorderBrush" TargetName="border"
+                                                                    Value="{StaticResource Button.Disabled.Border}" />
+                                                            <Setter Property="TextElement.Foreground"
+                                                                    TargetName="contentPresenter"
+                                                                    Value="{StaticResource Button.Disabled.Foreground}" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ToggleButton.Style>
+
+                            </ToggleButton>
+                            <Popup Grid.Column="8" IsOpen="{Binding IsChecked, ElementName=Button}" StaysOpen="False">
+                                <Border BorderThickness="1" BorderBrush="#BDBDBD" Background="White">
+                                    <TextBox Width="64" Margin="8"
+                                            Text="{Binding ColorServer, UpdateSourceTrigger=PropertyChanged}" />
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>

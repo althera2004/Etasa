@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2011
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtasaDesktop", "EtasaDesktop\EtasaDesktop.csproj", "{C9CB1936-45C6-424E-9670-F6BD3EFF4CCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtasaDesktop-Original", "EtasaDesktop\EtasaDesktop-Original.csproj", "{C9CB1936-45C6-424E-9670-F6BD3EFF4CCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

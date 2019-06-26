@@ -1,0 +1,76 @@
+﻿<tools:FrameControl
+            xmlns:tools="clr-namespace:EtasaDesktop.Common.Tools" 
+            x:Class="EtasaDesktop.Distribution.Planner.ColorFrame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EtasaDesktop.Distribution.Planner"
+             Background="White"
+             mc:Ignorable="d" >
+    <tools:FrameControl.DataContext>
+        <local:ColorViewModel />
+    </tools:FrameControl.DataContext>
+    <tools:FrameControl.Resources>
+        <Style x:Key="HighlightCell"
+            BasedOn="{StaticResource {x:Type DataGridCell}}"
+            TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="#DDDDDD" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </tools:FrameControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9"
+            Margin="4"
+            Content="Colores factorias"
+            Style="{StaticResource Frame.Title}" />
+
+
+        <Button
+            Grid.Row="1" Grid.Column="5"
+            Height="28"
+            Padding="16,0" Margin="0,0,8,0"  Visibility="Hidden" Click="AddColor_Click"  Content="Nuevo" Style="{StaticResource AccentButton}" />
+
+        <Button Grid.Column="4"
+                Height="28"
+                Padding="16,0"
+                Content="Ver Color factoría"   Click="ShowColorButton_Click" Grid.ColumnSpan="2" Margin="36,41,4,6" Grid.RowSpan="2" />
+
+        <DataGrid x:Name="DataGrifactories" Background="#F3F3F3" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="9"
+                AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="All"
+                 IsReadOnly="True" ItemsSource="{Binding ColorsFactory}" SelectedItem="{Binding SelectedFactoryColor}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Code}" IsReadOnly="True" CellStyle="{StaticResource HighlightCell}" Header="Código Factoría" />
+                <DataGridTextColumn Binding="{Binding Name}" IsReadOnly="True" CellStyle="{StaticResource HighlightCell}"  Header="Nombre Factoría" />
+                <DataGridTextColumn Binding="{Binding FactoryColor}" IsReadOnly="True" Header="Color Factoría" />
+                <DataGridTextColumn Binding="{Binding ClientColor}" IsReadOnly="True" Header="Color Cliente" />
+                <DataGridTextColumn Binding="{Binding UrgentColor}" IsReadOnly="True" Header="Color Urgente" />
+                <DataGridTextColumn Binding="{Binding FinalDayColor}" IsReadOnly="True" Header="Color Último" />
+                <DataGridTextColumn Binding="{Binding PreferenceColor}" IsReadOnly="True" Header="Color Preferente" />
+                <DataGridTextColumn Binding="{Binding TheLastPreferent}" IsReadOnly="True" Header="Color Último Preferente" />
+            </DataGrid.Columns>
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+    </Grid>
+</tools:FrameControl>
+

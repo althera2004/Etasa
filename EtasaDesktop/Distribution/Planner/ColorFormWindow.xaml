@@ -1,0 +1,158 @@
+﻿<Window x:Class="EtasaDesktop.Distribution.Planner.ColorFormWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EtasaDesktop.Distribution.Planner"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Title="Formulario Colores Factoría" Height="751.692" Width="514.605">
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="FormLabel" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0,4,0,0" />
+        </Style>
+        <Style TargetType="TextBox" x:Key="FormTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style TargetType="Panel" x:Key="InputBox">
+            <Setter Property="Margin" Value="0,4" />
+        </Style>
+
+        <Thickness x:Key="InnerExpanderMargin" Left="0" Top="4" Right="0" Bottom="0" />
+    </Window.Resources>
+
+    <Grid Height="800" VerticalAlignment="Top" Margin="0,0,11,-56">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Cabecera -->
+        <StackPanel Grid.Row="0">
+
+            <Label Name="Title" Grid.Column="0" Content="Nuevo cliente" Style="{StaticResource Label.AccentHeader20}"
+                    FontWeight="Normal" />
+
+            <Grid Margin="0,8,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="128" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Código factoría: " />
+                <TextBox Grid.Column="1" IsEnabled="False" Text="{Binding Code}" Style="{StaticResource FormTextBox}" Margin="0,2,55,2"/>
+                <Label Grid.Column="1" Content="Nombre factoría: " Grid.ColumnSpan="3" Margin="96,0,104,0" />
+                <TextBox Grid.Column="3" IsEnabled="False" Text="{Binding Name}" Style="{StaticResource FormTextBox}" Margin="74,2,22,2" />
+            </Grid>
+        </StackPanel>
+        <!-- Formulario -->
+        <TabControl Name="TabForm" Grid.Row="1" TabStripPlacement="Left"
+                HorizontalContentAlignment="Left" Margin="-27,5,21,158">
+
+            <!-- GENERAL -->
+            <TabItem Header="General" Padding="10,8" Margin="0,0,81,0">
+                <StackPanel Margin="8,8,8,-47">
+
+                    <!-- DATOS -->
+                    <StackPanel Margin="0,0,0,8" Height="559">
+
+                        <TextBlock Style="{StaticResource Header20}" Padding="0,8" FontSize="16"
+                                    FontWeight="SemiBold" ><Run Text="Datos Colores factoría"/></TextBlock>
+
+
+                        <StackPanel Style="{StaticResource InputBox}"/>
+                        <Label Content="Color factoría" Margin="0,0,23,0" />
+                        <Grid Margin="0,8,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="128" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="textbox1" Style="{StaticResource FormTextBox}" Foreground="black" FontWeight="Bold" Width ="200px" IsEnabled="false" RenderTransformOrigin="0.499,-1.455"  Text="{Binding FactoryColor}"  />
+                            <xctk:ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Margin="0,2,113,2" RenderTransformOrigin="-0.55,0.409" HorizontalAlignment="Right" Width="19" Grid.ColumnSpan="2"/>
+
+                        </Grid>
+
+                        <StackPanel Style="{StaticResource InputBox}"/>
+                        <Label Content="Color cliente" Margin="0,0,10,0" />
+                        <Grid Margin="0,8,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="128" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="textbox2" Style="{StaticResource FormTextBox}" Foreground="black" FontWeight="Bold" IsEnabled="false" Width ="200px" RenderTransformOrigin="0.499,-1.455"  Text="{Binding ClientColor}" Margin="4,2,10,2"  />
+                            <xctk:ColorPicker Name="ClrPcker_Background1" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged1" Margin="0,2,120,2"  RenderTransformOrigin="-0.55,0.409" HorizontalAlignment="Right" Width="20" Grid.ColumnSpan="2" />
+
+                        </Grid>
+
+
+                        <StackPanel Style="{StaticResource InputBox}"/>
+                        <Label Content="Color Urgente" Margin="0,0,10,0" />
+                        <Grid Margin="0,8,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="128" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="textbox3" Style="{StaticResource FormTextBox}" Foreground="black" FontWeight="Bold" IsEnabled="false" Width ="200px" RenderTransformOrigin="0.499,-1.455"  Text="{Binding UrgentColor}"  Margin="4,2,10,2"  />
+                            <xctk:ColorPicker Name="ClrPcker_Background2" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged2" Margin="0,2,120,2"  RenderTransformOrigin="-0.55,0.409" HorizontalAlignment="Right" Width="20" Grid.ColumnSpan="2" ></xctk:ColorPicker>
+                        </Grid>
+
+                        <StackPanel Style="{StaticResource InputBox}"/>
+                        <Label Content="Color Día final" Margin="0,0,10,0" />
+                        <Grid Margin="0,8,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="128" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="textbox4" Style="{StaticResource FormTextBox}" Foreground="black" FontWeight="Bold" IsEnabled="false"  Width ="200px" RenderTransformOrigin="0.499,-1.455"  Text="{Binding FinalDayColor}"  Margin="4,2,10,2" />
+                            <xctk:ColorPicker Name="ClrPcker_Background3" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged3" Margin="0,2,120,2" RenderTransformOrigin="-0.55,0.409" HorizontalAlignment="Right" Width="20" Grid.ColumnSpan="2"></xctk:ColorPicker>
+                        </Grid>
+
+
+                        <StackPanel Style="{StaticResource InputBox}"/>
+                        <Label Content="Color Cliente preferente" />
+                        <Grid Margin="0,8,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="128" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="textbox5" Style="{StaticResource FormTextBox}" Foreground="black" FontWeight="Bold" IsEnabled="false"  Width ="200px" RenderTransformOrigin="0.499,-1.455"  Text="{Binding PreferenceColor}"  Margin="4,2,10,2" />
+                            <xctk:ColorPicker Name="ClrPcker_Background4" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged4" Margin="0,2,120,2" RenderTransformOrigin="-0.55,0.409" HorizontalAlignment="Right" Width="20" Grid.ColumnSpan="2"></xctk:ColorPicker>
+                        </Grid>
+
+                        <StackPanel Style="{StaticResource InputBox}"/>
+                        <Label Content="Color Ultimo Preferente preferente" Height="38" />
+                        <Grid Margin="0,8,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="128" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="textbox6" Style="{StaticResource FormTextBox}" Foreground="black" FontWeight="Bold" IsEnabled="false" Width ="200px" RenderTransformOrigin="0.499,-1.455"   Text="{Binding TheLastPreferent}"  Margin="4,2,10,2"  />
+                            <xctk:ColorPicker Name="ClrPcker_Background5" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged5" Margin="0,2,120,2" RenderTransformOrigin="-0.55,0.409" HorizontalAlignment="Right" Width="20" Grid.ColumnSpan="2"></xctk:ColorPicker>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            <!-- UBICACION -->
+        </TabControl>
+
+        <Grid Grid.Row="1" Margin="0,607,6,59">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="227*" />
+                <ColumnDefinition Width="269*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="2" Content="Cancelar" Height="28" Padding="16,0" IsCancel="True"  VerticalAlignment="Bottom" Margin="0,0,8,10" />
+            <Button Grid.Column="3" Content="Aceptar" Height="28" Padding="16,0" IsDefault="True" Command="{Binding SaveCommand}"
+                    Style="{StaticResource AccentButton}" Margin="0,17,8,10" RenderTransformOrigin="0.587,1.107" />
+        </Grid>
+    </Grid>
+</Window>

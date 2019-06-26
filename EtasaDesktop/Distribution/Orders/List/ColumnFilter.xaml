@@ -1,0 +1,24 @@
+﻿<Window x:Class="EtasaDesktop.Distribution.Orders.ColumnFilter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EtasaDesktop.Distribution.Orders"
+        mc:Ignorable="d"
+        Title="ColumnFilter" Height="400" Width="300" MaxWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListBox x:Name="ColumnsListbox" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Aceptar" Grid.Column="0" Click="Aceptar_Click">Aceptar</Button>
+            <Button x:Name="Cancelar" Grid.Column="1" Click="Cancelar_Click">Cancelar</Button>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,122 @@
+﻿<ResourceDictionary x:Class="EtasaDesktop.IconResources" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <BitmapImage x:Key="Icon" 
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/icon.png" />
+    <BitmapImage x:Key="LoginIcon"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/icon_white_outline.png" />
+    <BitmapImage x:Key="HomeIcon"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/icon_home.png" />
+    <BitmapImage x:Key="DistributionIcon"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/icon_distribution.png" />
+    <BitmapImage x:Key="BillingIcon"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/icon_billing.png" />
+
+    <BitmapImage x:Key="Add" 
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/add.png" />
+    <BitmapImage x:Key="Filter.Outline" 
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/filter_outline.png" />
+    <BitmapImage x:Key="Search"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/search.png" />
+    <BitmapImage x:Key="Scope.Outline"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/scope_outline.png" />
+    <BitmapImage x:Key="Arrow_Down"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/arrow_down.png" />
+    <BitmapImage x:Key="Binoculars"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/binoculars.png" />
+
+    <BitmapImage x:Key="Route" 
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Route.png" />
+    <BitmapImage x:Key="Remove" 
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Remove.png" />
+    <BitmapImage x:Key="Switch" 
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Switch.png" />
+    <BitmapImage x:Key="Link" 
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Link.png" />
+    <BitmapImage x:Key="Calendar.Outline"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/calendar_outline.png" />
+    <BitmapImage x:Key="Note.Outline"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/note_outline.png" />
+    <BitmapImage x:Key="Comment.Outline"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/comment_outline.png" />
+    <BitmapImage x:Key="Edit.Outline"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/edit_outline.png" />
+    <BitmapImage x:Key="City.Outline"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/city_outline.png" />
+    <BitmapImage x:Key="Factory.Outline"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/factory_outline.png" />
+    <BitmapImage x:Key="Vehicle.Outline"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/vehicle_outline.png" />
+    <BitmapImage x:Key="Close"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/close.png" />
+
+    <BitmapImage x:Key="Settings.Outline"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/settings_outline.png" />
+    <BitmapImage x:Key="Open.Small"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/open_small.png" />
+    <BitmapImage x:Key="Folder.Small"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/folder_small.png" />
+    <BitmapImage x:Key="Download_Folder.Small"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/download_folder_small.png" />
+    <BitmapImage x:Key="Calendar.Small"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/calendar_small.png" />
+
+    <!-- HACK Icono para cuando no hay imagen asignada -->
+    <BitmapImage x:Key="Test"
+                 UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/test.png" />
+
+    <!-- TOOLBAR -->
+    <BitmapImage x:Key="Toolbar/Map/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/map.png" />
+    <BitmapImage x:Key="Toolbar/Planner/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/planner.png" />
+    <BitmapImage x:Key="Toolbar/Order/New/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/order_new.png" />
+    <BitmapImage x:Key="Toolbar/Order/List/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/order_list.png" />
+    <BitmapImage x:Key="Toolbar/Order/Import/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/order_import.png" />
+    <BitmapImage x:Key="Toolbar/Order/Publish/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/order_publish.png" />
+    <BitmapImage x:Key="Toolbar/Order/Color/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/order_colors.png" />
+    <BitmapImage x:Key="Toolbar/Sftp/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/sftp.png" />
+    <BitmapImage x:Key="Toolbar/Json/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/Json.png" />
+    <BitmapImage x:Key="Toolbar/Client/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/client.png" />
+    <BitmapImage x:Key="Toolbar/Factory/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/factory.png" />
+    <BitmapImage x:Key="Toolbar/order2/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/orden.png" />
+    <BitmapImage x:Key="Toolbar/Product/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/product.png" />
+    <BitmapImage x:Key="Toolbar/Vehicle/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/vehicle.png" />
+    <BitmapImage x:Key="Toolbar/Driver/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/driver.png" />
+    <BitmapImage x:Key="Toolbar/Assignment/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/assignments.png" />
+    <BitmapImage x:Key="Toolbar/User/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/user.png" />
+    <BitmapImage x:Key="Toolbar/Group/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/group.png" />
+    <BitmapImage x:Key="Toolbar/Group/Admin/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/group_admin.png" />
+    <BitmapImage x:Key="Toolbar/Add/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/add.png" />
+    <BitmapImage x:Key="Toolbar/Save/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/save.png" />
+    <BitmapImage x:Key="Toolbar/Save/Icon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/save_s.png" />
+    <BitmapImage x:Key="Toolbar/Undo/Icon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/undo_s.png" />
+    <BitmapImage x:Key="Toolbar/Redo/Icon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/redo_s.png" />
+    <BitmapImage x:Key="Toolbar/Refresh/Icon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/refresh_s.png" />
+    <BitmapImage x:Key="Toolbar/Refresh/Icon/LargeIcon"
+            UriSource="pack://application:,,,/EtasaDesktop;component/Resources/Images/Toolbar/refresh.png" />
+
+</ResourceDictionary>

@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="EtasaDesktop.Billing.PersonalDataTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EtasaDesktop.Billing"
+             mc:Ignorable="d">
+    
+    <Grid Name="PersonalDataView">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Datos Personales" Grid.Row="0" Margin="8,4,0,4" Style="{StaticResource Label.Header20}" />
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Datos fiscales" Margin="10, 0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" MinWidth="50" FlowDirection="RightToLeft">
+                    <Label Content="NIF" Height="26" Margin="0, 10"/>
+                    <Label Content="País" Height="26" Margin="0, 10"/>
+                    <Label Content="Provincia" Height="26" Margin="0, 10"/>
+                    <Label Content="Población" Height="26" Margin="0, 10"/>
+                    <Label Content="Dirección" Height="26" Margin="0, 10"/>
+                    <Label Content="Código Postal" Height="26" Margin="0, 10"/>
+                    
+                </StackPanel >
+                <StackPanel Orientation="Vertical" MinWidth="50">
+                    <TextBox Width="250" Height="26" Margin="0, 10" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataNIF}"/>
+                    <TextBox Width="250" Height="26" Margin="0, 10" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataPais}" IsEnabled="False"/>
+                    <TextBox Width="250" Height="26" Margin="0, 10" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataProvincia}" IsEnabled="False"/>
+                    <TextBox Width="250" Height="26" Margin="0, 10" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataPoblacion}"/>
+                    <TextBox Width="250" Height="26" Margin="0, 10" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataDireccion}"/>
+                    <TextBox Width="250" Height="26" Margin="0, 10" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataCodigoPostal}"/>
+                </StackPanel >
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <StackPanel Orientation="Vertical" FlowDirection="RightToLeft">
+                <Label Height="26" Margin="0, 8" HorizontalAlignment="Stretch" Content="Tipo agrupación"/>
+                <Label Height="26" Margin="0, 8" Content="Tipo pago"/>
+                <Label Height="26" Margin="0, 8" Content="Tipo de servicio"/>
+                <Label Height="26" Margin="0, 8" Content="Agente comercial"/>
+                <Label Height="26" Margin="0, 8" Content="Archivos comunica"/>
+                <Label Height="26" Margin="0, 8" Content="Teléfono"/>
+                <Label Height="26" Margin="0, 8" Content="Fax"/>
+                <Label Height="26" Margin="0, 8" Content="E-Mail"/>
+                <Label Height="26" Margin="0, 8" Content="E-Mail cobro facturas"/>
+                <Label Height="26" Margin="0, 8" Content="Persona contacto"/>
+            </StackPanel >
+            <StackPanel Orientation="Vertical">
+                <ComboBox Height="26" Margin="0, 8">
+                    <ComboBoxItem Padding="2" IsSelected="True" Content="Por factoría - cliente - viaje" />
+                </ComboBox>
+                <ComboBox Height="26" Margin="0, 8">
+                    <ComboBoxItem Padding="2" IsSelected="True" Content="00 - (Ninguno)" />
+                </ComboBox>
+                <ComboBox Height="26" Margin="0, 8">
+                    <ComboBoxItem Padding="2" IsSelected="True" Content="01 - CAMION COMPLETO CLAROS" />
+                </ComboBox>
+                <ComboBox Height="26" Margin="0, 8">
+                    <ComboBoxItem Padding="2" IsSelected="True" Content="" />
+                </ComboBox>
+                <ComboBox Height="26" Margin="0, 8">
+                    <ComboBoxItem Padding="2" IsSelected="True" Content="Cepsa gases" />
+                </ComboBox>
+                <TextBox Width="250" Height="26" Margin="0, 8" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataTelefono}"/>
+                <TextBox Width="250" Height="26" Margin="0, 8" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataFax}"/>
+                <TextBox Width="250" Height="26" Margin="0, 8" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataEmail}"/>
+                <TextBox Width="250" Height="26" Margin="0, 8" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataEmailCobro}"/>
+                <TextBox Width="250" Height="26" Margin="0, 8" HorizontalAlignment="Right" Padding="4 2" Text="{Binding PersonalDataContactPerson}"/>
+            </StackPanel >
+        </StackPanel>
+    </Grid>
+</UserControl>

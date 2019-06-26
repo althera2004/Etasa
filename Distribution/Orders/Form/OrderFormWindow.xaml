@@ -1,0 +1,281 @@
+﻿<Window x:Class="EtasaDesktop.Distribution.Orders.Form.OrderFormWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:EtasaDesktop.Distribution.Orders.Form"
+        mc:Ignorable="d" d:DesignHeight="1080" d:DesignWidth="1920" Padding="8" 
+        Title="Formulario de pedido">
+
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="FormLabel" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0,4,0,0" />
+        </Style>
+        <Style TargetType="TextBox" x:Key="FormTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style TargetType="Panel" x:Key="InputBox">
+            <Setter Property="Margin" Value="0,4" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Cabecera -->
+        <StackPanel Grid.Row="0">
+            <Label Name="Title" Content="Editar pedido" Style="{StaticResource Label.AccentHeader20}" FontFamily="Segoe UI Semilight" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Referencia" Margin="0,8,0,8" />
+                <TextBox Grid.Column="1" Text="{Binding Reference}" Style="{StaticResource FormTextBox}" />
+            </Grid>
+        </StackPanel>
+
+        <!-- Formulario -->
+        <TabControl Name="TabForm" Grid.Row="1" DragEnter="Attachment_DragEnter"
+                TabStripPlacement="Left" DragLeave="Attachment_DragLeave" AllowDrop="True" Drop="Attachment_Drop"
+                    HorizontalContentAlignment="Left">
+            <TabItem Header="General" Width="200" Padding="10,8">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                    <StackPanel Margin="8">
+
+                        <!--#region ORIGEN / DESTINO-->
+                        <StackPanel Margin="0,0,0,8">
+
+                            <TextBlock Text="Orígen / Destino" Style="{StaticResource Header20}" Padding="0,8"
+                                    FontSize="16" FontWeight="SemiBold" />
+
+                            <!-- Operador -->
+                            <StackPanel Style="{StaticResource InputBox}">
+
+
+                                <Label Content="Operador" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="72" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0" Text="{Binding OperatorCode}"
+                                            Style="{StaticResource FormTextBox}" Margin="4,2,10,2" />
+                                    <TextBox Grid.Column="1" Text="{Binding OperatorName}" IsReadOnly="true" 
+                                            Style="{StaticResource FormTextBox}" />
+                                </Grid>
+                            </StackPanel>
+
+                            <!-- Factoria -->
+                            <StackPanel Style="{StaticResource InputBox}">
+
+
+                                <Label Content="Factoria" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="72" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0" Text="{Binding FactoryCode, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" TextWrapping="Wrap" 
+                                            Style="{StaticResource FormTextBox}" Margin="4,0,10,2" VerticalAlignment="Bottom" />
+                                    <TextBox Grid.Column="1" Text="{Binding FactoryName}" TextWrapping="Wrap" IsReadOnly="true"  
+                                            Style="{StaticResource FormTextBox}" />
+                                </Grid>
+                            </StackPanel>
+
+                            <!-- Cliente -->
+                            <StackPanel Style="{StaticResource InputBox}">
+
+
+                                <Label Content="Cliente" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="72" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0" Text="{Binding ClientCode, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" TextWrapping="Wrap" 
+                                            Style="{StaticResource FormTextBox}" Margin="4,0,10,2" VerticalAlignment="Bottom" />
+                                    <TextBox Grid.Column="1" Text="{Binding ClientName}" TextWrapping="Wrap"  IsReadOnly="true" 
+                                            Style="{StaticResource FormTextBox}" />
+                                </Grid>
+                            </StackPanel>
+
+
+                            <!--Producto -->
+                            <StackPanel Style="{StaticResource InputBox}">
+
+
+                                <Label Content="Producto" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="72" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0" Text="{Binding ProductCode}"
+                                            Style="{StaticResource FormTextBox}" Margin="4,2,10,2" />
+                                    <TextBox Grid.Column="1" Text="{Binding ProductName}" IsReadOnly="true" 
+                                            Style="{StaticResource FormTextBox}" />
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel x:Name="DuplicateBoton" Margin="0,0,500,10" Width="1689">
+                            <Button Content="Duplicar Pedido" Height="28" Padding="16,0" IsCancel="True" RenderTransformOrigin="-0.182,0.119" Margin="7,2,1564,2"  Click="DuplicatedTripOrder_click"/>
+                        </StackPanel>
+                        <!-- OTROS -->
+                        <StackPanel Margin="0,0,0,8">
+
+                            <CheckBox Content="Estado"  IsChecked="{Binding Status}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- CARGA -->
+            <TabItem Header="Carga" Width="200" Padding="10,8">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8">
+                        <!-- Producto -->
+                        <StackPanel Style="{StaticResource InputBox}">
+                            <Label Content="Producto" FontSize="12" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="72" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="{Binding ProductCode}" 
+                                        Style="{StaticResource FormTextBox}" />
+                                <TextBox Grid.Column="1" Text="{Binding ProductName}"  IsReadOnly="true" 
+                                        Style="{StaticResource FormTextBox}" />
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- Solicitado -->
+                        <StackPanel Style="{StaticResource InputBox}">
+                            <Border Background="#FFF5F5F5" BorderBrush="#FFE0E0E0" BorderThickness="1" Padding="0,4">
+                                <StackPanel>
+                                    <Label Content="Solicitado" FontSize="12" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="128" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBox Grid.Row="0" Text="{Binding RequestedAmount}" Grid.Column="0" TextAlignment="Right" 
+                                                Style="{StaticResource FormTextBox}" />
+                                        <ComboBox Grid.Row="0" Grid.Column="1" SelectedIndex="1">
+                                            <TextBlock>
+                                                    <Run Text="Gramos" />
+                                                    <Run Text="(g)" Foreground="#BDBDBD" />
+                                            </TextBlock>
+                                            <TextBlock>
+                                                    <Run Text="Kilogramos" />
+                                                    <Run Text="(kg)" Foreground="#BDBDBD" />
+                                            </TextBlock>
+                                            <TextBlock>
+                                                    <Run Text="Toneladas" />
+                                                    <Run Text="(t)" Foreground="#BDBDBD" />
+                                            </TextBlock>
+                                        </ComboBox>
+
+                                    </Grid>
+                                </StackPanel>
+
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Entregar -->
+                        <StackPanel Style="{StaticResource InputBox}"/>
+
+                        <!-- Fecha/Hora -->
+                        <Grid Style="{StaticResource InputBox}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Desde" />
+                            <Label Grid.Row="0" Grid.Column="1" Content="Hasta" />
+                            <TextBox Grid.Row="1" Grid.Column="0"
+                                    Text="{Binding FromDate, StringFormat=d, ConverterCulture=ES-es}"
+                                    Style="{StaticResource FormTextBox}" />
+                            <TextBox Grid.Row="1" Grid.Column="1"
+                                    Text="{Binding ToDate, StringFormat=d, ConverterCulture=ES-es}"
+                                    Style="{StaticResource FormTextBox}" />
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+
+            <!-- OBSERVACIONES y DESCRIPCIÓN-->
+            <TabItem Name="FormObservationView" Header="Observaciones y Notas" Width="200" Padding="10,8">
+                <StackPanel Margin="8">
+                    <StackPanel Style="{StaticResource InputBox}">
+                        <Label Content="Observaciones" />
+                        <TextBox Height="128" VerticalContentAlignment="Top" AcceptsReturn="True"
+                                VerticalScrollBarVisibility="Auto" Text="{Binding Observation}"
+                                Style="{StaticResource FormTextBox}" />
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource InputBox}">
+                        <Label Content="Notas del pedido" />
+                        <TextBox Height="128" VerticalContentAlignment="Top" AcceptsReturn="True"
+                                VerticalScrollBarVisibility="Auto" Text="{Binding Description}"
+                                Style="{StaticResource FormTextBox}" />
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            <!-- ADJUNTOS -->
+            <TabItem Visibility="Hidden"  Name="FormAttachmentView" Header="Adjuntos" Width="200" Padding="10,8">
+                <Grid Grid.Row="1" Background="#F3F3F3" Margin="8">
+
+                    <StackPanel Name="AttachView">
+                        <Button Content="Adjuntar" Click="Attachment_Click" FontSize="14" Height="32" />
+                        <ListBox Name="OrderAttachList" MinHeight="92" Margin="4" FontSize="14" KeyDown="OrderAttachList_KeyDown" />
+                    </StackPanel>
+
+                    <!-- Drop View -->
+                    <StackPanel Name="DropView" Margin="5" Opacity="0.5" HorizontalAlignment="Center"
+                            VerticalAlignment="Center" Visibility="Hidden">
+                        <Image Source="/EtasaDesktop;component/Resources/Images/dropfile.png" Width="128" Margin="0,0,0,16" />
+                        <TextBlock Text="Suelta el archivo aquí para adjuntarlo" FontSize="20" Width="200"
+                                TextWrapping="Wrap" TextAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+
+        </TabControl>
+
+
+        <Grid Grid.Row="2" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+
+            <Button Grid.Column="1" Content="Cancelar" Height="28" Padding="16,0" IsCancel="True" />
+            <Button Grid.Column="3" Content="Aceptar" Height="28" Padding="16,0" IsDefault="True" Command="{Binding SaveCommand}"
+                    Style="{StaticResource AccentButton}" />
+
+        </Grid>
+    </Grid>
+</Window>

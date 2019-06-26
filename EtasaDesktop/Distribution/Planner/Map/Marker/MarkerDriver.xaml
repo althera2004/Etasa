@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="EtasaDesktop.Distribution.Planner.Map.MarkerDriver"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:EtasaDesktop.Distribution.Planner.Map"
+        xmlns:conv="clr-namespace:EtasaDesktop.Resources.Converters" mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <local:MarkerAssignmentViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <conv:VisibilityEmptyConverter x:Key="TextVisibilityEmptyConverter" />
+    </UserControl.Resources>
+
+
+    <Grid Height="16" Width="16" ToolTipService.ShowDuration="86400" ToolTipService.InitialShowDelay="0">
+        <Ellipse Fill="White" />
+        <Ellipse Fill="RoyalBlue" Margin="2" />
+        <Viewbox Margin="2">
+            <TextBlock Foreground="White" FontSize="14" TextAlignment="Center" FontFamily="Segoe UI Semilight" Text=""/>
+        </Viewbox>
+
+        <Grid.ToolTip>
+            <ToolTip Background="White" BorderThickness="1" BorderBrush="#FFBDBDBD" Placement="Left">
+                <StackPanel>
+                    <TextBlock Grid.Row="0" FontSize="16" Foreground="{Binding Fill}" Style="{StaticResource Header20}"
+                            Text="{Binding Title}" />
+
+                    <TextBlock Margin="0,5" Text="{Binding Content}"
+                            Visibility="{Binding Content, Converter={StaticResource TextVisibilityEmptyConverter}}" />
+
+                    <TextBlock Margin="0,5" Text="{Binding Alert}" Foreground="Red" FontWeight="Medium"
+                            Visibility="{Binding Alert, Converter={StaticResource TextVisibilityEmptyConverter}}" />
+                </StackPanel>
+            </ToolTip>
+
+        </Grid.ToolTip>
+    </Grid>
+</UserControl>

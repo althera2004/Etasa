@@ -1,0 +1,150 @@
+﻿<Window x:Class="EtasaDesktop.Distribution.Orders.Imports.ImportConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EtasaDesktop.Distribution.Orders.Imports" mc:Ignorable="d" Height="500" Width="800"
+        ResizeMode="NoResize" Title="Configuración de importación">
+
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="FormLabel" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0,4,0,0" />
+        </Style>
+        <Style TargetType="TextBox" x:Key="FormTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style TargetType="Panel" x:Key="InputBox">
+            <Setter Property="Margin" Value="0,4" />
+        </Style>
+
+        <Thickness x:Key="InnerExpanderMargin" Left="0" Top="4" Right="0" Bottom="0" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Formulario -->
+        <TabControl Name="TabForm" Grid.Row="0" Margin="0,8" TabStripPlacement="Left" HorizontalContentAlignment="Left">
+
+            <!-- FICHERO --> 
+            <TabItem Header="Fichero" Width="200" Padding="10,8">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8">
+
+                        <!-- Carpeta -->
+                        <StackPanel Style="{StaticResource InputBox}">
+                            <Label Content="Carpeta de importaciones" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="{Binding Folder}" Style="{StaticResource FormTextBox}" />
+                                <Button Grid.Column="1" Content="..." Padding="8,0" Click="ImportFolder_Click"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- Carpeta -->
+                        <StackPanel Style="{StaticResource InputBox}">
+                            <Label Content="Carpeta de procesados"
+                                    ToolTip="Carpeta donde se guardan los archivos procesados" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="{Binding ProcessedFolder}" Style="{StaticResource FormTextBox}" />
+                                <Button Grid.Column="1" Content="..." Padding="8,0" Click="ProcessedFolder_Click"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <!-- Tipo de archivo -->
+                        <StackPanel Style="{StaticResource InputBox}" Visibility="Collapsed">
+                            <Label Content="Tipo de archivo" />
+                            <ComboBox SelectedIndex="0">
+                                <TextBlock>Excel</TextBlock>
+                                <TextBlock>CSV</TextBlock>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <!-- Tipo de archivo -->
+                        <StackPanel Style="{StaticResource InputBox}" >
+                            <CheckBox Content="Ignorar primer registro del archivo" IsChecked="{Binding IgnoreFirstRow}"/>
+                        </StackPanel>
+
+                        <!-- Delimitaciones --> <!-- TODO Oculto -->
+                        <GroupBox Header="Delimitadores de columnas" Visibility="Collapsed">
+                            <Grid Style="{StaticResource InputBox}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="28" />
+                                    <RowDefinition Height="28" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="48" />
+                                </Grid.ColumnDefinitions>
+                                <RadioButton Grid.Row="0" Grid.Column="0" Content="Tabulaciones"
+                                        VerticalContentAlignment="Center" />
+                                <RadioButton x:Name="DelimiterCustom" Grid.Row="1" Grid.Column="0"
+                                        Content="Personalizado" VerticalContentAlignment="Center"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"
+                                        IsEnabled="{Binding IsChecked, ElementName=DelimiterCustom}"
+                                        Text="{Binding Delimiter}"/>
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- IMPORTACION -->
+            <TabItem Header="Importación" Width="200" Padding="10,8">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8">
+
+                        <!-- Dias caducidad -->
+                        <StackPanel Style="{StaticResource InputBox}">
+                            <Label Content="Días antes de caducidad predeterminados" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Style="{StaticResource FormTextBox}"
+                                        PreviewTextInput="PreviewNumericInput" TextAlignment="Right" Text="{Binding OrderExpiration}" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <!-- COLUMNAS --> <!-- TODO Oculto -->
+            <TabItem Header="Columnas" Width="200" Padding="10,8" Visibility="Collapsed">
+                <DataGrid Grid.Row="1" Margin="8" HorizontalScrollBarVisibility="Auto" MinColumnWidth="16"
+                        HorizontalGridLinesBrush="#FFBDBDBD" VerticalGridLinesBrush="#FFBDBDBD"
+                        ItemsSource="{Binding Columns}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding ColumnName}" />
+                        <DataGridTextColumn Header="Columna" Width="*" Binding="{Binding ColumnNum}"/>
+                        <DataGridTextColumn Header="Valor predeterminado" Width="*" Binding="{Binding DefaultValue}" />
+                        <DataGridTextColumn Header="Formato" Width="*" Binding="{Binding Format}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+
+        <Grid Grid.Row="1" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" Content="Cancelar" Height="28" Padding="16,0" IsCancel="True" />
+            <Button Grid.Column="2" Content="Aceptar" Height="28" Padding="16,0" IsDefault="True" Click="Accept_Click" Style="{StaticResource AccentButton}" />
+
+        </Grid>
+    </Grid>
+</Window>

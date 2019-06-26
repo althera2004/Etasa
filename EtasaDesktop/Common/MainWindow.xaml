@@ -1,0 +1,296 @@
+﻿<fluent:RibbonWindow x:Class="EtasaDesktop.Common.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:fluent="urn:fluent-ribbon"
+        xmlns:local="clr-namespace:EtasaDesktop.Common"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:res="clr-namespace:EtasaDesktop.Resources" xmlns:auth="clr-namespace:EtasaDesktop.Common.Auth"
+        xmlns:properties="clr-namespace:EtasaDesktop.Properties" Title="{x:Static res:Strings.App_Name}" MinWidth="800"
+        MinHeight="450" Loaded="Window_Loaded" WindowState="Maximized" mc:Ignorable="d"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <fluent:RibbonWindow.InputBindings>
+        <!--<KeyBinding Key="S" Modifiers="Control" Command='{Binding SaveCommand}' />-->
+        <!--<KeyBinding Key="Z" Modifiers="Control" Command='{Binding UndoCommand}' />
+        <KeyBinding Key="Y" Modifiers="Control" Command='{Binding RedoCommand}' />
+        <KeyBinding Key="Z" Modifiers="Control+Shift" Command='{Binding RedoCommand}' />-->
+        <KeyBinding Key="F4" Modifiers="Alt" Command='{Binding ExitCommand}' />
+        <KeyBinding Key="F5" Command='{Binding RefreshCommand}' />
+    </fluent:RibbonWindow.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <fluent:Ribbon Grid.Row="0">
+
+            <!-- Quick Access Toolbar Items -->
+            <fluent:Ribbon.QuickAccessItems>
+                <!--<fluent:QuickAccessMenuItem IsChecked="true" Target="{Binding ElementName=actionSave}" />
+                <fluent:QuickAccessMenuItem IsChecked="true" Target="{Binding ElementName=actionUndo}" />
+                <fluent:QuickAccessMenuItem IsChecked="true" Target="{Binding ElementName=actionRedo}" />-->
+                <fluent:QuickAccessMenuItem IsChecked="true" Target="{Binding ElementName=actionRefresh}" KeyTip="F5" />
+            </fluent:Ribbon.QuickAccessItems>
+
+            <!--  Backstage  -->
+            <fluent:Ribbon.Menu>
+                <fluent:Backstage>
+                    <fluent:BackstageTabControl>
+                        <fluent:Button Header="{x:Static res:Strings.Distribution}"/>
+                        <fluent:Button Header="{x:Static res:Strings.Billing}" IsEnabled="true" Command="{Binding ShowBillingCommand}" />
+                        <fluent:SeparatorTabItem />
+                        <fluent:BackstageTabItem Header="{x:Static res:Strings.Account}">
+                            <StackPanel Margin="32">
+                                <TextBlock Text="{x:Static res:Strings.Account}" Style="{StaticResource Header40}" Foreground="DimGray"
+                Margin="0,0,0,32" />
+                                <TextBlock Text="{x:Static res:Strings.Account_UserDetails}" Style="{StaticResource AccentHeader20}"
+                Margin="0,0,0,8" />
+                                <Grid Margin="0,0,0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Height="32" Width="32" Margin="8,8">
+                                        <Image Source="{StaticResource Toolbar/User/LargeIcon}" />
+                                    </Border>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Foreground="Black" VerticalAlignment="Bottom" Text="{Binding Source={x:Static properties:Settings.Default}, Path=Session.User.FullName}" />
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Black" VerticalAlignment="Top" Text="{Binding Source={x:Static properties:Settings.Default}, Path=Session.User.Name}"/>
+                                </Grid>
+
+                                <TextBlock>                                
+                                    <Hyperlink Command="{Binding LogoutCommand}"><Run Text="{x:Static res:Strings.Account_Logout}" /></Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                        </fluent:BackstageTabItem>
+                        <fluent:Button Header="{x:Static res:Strings.Exit}" Command='{Binding ExitCommand}' />
+                    </fluent:BackstageTabControl>
+                </fluent:Backstage>
+            </fluent:Ribbon.Menu>
+
+            <!--  Tabs  -->
+            <!--INICIO-->
+            <fluent:RibbonTabItem Header="{x:Static res:Strings.Toolbar_Tab_Home}" ReduceOrder="Actions">
+
+                <!--Acciones-->
+                <fluent:RibbonGroupBox x:Name="Actions">
+
+                    <!-- <fluent:Button x:Name="actionSave" Header="{x:Static res:Strings.Toolbar_Action_Save}"
+                            Icon="{StaticResource Toolbar/Save/Icon}"
+                            LargeIcon="{StaticResource Toolbar/Save/LargeIcon}" SizeDefinition="Large,Large,Large"
+                            Command="{Binding SaveCommand}" KeyTip="Ctrl+S" />
+
+                    <fluent:Button x:Name="actionUndo" Header="{x:Static res:Strings.Toolbar_Action_Undo}"
+                            Icon="{StaticResource Toolbar/Undo/Icon}" SizeDefinition="Middle,Small,Small"
+                            KeyTip="Ctrl+Z" Command="{Binding UndoCommand}" />
+
+                    <fluent:Button x:Name="actionRedo" Header="{x:Static res:Strings.Toolbar_Action_Redo}"
+                            Icon="{StaticResource Toolbar/Redo/Icon}" SizeDefinition="Middle,Small,Small"
+                            KeyTip="Ctrl+Y / Ctrl+Mayús+Z" Command="{Binding RedoCommand}" />-->
+
+                    <fluent:Button x:Name="actionRefresh" Header="{x:Static res:Strings.Toolbar_Action_Refresh}"
+                            Icon="{StaticResource Toolbar/Refresh/Icon}"
+                            LargeIcon="{StaticResource Toolbar/Refresh/Icon/LargeIcon}" SizeDefinition="Large,Large,Large"
+                            Command='{Binding RefreshCommand}' KeyTip="F5" />
+                    <!-- SizeDefinition="Middle,Small,Small" -->
+
+                </fluent:RibbonGroupBox>
+
+                <!--Pedidos-->
+                <fluent:RibbonGroupBox Header="{x:Static res:Strings.Toolbar_Orders_Group}">
+
+                    <fluent:Button Width="72" Header="{x:Static res:Strings.Toolbar_Orders_Planner}"
+                            Icon="{StaticResource Toolbar/Planner/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Planner/LargeIcon}"
+                            Command="{Binding ShowPlannerCommand}" />
+
+                    <Separator />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Orders_List}"
+                            Icon="{StaticResource Toolbar/Order/List/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Order/List/LargeIcon}"
+                            Command="{Binding ShowOrdersCommand}" />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Orders_New}"
+                            Icon="{StaticResource Toolbar/Order/New/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Order/New/LargeIcon}"
+                            Command="{Binding ShowOrderDialogCommand}" />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Orders_Import}"
+                            Icon="{StaticResource Toolbar/Order/Import/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Order/Import/LargeIcon}"
+                            Command="{Binding ShowImportOrdersCommand}" />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Orders_Publish}"
+                            Icon="{StaticResource Toolbar/Order/Publish/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Order/Publish/LargeIcon}"
+                            Command="{Binding ShowPublishOrdersDialogCommand}" />
+
+                    <!--<fluent:InRibbonGallery x:Name="OrderQueriesGallery" Width="400"
+                            Header="{x:Static res:Strings.Toolbar_Orders_Import}" Icon="{StaticResource Test}"
+                            ItemHeight="30" ItemWidth="100" MaxItemsInDropDownRow="4" MaxItemsInRow="4"
+                            MinItemsInDropDownRow="2" MinItemsInRow="2" ResizeMode="Both">
+
+                        <fluent:InRibbonGallery.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center">Consulta</TextBlock>
+                            </DataTemplate>
+                        </fluent:InRibbonGallery.ItemTemplate>
+
+                    </fluent:InRibbonGallery>-->
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Orders_Colors}"
+                            Icon="{StaticResource Toolbar/Order/Color/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Order/Color/LargeIcon}"
+                            Command="{Binding ShowColorsDialogCommand}" />
+
+                </fluent:RibbonGroupBox>
+
+                <!-- TODO Remove -->
+                <fluent:RibbonGroupBox Name="FleetDebug" Header="{x:Static res:Strings.Toolbar_Fleet_Group}">
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Fleet_Drivers_List}"
+                            Icon="{StaticResource Toolbar/Driver/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Driver/LargeIcon}" Command="{Binding ShowDriversCommand}" />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Fleet_Vehicles_List}"
+                            Icon="{StaticResource Toolbar/Vehicle/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Vehicle/LargeIcon}"
+                            Command="{Binding ShowVehiclesCommand}" />
+
+                    <Separator />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Fleet_Assignments}"
+                            Icon="{StaticResource Toolbar/Assignment/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Assignment/LargeIcon}"
+                            Command="{Binding ShowAssignmentsCommand}" />
+                </fluent:RibbonGroupBox>
+
+                <!--Insertar-->
+                <fluent:RibbonGroupBox Name="Clients" Header="Insertar">
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Clients_List}"
+                            Icon="{StaticResource Toolbar/Client/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Client/LargeIcon}" Command="{Binding ShowClientsCommand}" />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Factories_List}"
+                            Icon="{StaticResource Toolbar/Factory/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Factory/LargeIcon}"
+                            Command="{Binding ShowFactoriesCommand}" />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Products_List}"
+                            Icon="{StaticResource Toolbar/Product/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Product/LargeIcon}"
+                            Command="{Binding ShowProductsCommand}" />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Orders}"
+                            Icon="{StaticResource Toolbar/order2/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/order2/LargeIcon}"
+                            Command="{Binding ShowOrdersCommand2}" />
+
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Operators}"
+                            Icon="{StaticResource Toolbar/operator/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/operator/LargeIcon}"
+                            Command="{Binding ShowOperatorsCommand}" />
+
+
+
+
+
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox Name="files" Header="Ficheros">
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Sftp}"
+                            Icon="{StaticResource Toolbar/Sftp/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Sftp/LargeIcon}" 
+                            Command="{Binding ShowSftpCommand}" />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Json}"
+                            Icon="{StaticResource Toolbar/Json/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Json/LargeIcon}"
+                            Command="{Binding ShowJsonCommand}" />
+
+                </fluent:RibbonGroupBox>
+
+            </fluent:RibbonTabItem>
+
+            <!--ADMIN / USUARIOS-->
+            <fluent:RibbonTabItem Group="{Binding Source={x:Reference adminGroup}}"
+                    Header="{x:Static res:Strings.Toolbar_Tab_Users}">
+
+                <!--Usuario-->
+                <fluent:RibbonGroupBox>
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Admin_Users_List}"
+                            Icon="{StaticResource Toolbar/User/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/User/LargeIcon}" Command="{Binding ShowUsersCommand}" />
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Admin_Users_New}"
+                            Icon="{StaticResource Toolbar/Add/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Add/LargeIcon}" Command="{Binding ShowUserDialogCommand}" />
+                </fluent:RibbonGroupBox>
+
+                <!--Grupos-->
+                <fluent:RibbonGroupBox Header="{x:Static res:Strings.Toolbar_Admin_Groups_Group}">
+                    <fluent:InRibbonGallery x:Name="GroupsGallery"
+                            Header="{x:Static res:Strings.Toolbar_Admin_Groups_List}"
+                            Icon="{StaticResource Toolbar/Group/LargeIcon}" ItemHeight="58" ItemWidth="100"
+                            MaxItemsInDropDownRow="4" MaxItemsInRow="4" MinItemsInDropDownRow="2" MinItemsInRow="2"
+                            ResizeMode="Both">
+
+
+
+                        <fluent:GalleryItem ToolTip="Usuario sin permisos especiales">
+                            <StackPanel>
+                                <Image Width="32" Height="32" HorizontalAlignment="Center"
+                                        Source="{StaticResource Toolbar/Group/LargeIcon}" />
+                                <TextBlock HorizontalAlignment="Center">Sin grupo</TextBlock>
+                            </StackPanel>
+                        </fluent:GalleryItem>
+
+                        <fluent:GalleryItem ToolTip="Usuarios con permisos totales">
+                            <StackPanel>
+                                <Image Width="32" Height="32" HorizontalAlignment="Center"
+                                        Source="{StaticResource Toolbar/Group/Admin/LargeIcon}" />
+                                <TextBlock HorizontalAlignment="Center">Administradores</TextBlock>
+                            </StackPanel>
+                        </fluent:GalleryItem>
+
+                    </fluent:InRibbonGallery>
+
+                    <fluent:Button Header="{x:Static res:Strings.Toolbar_Admin_Groups_New}"
+                            Icon="{StaticResource Toolbar/Add/LargeIcon}"
+                            LargeIcon="{StaticResource Toolbar/Add/LargeIcon}"
+                            Command="{Binding ShowGroupDialogCommand}"/>
+                </fluent:RibbonGroupBox>
+
+            </fluent:RibbonTabItem>
+
+
+            <fluent:Ribbon.ContextualGroups>
+                <fluent:RibbonContextualTabGroup x:Name="adminGroup" Background="Orange" BorderBrush="OrangeRed"
+                        Foreground="OrangeRed" Header="{x:Static res:Strings.Toolbar_Tab_Admin}" Visibility="Visible"/>
+            </fluent:Ribbon.ContextualGroups>
+
+
+        </fluent:Ribbon>
+
+        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding Frame}" />
+
+        <fluent:StatusBar Grid.Row="2">
+            <fluent:StatusBarItem Margin="8,0,0,0" HorizontalAlignment="Left">
+                <TextBlock x:Name="StatusText" Text="{Binding Status}" />
+            </fluent:StatusBarItem>
+        </fluent:StatusBar>
+
+    </Grid>
+</fluent:RibbonWindow>

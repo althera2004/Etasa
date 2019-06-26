@@ -1,0 +1,46 @@
+﻿<tools:FrameControl
+            xmlns:tools="clr-namespace:EtasaDesktop.Common.Tools" 
+            x:Class="EtasaDesktop.Files.Sftp.SftpFrame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EtasaDesktop.Files.Sftp"
+             Background="White"
+             mc:Ignorable="d" >
+    <tools:FrameControl.DataContext>
+        <local:SftpFrameViewModel />
+    </tools:FrameControl.DataContext>
+    <tools:FrameControl.Resources>
+        <Style x:Key="HighlightCell"
+            BasedOn="{StaticResource {x:Type DataGridCell}}"
+            TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="#DDDDDD" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </tools:FrameControl.Resources>
+
+
+
+
+    <Grid>
+        <Label
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9"
+            Margin="4"
+            Content="Administración de fitxeros Cepsa"
+            Style="{StaticResource Frame.Title}" />
+
+        <Label Content="Tipo de Acción"  RenderTransformOrigin="0.513,0.173" Margin="0,10,0,-10" />
+        <ComboBox Grid.Column="0" Name="SftpCombobox" ItemsSource="{Binding Countries}"
+                                                SelectedItem="{Binding SelectedCountry}" Margin="10,56,219,188">
+            <ComboBoxItem>Download Files</ComboBoxItem>
+            <ComboBoxItem>Upload Files</ComboBoxItem>
+        </ComboBox>
+
+        <Button
+            Height="28"
+            Padding="16,0"
+             Content="Conectar Sftp"   Click="ConnectSftpButton_Click" Margin="10,98,280,140" RenderTransformOrigin="0.113,-0.5" />
+    </Grid>
+</tools:FrameControl>
+

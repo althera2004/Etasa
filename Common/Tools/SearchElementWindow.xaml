@@ -1,0 +1,29 @@
+﻿<Window x:Class="EtasaDesktop.Common.Tools.SearchElementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EtasaDesktop.Distribution.Assignments"
+        mc:Ignorable="d"
+        Title="Buscar"
+        Height="530"
+        Width="500">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Margin="8" Content="Selecciona"/>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ItemsSource}" SelectionMode="Single" SelectedItem="{Binding SelectedItem}"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="8" HorizontalAlignment="Right">
+            <Button Content="Cancelar" Height="28" Padding="16,0" IsCancel="True" Click="Cancel_Click" />
+            <Button Content="Aceptar" Height="28" Padding="16,0" IsDefault="True" Click="Accept_Click" Style="{StaticResource AccentButton}" />
+        </StackPanel>
+    </Grid>
+</Window>

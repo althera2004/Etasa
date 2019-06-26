@@ -1,0 +1,630 @@
+﻿<tools:FrameControl
+    x:Class="EtasaDesktop.Distribution.Planner.PlannerFrame"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:EtasaDesktop.Resources.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:data="clr-namespace:EtasaDesktop.Common.Data"
+    xmlns:local="clr-namespace:EtasaDesktop.Distribution.Planner"
+    xmlns:map="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+    xmlns:maplocal="clr-namespace:EtasaDesktop.Distribution.Planner.Map"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tools="clr-namespace:EtasaDesktop.Common.Tools"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <tools:FrameControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="PlannerStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <conv:HexColorToBrushConverter x:Key="HexColorToBrushConverter" />
+            <conv:VisibilityEmptyConverter x:Key="VisibilityEmptyConverter" />
+        </ResourceDictionary>
+    </tools:FrameControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!--  LEFT SIDEBAR  -->
+        <Border
+            Grid.Column="0"
+            Width="450"
+            BorderBrush="#FFBDBDBD" BorderThickness="1,0">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Padding="0"
+                        Content="Flota"
+                        Style="{StaticResource Frame.Title}" />
+                    <!--<StackPanel Grid.Column="1" Orientation="Horizontal" Visibility="Collapsed">
+                        <Button Style="{StaticResource ImageButton}" Width="24" Height="24" Padding="2">
+                            <Image Source="/EtasaDesktop;component/Resources/Images/close.png" />
+                        </Button>
+                    </StackPanel>-->
+                </Grid>
+
+                <Separator
+                    Grid.Row="1"
+                    Margin="0,8,0,8"
+                    Background="Transparent" />
+
+                <!--<Grid Grid.Row="1" Margin="0,16,0,8">
+                    <TextBox Grid.Column="1" Height="28" />
+                    <TextBlock Grid.Column="0" Text="Buscar conductor..." Margin="12,8,8,8" Foreground="Gray" />
+                </Grid>-->
+
+                <ListView
+                    x:Name="ListAssignements"
+                    Grid.Row="2"
+                    BorderThickness="0"              
+                    ItemsSource="{Binding AssignmentRoutes}"
+                    ScrollViewer.CanContentScroll="False"  VerticalAlignment="Top">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="{x:Type local:PlannerAssignmentViewModel}">
+                            <Border Padding="0,4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Border
+                                        Width="32" Height="32"
+                                        Padding="4">
+                                        <Image Source="/Resources/Images/truck.png" Stretch="UniformToFill" />
+                                    </Border>
+                                    <Grid
+                                        Grid.Row="0" Grid.Column="1"
+                                        Margin="16,0,0,0" VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock FontSize="12" TextTrimming="CharacterEllipsis">
+                                            <Run Text="{Binding DriverName}" />
+                                        </TextBlock>
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            FontSize="12"
+                                            Text="{Binding TrailerCapacity}" />
+
+
+                                        <Grid
+                                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock
+                                                Grid.Column="0"
+                                                Margin="0,0,5,0"
+                                                FontSize="12"
+                                                Text="{Binding CabCode}"
+                                                TextWrapping="NoWrap" />
+                                            <Button Grid.Column="1" Style="{StaticResource BorderlessButton}">
+                                                <Image Width="20" Source="{StaticResource Link}" />
+                                            </Button>
+                                            <TextBlock
+                                                Grid.Column="2"
+                                                Margin="5,0,5,0"
+                                                FontSize="12"
+                                                Text="{Binding TrailerCode}"
+                                                TextWrapping="NoWrap" />
+
+                                            <TextBlock
+                                                Grid.Column="3"
+                                                Margin="5,0,5,0"
+                                                FontSize="12"
+                                                Text="{Binding FactoryName}"
+                                                TextWrapping="NoWrap" />
+
+                                            <TextBlock
+                                                Grid.Column="4"
+                                                Margin="5,0,5,0"
+                                                FontSize="12"
+                                                Text="{Binding totalamount}"
+                                                TextWrapping="NoWrap" />
+
+
+                                            <!--<Button Grid.Column="4" Width="22" Margin="2" Padding="2"
+                                                    Style="{StaticResource BorderlessButton}">
+                                                <Image Source="{StaticResource Route}" />
+                                            </Button>
+                                            <Button Grid.Column="5" Width="22" Margin="2" Padding="2"
+                                                    Style="{StaticResource BorderlessButton}">
+                                                <Image Source="{StaticResource Switch}" />
+                                            </Button>-->
+                                        </Grid>
+                                    </Grid>
+                                    <Grid
+                                        Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                                Grid.Column="0"
+                                                Margin="5,0,5,0"
+                                                FontSize="12"
+                                                Foreground="red"
+                                                Text="{Binding MessageOverAmount}"
+                                                TextWrapping="NoWrap" />
+                                        
+                                    </Grid>
+                                    <ListView
+                                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                                         x:Name="ListAssignementsOrders"
+                                        Height="Auto" MinHeight="40"
+                                        Padding="0,8"
+                                        
+                                        Background="#FAFAFA" BorderThickness="0,0.75" DragEnter="OnDragEnterToAssignment" DragLeave="OnDragLeaveFromAssignment" Drop="OnDropToAssignment" 
+                                        ItemContainerStyle="{StaticResource AssignedOrderViewItem}"                                     
+                                        Loaded="ListViewAssignmentOrders_Loaded"
+                                        ItemsSource="{Binding test}"
+                                        Uid ="{Binding Assignment.RoutesId}"
+                                        Tag="{Binding Assignment.Id}">
+
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type data:Order}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="40" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <!--<Rectangle Grid.RowSpan="3" Grid.Column="0" Width="1"
+                                                            VerticalAlignment="Stretch"
+                                                            Fill="#CCCCCC" />-->
+
+                                                    <Ellipse
+                                                        Grid.Column="0"
+                                                        Width="12" Height="12"
+                                                        Fill="{Binding HexColor}" />
+
+                                                    <Grid Grid.Column="1" Margin="0,8">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition />
+                                                        </Grid.RowDefinitions>
+
+                                                        <TextBlock
+                                                            Grid.Row="0" Grid.Column="0"
+                                                            FontSize="12"
+                                                            Text="{Binding Client.Name}"
+                                                            TextTrimming="CharacterEllipsis" />
+
+                                                        <TextBlock
+                                                            Grid.Row="0" Grid.Column="1"
+                                                            Margin="2" HorizontalAlignment="Right"
+                                                            FontSize="14" FontWeight="SemiBold"
+                                                            Text="{Binding RequestedAmount}" />
+
+                                                        <TextBlock
+                                                            Grid.Row="1" Grid.Column="0"
+                                                            FontSize="10"
+                                                            Text="{Binding Client.Location.City}"
+                                                            TextTrimming="CharacterEllipsis" />
+
+                                                        <TextBlock
+                                                            Grid.Row="1" Grid.Column="1"
+                                                            HorizontalAlignment="Right"
+                                                            FontSize="12"
+                                                            Text="{Binding ReceivedAmount}" />
+
+                                                        <TextBlock
+                                                            Grid.Row="2" Grid.Column="0"
+                                                            FontSize="12"
+                                                            Text="{Binding Reference}" />
+                                                    </Grid>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <!--  MAP / LIST  -->
+        <Grid x:Name="PlannerMain" Grid.Column="1">
+
+
+            <!--  MAPA  -->
+            <maplocal:PlannerMapControl
+                x:Name="Map"
+                AllowDrop="True" DragEnter="OnDragEnterToMap" DragLeave="OnDragLeaveFromMap" Drop="OnDropToMap" />
+
+            <!--  LISTA  -->
+            <ListView
+                x:Name="List"
+                BorderThickness="0" DragEnter="OnDragEnterToList" DragLeave="OnDragLeaveFromList" Drop="OnDropToList"
+                ItemContainerStyle="{StaticResource OrderViewItem}"
+                GridViewColumnHeader.Click="ListViewColumnHeaderClick"
+                Loaded="ListViewOrders_Loaded" SelectionMode="Single">
+                <ListView.Style>
+                    <Style TargetType="{x:Type ListView}">
+                        <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}" />
+                        <Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+                        <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemStyle}" />
+                        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+                        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+                        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+                </ListView.Style>
+
+                <ListView.View>
+                    <GridView AllowsColumnReorder="true">
+                        <GridView.ColumnHeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="Background" Value="#F3F3F3" />
+                                <Setter Property="BorderBrush" Value="{StaticResource DataGrid.Header.Border}" />
+                                <Setter Property="BorderThickness" Value="1,0,1,2" />
+                                <Setter Property="FontWeight" Value="Medium" />
+                                <Setter Property="Margin" Value="0" />
+                                
+                            </Style>
+                        </GridView.ColumnHeaderContainerStyle>
+
+
+                        <GridViewColumn Width="32" Header="Color">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type data:Order}">
+                                    <Ellipse
+                                        Grid.Column="0"
+                                        Width="12" Height="12"
+                                        Fill="{Binding HexColor}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="Auto" Header="Fecha">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type data:Order}">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Grid.Row="0" Grid.Column="0"
+                                            Margin="8,0"
+                                            FontSize="12" Foreground="#757575"
+                                            Text="{Binding StartDate, StringFormat=dd/MM/yyyy}"
+                                            TextTrimming="CharacterEllipsis" />
+
+                                        <TextBlock
+                                            Grid.Row="1" Grid.Column="0"
+                                            Margin="8,0"
+                                            FontSize="12" FontWeight="Medium" Foreground="#757575"
+                                            Text="{Binding FinalDate, StringFormat=dd/MM/yyyy}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="Auto" Header="Pedido">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type data:Order}">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Grid.Row="0" Grid.Column="1"
+                                            Margin="8,0"
+                                            FontSize="14" FontWeight="Medium"
+                                            Text="{Binding Reference}"
+                                            TextTrimming="CharacterEllipsis" />
+
+                                        <TextBlock
+                                            Grid.Row="1" Grid.Column="1"
+                                            Margin="8,0"
+                                            FontSize="10"
+                                            Text="{Binding Operator.Name}"
+                                            TextTrimming="CharacterEllipsis" />
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn  Width="Auto" Header="Cliente">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type data:Order}">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Grid.Row="0" Grid.Column="2"
+                                            Margin="8,0"
+                                            FontSize="14" FontWeight="SemiBold"
+                                            Text="{Binding Client.Name}"
+                                            TextTrimming="CharacterEllipsis" />
+
+                                        <TextBlock
+                                            Grid.Row="1" Grid.Column="2"
+                                            Margin="8,0"
+                                            FontSize="12" TextTrimming="CharacterEllipsis">
+                                            <Run Text="{Binding Client.Location.City}" />
+                                            <Run Text=" (" />
+                                            <Run Text="{Binding Client.Location.PostCode}" />
+                                            <Run Text=")" />
+                                            <TextBlock.ToolTip>
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        FontSize="14"
+                                                        Text="{Binding Client.Location.Address}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        FontSize="12"
+                                                        Text="{Binding Client.Location.PostCode}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        FontSize="12"
+                                                        Text="{Binding Client.Location.Province}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        FontSize="12"
+                                                        Text="{Binding Client.Location.Country}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+
+                                            </TextBlock.ToolTip>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="Auto" Header="Factoria">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type data:Order}">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Grid.Row="0" Grid.Column="3"
+                                            Margin="8,0"
+                                            FontSize="12" FontWeight="SemiBold"
+                                            Foreground="{Binding Factory.HexColor}"
+                                            Text="{Binding Factory.Name}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="Auto" Header="Vehiculo">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type data:Order}">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Grid.Row="0" Grid.Column="4"
+                                            Margin="8,0"
+                                            FontSize="12"
+                                            Text="{Binding SizeName}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="Auto" Header="Cantidad">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type data:Order}">
+                                    <StackPanel>
+                                        <TextBlock
+                                            Grid.Row="0" Grid.Column="5"
+                                            Margin="8,0" HorizontalAlignment="Right"
+                                            FontSize="14" FontWeight="SemiBold"
+                                            Text="{Binding RequestedAmount}" />
+
+                                        <TextBlock
+                                            Grid.Row="1" Grid.Column="5"
+                                            Margin="8,0" HorizontalAlignment="Right"
+                                            FontSize="12"
+                                            Text="{Binding ReceivedAmount}" />
+
+                                        <TextBlock
+                                            Grid.Row="2" Grid.Column="5"
+                                            Margin="8,0" HorizontalAlignment="Right"
+                                            FontSize="12"
+                                            Text="{Binding TripId}" />
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+             
+
+                        <GridViewColumn Width="Auto" Header="Acciones">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type data:Order}">
+                                    <StackPanel
+                                        Grid.Row="0" Grid.Column="6"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <Button
+                                            Padding="2"
+                                            Click="OrderEdit_Click"
+                                            Style="{StaticResource BorderlessButton}">
+                                            <Image Height="16" Source="{StaticResource Edit.Outline}" />
+                                        </Button>
+                                        <Button
+                                            Padding="2"
+                                            Style="{StaticResource BorderlessButton}"
+                                            ToolTip="{Binding Observations}"
+                                            Visibility="{Binding Observations, Converter={StaticResource VisibilityEmptyConverter}}">
+                                            <Image
+                                                Height="16"
+                                                SnapsToDevicePixels="True"
+                                                Source="{StaticResource Comment.Outline}" />
+                                        </Button>
+                                        <Button
+                                            Padding="2"
+                                            Style="{StaticResource BorderlessButton}"
+                                            ToolTip="{Binding Notes}"
+                                            Visibility="{Binding Notes, Converter={StaticResource VisibilityEmptyConverter}}">
+                                            <Image
+                                                Height="16"
+                                                SnapsToDevicePixels="True"
+                                                Source="{StaticResource Note.Outline}" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+
+        <!--  RIGHT SIDEBAR  -->
+        <Border
+            x:Name="RSidebar"
+            Grid.Column="2"
+            Width="225"
+            Background="White" BorderBrush="#FFBDBDBD" BorderThickness="1,0">
+
+            <ScrollViewer
+                Grid.Row="1"
+                Padding="10"
+                VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <Label Content="Visualización" Style="{StaticResource Label.Header20}" />
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <RadioButton
+                            Grid.Column="0"
+                            Height="32"
+                            Margin="0" Padding="8,4" VerticalAlignment="Bottom"
+                            Checked="ListView_Checked" Content="Lista" IsChecked="True"
+                            Style="{StaticResource {x:Type ToggleButton}}" />
+
+                        <RadioButton
+                            Grid.Column="1"
+                            Height="32"
+                            Margin="0" Padding="8,4" VerticalAlignment="Bottom"
+                            Click="MapView_Checked" Content="Mapa"
+                            Style="{StaticResource {x:Type ToggleButton}}" />
+
+                    </Grid>
+
+                    <Label Content="Fecha" Style="{StaticResource Label.Header20}" />
+                    <Calendar
+                        Margin="0" Padding="5"
+                        SelectedDate="{Binding SelectedDate}" />
+
+
+                    <Label
+                        Margin="0,8,0,0"
+                        Content="Filtros Pedidos"
+                        Style="{StaticResource Label.Header20}" />
+
+                    <Label Content="Operadores" />
+                    <xctk:CheckComboBox
+                        Delimiter="," DisplayMemberPath="Name"
+                        ItemsSource="{Binding OrdersOperators}"
+                        SelectedValue="{Binding FilterOperators}"
+                        ValueMemberPath="Id" />
+
+                    <Label Content="Cliente" />
+                    <xctk:CheckComboBox
+                        Delimiter="," DisplayMemberPath="Name"
+                        ItemsSource="{Binding OrdersClients}"
+                        SelectedValue="{Binding FilterClients}"
+                        ValueMemberPath="Id" />
+
+                    <Label Content="Factorias" />
+                    <xctk:CheckComboBox
+                        Delimiter="," DisplayMemberPath="Name"
+                        ItemsSource="{Binding OrdersFactories}"
+                        SelectedValue="{Binding FilterFactories}"
+                        ValueMemberPath="Id" />
+
+                    <Label Content="Productos" />
+                    <xctk:CheckComboBox
+                        Delimiter="," DisplayMemberPath="Name"
+                        ItemsSource="{Binding OrdersProducts}"
+                        SelectedValue="{Binding FilterProducts}"
+                        ValueMemberPath="Id" />
+
+                    <Label
+                        Margin="0,8,0,0"
+                        Content="Filtros Asignaciones"
+                        Style="{StaticResource Label.Header20}" />
+                    
+                    <Label Content="Matriculas" />
+                    <xctk:CheckComboBox
+                        Delimiter="," DisplayMemberPath="Code"
+                        ItemsSource="{Binding OrdersVehicles}"
+                        SelectedValue="{Binding FilterVehicles}"
+                        ValueMemberPath="Id" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</tools:FrameControl>

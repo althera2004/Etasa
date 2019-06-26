@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ColorDataSet" targetNamespace="http://tempuri.org/ColorDataSet.xsd" xmlns:mstns="http://tempuri.org/ColorDataSet.xsd" xmlns="http://tempuri.org/ColorDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="EtasaConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="EtasaConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.EtasaDesktop.Properties.Settings.GlobalReference.Default.EtasaConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ColorSummariesFactoriesDataTableTableAdapter" GeneratorDataComponentClassName="ColorSummariesFactoriesDataTableTableAdapter" Name="ColorSummariesFactoriesDataTable" UserDataComponentName="ColorSummariesFactoriesDataTableTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Factories.Id, Factories.Code, Factories.Name, Factories_Colors.FactoryColor, Factories_Colors.ClientColor, Factories_Colors.UrgentColor, Factories_Colors.FinalDayColor, Factories_Colors.PreferenceColor, 
+                         Factories_Colors.TheLastPreferent
+FROM            Factories INNER JOIN
+                         Factories_Colors ON Factories.Id = Factories_Colors.Id</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="FactoryColor" DataSetColumn="FactoryColor" />
+              <Mapping SourceColumn="ClientColor" DataSetColumn="ClientColor" />
+              <Mapping SourceColumn="UrgentColor" DataSetColumn="UrgentColor" />
+              <Mapping SourceColumn="FinalDayColor" DataSetColumn="FinalDayColor" />
+              <Mapping SourceColumn="PreferenceColor" DataSetColumn="PreferenceColor" />
+              <Mapping SourceColumn="Code" DataSetColumn="Code" />
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="TheLastPreferent" DataSetColumn="TheLastPreferent" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="FactoriesTableAdapter" GeneratorDataComponentClassName="FactoriesTableAdapter" Name="Factories" UserDataComponentName="FactoriesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectName="Etasa.dbo.Factories" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [Factories] WHERE (([Id] = @Original_Id) AND ([Code] = @Original_Code) AND ([Name] = @Original_Name) AND ((@IsNull_CreatedDate = 1 AND [CreatedDate] IS NULL) OR ([CreatedDate] = @Original_CreatedDate)) AND ((@IsNull_ModifiedDate = 1 AND [ModifiedDate] IS NULL) OR ([ModifiedDate] = @Original_ModifiedDate)) AND ((@IsNull_Address = 1 AND [Address] IS NULL) OR ([Address] = @Original_Address)) AND ((@IsNull_PostCode = 1 AND [PostCode] IS NULL) OR ([PostCode] = @Original_PostCode)) AND ((@IsNull_City = 1 AND [City] IS NULL) OR ([City] = @Original_City)) AND ((@IsNull_Province = 1 AND [Province] IS NULL) OR ([Province] = @Original_Province)) AND ((@IsNull_Country = 1 AND [Country] IS NULL) OR ([Country] = @Original_Country)) AND ([Latitude] = @Original_Latitude) AND ([Longitude] = @Original_Longitude) AND ([Enabled] = @Original_Enabled))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiStringFixedLength" Direction="Input" ParameterName="@Original_Code" Precision="0" ProviderType="Char" Scale="0" Size="0" SourceColumn="Code" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Name" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Name" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_CreatedDate" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="CreatedDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_CreatedDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="CreatedDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ModifiedDate" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ModifiedDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_ModifiedDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="ModifiedDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Address" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Address" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Address" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Address" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_PostCode" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PostCode" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_PostCode" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="PostCode" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_City" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="City" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_City" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="City" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Province" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Province" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Province" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Province" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Country" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Country" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Country" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Country" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Single" Direction="Input" ParameterName="@Original_Latitude" Precision="0" ProviderType="Real" Scale="0" Size="0" SourceColumn="Latitude" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Single" Direction="Input" ParameterName="@Original_Longitude" Precision="0" ProviderType="Real" Scale="0" Size="0" SourceColumn="Longitude" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Enabled" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Enabled" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [Factories] ([Code], [Name], [CreatedDate], [ModifiedDate], [Address], [PostCode], [City], [Province], [Country], [Latitude], [Longitude], [Enabled]) VALUES (@Code, @Name, @CreatedDate, @ModifiedDate, @Address, @PostCode, @City, @Province, @Country, @Latitude, @Longitude, @Enabled);
+SELECT Id, Code, Name, CreatedDate, ModifiedDate, Address, PostCode, City, Province, Country, Latitude, Longitude, Enabled FROM Factories WHERE (Id = SCOPE_IDENTITY())</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiStringFixedLength" Direction="Input" ParameterName="@Code" Precision="0" ProviderType="Char" Scale="0" Size="0" SourceColumn="Code" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Name" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Name" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@CreatedDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="CreatedDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@ModifiedDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="ModifiedDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Address" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Address" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@PostCode" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="PostCode" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@City" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="City" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Province" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Province" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Country" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Country" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Single" Direction="Input" ParameterName="@Latitude" Precision="0" ProviderType="Real" Scale="0" Size="0" SourceColumn="Latitude" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Single" Direction="Input" ParameterName="@Longitude" Precision="0" ProviderType="Real" Scale="0" Size="0" SourceColumn="Longitude" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Enabled" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Enabled" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Id, Code, Name, CreatedDate, ModifiedDate, Address, PostCode, City, Province, Country, Latitude, Longitude, Enabled
+FROM            Factories</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [Factories] SET [Code] = @Code, [Name] = @Name, [CreatedDate] = @CreatedDate, [ModifiedDate] = @ModifiedDate, [Address] = @Address, [PostCode] = @PostCode, [City] = @City, [Province] = @Province, [Country] = @Country, [Latitude] = @Latitude, [Longitude] = @Longitude, [Enabled] = @Enabled WHERE (([Id] = @Original_Id) AND ([Code] = @Original_Code) AND ([Name] = @Original_Name) AND ((@IsNull_CreatedDate = 1 AND [CreatedDate] IS NULL) OR ([CreatedDate] = @Original_CreatedDate)) AND ((@IsNull_ModifiedDate = 1 AND [ModifiedDate] IS NULL) OR ([ModifiedDate] = @Original_ModifiedDate)) AND ((@IsNull_Address = 1 AND [Address] IS NULL) OR ([Address] = @Original_Address)) AND ((@IsNull_PostCode = 1 AND [PostCode] IS NULL) OR ([PostCode] = @Original_PostCode)) AND ((@IsNull_City = 1 AND [City] IS NULL) OR ([City] = @Original_City)) AND ((@IsNull_Province = 1 AND [Province] IS NULL) OR ([Province] = @Original_Province)) AND ((@IsNull_Country = 1 AND [Country] IS NULL) OR ([Country] = @Original_Country)) AND ([Latitude] = @Original_Latitude) AND ([Longitude] = @Original_Longitude) AND ([Enabled] = @Original_Enabled));
+SELECT Id, Code, Name, CreatedDate, ModifiedDate, Address, PostCode, City, Province, Country, Latitude, Longitude, Enabled FROM Factories WHERE (Id = @Id)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiStringFixedLength" Direction="Input" ParameterName="@Code" Precision="0" ProviderType="Char" Scale="0" Size="0" SourceColumn="Code" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Name" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Name" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@CreatedDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="CreatedDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@ModifiedDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="ModifiedDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Address" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Address" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@PostCode" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="PostCode" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@City" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="City" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Province" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Province" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Country" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Country" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Single" Direction="Input" ParameterName="@Latitude" Precision="0" ProviderType="Real" Scale="0" Size="0" SourceColumn="Latitude" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Single" Direction="Input" ParameterName="@Longitude" Precision="0" ProviderType="Real" Scale="0" Size="0" SourceColumn="Longitude" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Enabled" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Enabled" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiStringFixedLength" Direction="Input" ParameterName="@Original_Code" Precision="0" ProviderType="Char" Scale="0" Size="0" SourceColumn="Code" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Name" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Name" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_CreatedDate" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="CreatedDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_CreatedDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="CreatedDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ModifiedDate" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ModifiedDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_ModifiedDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="ModifiedDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Address" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Address" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Address" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Address" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_PostCode" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PostCode" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_PostCode" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="PostCode" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_City" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="City" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_City" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="City" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Province" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Province" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Province" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Province" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Country" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Country" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Country" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Country" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Single" Direction="Input" ParameterName="@Original_Latitude" Precision="0" ProviderType="Real" Scale="0" Size="0" SourceColumn="Latitude" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Single" Direction="Input" ParameterName="@Original_Longitude" Precision="0" ProviderType="Real" Scale="0" Size="0" SourceColumn="Longitude" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Enabled" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Enabled" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Id" ColumnName="Id" DataSourceName="Etasa.dbo.Factories" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="Code" DataSetColumn="Code" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="CreatedDate" DataSetColumn="CreatedDate" />
+              <Mapping SourceColumn="ModifiedDate" DataSetColumn="ModifiedDate" />
+              <Mapping SourceColumn="Address" DataSetColumn="Address" />
+              <Mapping SourceColumn="PostCode" DataSetColumn="PostCode" />
+              <Mapping SourceColumn="City" DataSetColumn="City" />
+              <Mapping SourceColumn="Province" DataSetColumn="Province" />
+              <Mapping SourceColumn="Country" DataSetColumn="Country" />
+              <Mapping SourceColumn="Latitude" DataSetColumn="Latitude" />
+              <Mapping SourceColumn="Longitude" DataSetColumn="Longitude" />
+              <Mapping SourceColumn="Enabled" DataSetColumn="Enabled" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectName="Etasa.dbo.Factories" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataById" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataById" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataById" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Id, Code, Name, CreatedDate, ModifiedDate, Address, PostCode, City, Province, Country, Latitude, Longitude, Enabled
+FROM            Factories where id = @id</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="id" ColumnName="Id" DataSourceName="Etasa.dbo.Factories" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@id" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Factories_ColorsTableAdapter" GeneratorDataComponentClassName="Factories_ColorsTableAdapter" Name="Factories_Colors" UserDataComponentName="Factories_ColorsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectName="Etasa.dbo.Factories_Colors" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [Factories_Colors] WHERE (((@IsNull_FactoryColor = 1 AND [FactoryColor] IS NULL) OR ([FactoryColor] = @Original_FactoryColor)) AND ([Id] = @Original_Id) AND ((@IsNull_UrgentColor = 1 AND [UrgentColor] IS NULL) OR ([UrgentColor] = @Original_UrgentColor)) AND ((@IsNull_ClientColor = 1 AND [ClientColor] IS NULL) OR ([ClientColor] = @Original_ClientColor)) AND ((@IsNull_FinalDayColor = 1 AND [FinalDayColor] IS NULL) OR ([FinalDayColor] = @Original_FinalDayColor)) AND ((@IsNull_PreferenceColor = 1 AND [PreferenceColor] IS NULL) OR ([PreferenceColor] = @Original_PreferenceColor)) AND ((@IsNull_TheLastPreferent = 1 AND [TheLastPreferent] IS NULL) OR ([TheLastPreferent] = @Original_TheLastPreferent)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_FactoryColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="FactoryColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_FactoryColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="FactoryColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_UrgentColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="UrgentColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_UrgentColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="UrgentColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ClientColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ClientColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_ClientColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="ClientColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_FinalDayColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="FinalDayColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_FinalDayColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="FinalDayColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_PreferenceColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PreferenceColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_PreferenceColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="PreferenceColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TheLastPreferent" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TheLastPreferent" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_TheLastPreferent" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="TheLastPreferent" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [Factories_Colors] ([FactoryColor], [Id], [UrgentColor], [ClientColor], [FinalDayColor], [PreferenceColor], [TheLastPreferent]) VALUES (@FactoryColor, @Id, @UrgentColor, @ClientColor, @FinalDayColor, @PreferenceColor, @TheLastPreferent);
+SELECT FactoryColor, Id, UrgentColor, ClientColor, FinalDayColor, PreferenceColor, TheLastPreferent FROM Factories_Colors WHERE (Id = @Id)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@FactoryColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="FactoryColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@UrgentColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="UrgentColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@ClientColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="ClientColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@FinalDayColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="FinalDayColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@PreferenceColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="PreferenceColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@TheLastPreferent" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="TheLastPreferent" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        FactoryColor, Id, UrgentColor, ClientColor, FinalDayColor, PreferenceColor, TheLastPreferent
+FROM            Factories_Colors</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [Factories_Colors] SET [FactoryColor] = @FactoryColor, [Id] = @Id, [UrgentColor] = @UrgentColor, [ClientColor] = @ClientColor, [FinalDayColor] = @FinalDayColor, [PreferenceColor] = @PreferenceColor, [TheLastPreferent] = @TheLastPreferent WHERE (((@IsNull_FactoryColor = 1 AND [FactoryColor] IS NULL) OR ([FactoryColor] = @Original_FactoryColor)) AND ([Id] = @Original_Id) AND ((@IsNull_UrgentColor = 1 AND [UrgentColor] IS NULL) OR ([UrgentColor] = @Original_UrgentColor)) AND ((@IsNull_ClientColor = 1 AND [ClientColor] IS NULL) OR ([ClientColor] = @Original_ClientColor)) AND ((@IsNull_FinalDayColor = 1 AND [FinalDayColor] IS NULL) OR ([FinalDayColor] = @Original_FinalDayColor)) AND ((@IsNull_PreferenceColor = 1 AND [PreferenceColor] IS NULL) OR ([PreferenceColor] = @Original_PreferenceColor)) AND ((@IsNull_TheLastPreferent = 1 AND [TheLastPreferent] IS NULL) OR ([TheLastPreferent] = @Original_TheLastPreferent)));
+SELECT FactoryColor, Id, UrgentColor, ClientColor, FinalDayColor, PreferenceColor, TheLastPreferent FROM Factories_Colors WHERE (Id = @Id)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@FactoryColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="FactoryColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@UrgentColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="UrgentColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@ClientColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="ClientColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@FinalDayColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="FinalDayColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@PreferenceColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="PreferenceColor" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@TheLastPreferent" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="TheLastPreferent" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_FactoryColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="FactoryColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_FactoryColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="FactoryColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_UrgentColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="UrgentColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_UrgentColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="UrgentColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_ClientColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ClientColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_ClientColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="ClientColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_FinalDayColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="FinalDayColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_FinalDayColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="FinalDayColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_PreferenceColor" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PreferenceColor" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_PreferenceColor" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="PreferenceColor" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_TheLastPreferent" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="TheLastPreferent" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_TheLastPreferent" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="TheLastPreferent" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="FactoryColor" DataSetColumn="FactoryColor" />
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="UrgentColor" DataSetColumn="UrgentColor" />
+              <Mapping SourceColumn="ClientColor" DataSetColumn="ClientColor" />
+              <Mapping SourceColumn="FinalDayColor" DataSetColumn="FinalDayColor" />
+              <Mapping SourceColumn="PreferenceColor" DataSetColumn="PreferenceColor" />
+              <Mapping SourceColumn="TheLastPreferent" DataSetColumn="TheLastPreferent" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectName="Etasa.dbo.Factories_Colors" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataColorsById" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataColorsById" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataColorsById" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT ClientColor, FactoryColor, FinalDayColor, Id, PreferenceColor, TheLastPreferent, UrgentColor FROM Factories_Colors WHERE (Id = @Id)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Id" ColumnName="Id" DataSourceName="Etasa.dbo.Factories_Colors" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Factories_ObsTableAdapter" GeneratorDataComponentClassName="Factories_ObsTableAdapter" Name="Factories_Obs" UserDataComponentName="Factories_ObsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectName="Etasa.dbo.Factories_Obs" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [Factories_Obs] WHERE (([Id] = @Original_Id))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [Factories_Obs] ([Id], [Observations]) VALUES (@Id, @Observations);
+SELECT Id, Observations FROM Factories_Obs WHERE (Id = @Id)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Observations" Precision="0" ProviderType="NText" Scale="0" Size="0" SourceColumn="Observations" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Id, Observations
+FROM            Factories_Obs</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [Factories_Obs] SET [Id] = @Id, [Observations] = @Observations WHERE (([Id] = @Original_Id));
+SELECT Id, Observations FROM Factories_Obs WHERE (Id = @Id)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Observations" Precision="0" ProviderType="NText" Scale="0" Size="0" SourceColumn="Observations" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="Observations" DataSetColumn="Observations" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ColorDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ColorDataSet" msprop:Generator_UserDSName="ColorDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ColorSummariesFactoriesDataTable" msprop:Generator_TableClassName="ColorSummariesFactoriesDataTableDataTable" msprop:Generator_TableVarName="tableColorSummariesFactoriesDataTable" msprop:Generator_RowChangedName="ColorSummariesFactoriesDataTableRowChanged" msprop:Generator_TablePropName="ColorSummariesFactoriesDataTable" msprop:Generator_RowDeletingName="ColorSummariesFactoriesDataTableRowDeleting" msprop:Generator_RowChangingName="ColorSummariesFactoriesDataTableRowChanging" msprop:Generator_RowEvHandlerName="ColorSummariesFactoriesDataTableRowChangeEventHandler" msprop:Generator_RowDeletedName="ColorSummariesFactoriesDataTableRowDeleted" msprop:Generator_RowClassName="ColorSummariesFactoriesDataTableRow" msprop:Generator_UserTableName="ColorSummariesFactoriesDataTable" msprop:Generator_RowEvArgName="ColorSummariesFactoriesDataTableRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FactoryColor" msprop:Generator_ColumnVarNameInTable="columnFactoryColor" msprop:Generator_ColumnPropNameInRow="FactoryColor" msprop:Generator_ColumnPropNameInTable="FactoryColorColumn" msprop:Generator_UserColumnName="FactoryColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ClientColor" msprop:Generator_ColumnVarNameInTable="columnClientColor" msprop:Generator_ColumnPropNameInRow="ClientColor" msprop:Generator_ColumnPropNameInTable="ClientColorColumn" msprop:Generator_UserColumnName="ClientColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UrgentColor" msprop:Generator_ColumnVarNameInTable="columnUrgentColor" msprop:Generator_ColumnPropNameInRow="UrgentColor" msprop:Generator_ColumnPropNameInTable="UrgentColorColumn" msprop:Generator_UserColumnName="UrgentColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FinalDayColor" msprop:Generator_ColumnVarNameInTable="columnFinalDayColor" msprop:Generator_ColumnPropNameInRow="FinalDayColor" msprop:Generator_ColumnPropNameInTable="FinalDayColorColumn" msprop:Generator_UserColumnName="FinalDayColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PreferenceColor" msprop:Generator_ColumnVarNameInTable="columnPreferenceColor" msprop:Generator_ColumnPropNameInRow="PreferenceColor" msprop:Generator_ColumnPropNameInTable="PreferenceColorColumn" msprop:Generator_UserColumnName="PreferenceColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnPropNameInTable="CodeColumn" msprop:Generator_UserColumnName="Code">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="TheLastPreferent" msprop:Generator_ColumnVarNameInTable="columnTheLastPreferent" msprop:Generator_ColumnPropNameInRow="TheLastPreferent" msprop:Generator_ColumnPropNameInTable="TheLastPreferentColumn" msprop:Generator_UserColumnName="TheLastPreferent" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Factories" msprop:Generator_TableClassName="FactoriesDataTable" msprop:Generator_TableVarName="tableFactories" msprop:Generator_RowChangedName="FactoriesRowChanged" msprop:Generator_TablePropName="Factories" msprop:Generator_RowDeletingName="FactoriesRowDeleting" msprop:Generator_RowChangingName="FactoriesRowChanging" msprop:Generator_RowEvHandlerName="FactoriesRowChangeEventHandler" msprop:Generator_RowDeletedName="FactoriesRowDeleted" msprop:Generator_RowClassName="FactoriesRow" msprop:Generator_UserTableName="Factories" msprop:Generator_RowEvArgName="FactoriesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnPropNameInTable="CodeColumn" msprop:Generator_UserColumnName="Code">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CreatedDate" msprop:Generator_ColumnVarNameInTable="columnCreatedDate" msprop:Generator_ColumnPropNameInRow="CreatedDate" msprop:Generator_ColumnPropNameInTable="CreatedDateColumn" msprop:Generator_UserColumnName="CreatedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ModifiedDate" msprop:Generator_ColumnVarNameInTable="columnModifiedDate" msprop:Generator_ColumnPropNameInRow="ModifiedDate" msprop:Generator_ColumnPropNameInTable="ModifiedDateColumn" msprop:Generator_UserColumnName="ModifiedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Address" msprop:Generator_ColumnVarNameInTable="columnAddress" msprop:Generator_ColumnPropNameInRow="Address" msprop:Generator_ColumnPropNameInTable="AddressColumn" msprop:Generator_UserColumnName="Address" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PostCode" msprop:Generator_ColumnVarNameInTable="columnPostCode" msprop:Generator_ColumnPropNameInRow="PostCode" msprop:Generator_ColumnPropNameInTable="PostCodeColumn" msprop:Generator_UserColumnName="PostCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="City" msprop:Generator_ColumnVarNameInTable="columnCity" msprop:Generator_ColumnPropNameInRow="City" msprop:Generator_ColumnPropNameInTable="CityColumn" msprop:Generator_UserColumnName="City" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Province" msprop:Generator_ColumnVarNameInTable="columnProvince" msprop:Generator_ColumnPropNameInRow="Province" msprop:Generator_ColumnPropNameInTable="ProvinceColumn" msprop:Generator_UserColumnName="Province" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Country" msprop:Generator_ColumnVarNameInTable="columnCountry" msprop:Generator_ColumnPropNameInRow="Country" msprop:Generator_ColumnPropNameInTable="CountryColumn" msprop:Generator_UserColumnName="Country" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Latitude" msprop:Generator_ColumnVarNameInTable="columnLatitude" msprop:Generator_ColumnPropNameInRow="Latitude" msprop:Generator_ColumnPropNameInTable="LatitudeColumn" msprop:Generator_UserColumnName="Latitude" type="xs:float" />
+              <xs:element name="Longitude" msprop:Generator_ColumnVarNameInTable="columnLongitude" msprop:Generator_ColumnPropNameInRow="Longitude" msprop:Generator_ColumnPropNameInTable="LongitudeColumn" msprop:Generator_UserColumnName="Longitude" type="xs:float" />
+              <xs:element name="Enabled" msprop:Generator_ColumnVarNameInTable="columnEnabled" msprop:Generator_ColumnPropNameInRow="Enabled" msprop:Generator_ColumnPropNameInTable="EnabledColumn" msprop:Generator_UserColumnName="Enabled" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Factories_Colors" msprop:Generator_TableClassName="Factories_ColorsDataTable" msprop:Generator_TableVarName="tableFactories_Colors" msprop:Generator_RowChangedName="Factories_ColorsRowChanged" msprop:Generator_TablePropName="Factories_Colors" msprop:Generator_RowDeletingName="Factories_ColorsRowDeleting" msprop:Generator_RowChangingName="Factories_ColorsRowChanging" msprop:Generator_RowEvHandlerName="Factories_ColorsRowChangeEventHandler" msprop:Generator_RowDeletedName="Factories_ColorsRowDeleted" msprop:Generator_RowClassName="Factories_ColorsRow" msprop:Generator_UserTableName="Factories_Colors" msprop:Generator_RowEvArgName="Factories_ColorsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FactoryColor" msprop:Generator_ColumnVarNameInTable="columnFactoryColor" msprop:Generator_ColumnPropNameInRow="FactoryColor" msprop:Generator_ColumnPropNameInTable="FactoryColorColumn" msprop:Generator_UserColumnName="FactoryColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="UrgentColor" msprop:Generator_ColumnVarNameInTable="columnUrgentColor" msprop:Generator_ColumnPropNameInRow="UrgentColor" msprop:Generator_ColumnPropNameInTable="UrgentColorColumn" msprop:Generator_UserColumnName="UrgentColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ClientColor" msprop:Generator_ColumnVarNameInTable="columnClientColor" msprop:Generator_ColumnPropNameInRow="ClientColor" msprop:Generator_ColumnPropNameInTable="ClientColorColumn" msprop:Generator_UserColumnName="ClientColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FinalDayColor" msprop:Generator_ColumnVarNameInTable="columnFinalDayColor" msprop:Generator_ColumnPropNameInRow="FinalDayColor" msprop:Generator_ColumnPropNameInTable="FinalDayColorColumn" msprop:Generator_UserColumnName="FinalDayColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PreferenceColor" msprop:Generator_ColumnVarNameInTable="columnPreferenceColor" msprop:Generator_ColumnPropNameInRow="PreferenceColor" msprop:Generator_ColumnPropNameInTable="PreferenceColorColumn" msprop:Generator_UserColumnName="PreferenceColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TheLastPreferent" msprop:Generator_ColumnVarNameInTable="columnTheLastPreferent" msprop:Generator_ColumnPropNameInRow="TheLastPreferent" msprop:Generator_ColumnPropNameInTable="TheLastPreferentColumn" msprop:Generator_UserColumnName="TheLastPreferent" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Factories_Obs" msprop:Generator_TableClassName="Factories_ObsDataTable" msprop:Generator_TableVarName="tableFactories_Obs" msprop:Generator_RowChangedName="Factories_ObsRowChanged" msprop:Generator_TablePropName="Factories_Obs" msprop:Generator_RowDeletingName="Factories_ObsRowDeleting" msprop:Generator_RowChangingName="Factories_ObsRowChanging" msprop:Generator_RowEvHandlerName="Factories_ObsRowChangeEventHandler" msprop:Generator_RowDeletedName="Factories_ObsRowDeleted" msprop:Generator_RowClassName="Factories_ObsRow" msprop:Generator_UserTableName="Factories_Obs" msprop:Generator_RowEvArgName="Factories_ObsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="Observations" msprop:Generator_ColumnVarNameInTable="columnObservations" msprop:Generator_ColumnPropNameInRow="Observations" msprop:Generator_ColumnPropNameInTable="ObservationsColumn" msprop:Generator_UserColumnName="Observations" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1073741823" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ColorSummariesFactoriesDataTable" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="Factories_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Factories" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="Factories_Colors_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Factories_Colors" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="Factories_Obs_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Factories_Obs" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="Factories_Colors_FK" msdata:parent="Factories" msdata:child="Factories_Colors" msdata:parentkey="Id" msdata:childkey="Id" msprop:Generator_UserChildTable="Factories_Colors" msprop:Generator_ChildPropName="GetFactories_ColorsRows" msprop:Generator_UserRelationName="Factories_Colors_FK" msprop:Generator_RelationVarName="relationFactories_Colors_FK" msprop:Generator_UserParentTable="Factories" msprop:Generator_ParentPropName="FactoriesRow" />
+      <msdata:Relationship name="Factories_Observations_FK" msdata:parent="Factories" msdata:child="Factories_Obs" msdata:parentkey="Id" msdata:childkey="Id" msprop:Generator_UserChildTable="Factories_Obs" msprop:Generator_ChildPropName="GetFactories_ObsRows" msprop:Generator_UserRelationName="Factories_Observations_FK" msprop:Generator_RelationVarName="relationFactories_Observations_FK" msprop:Generator_UserParentTable="Factories" msprop:Generator_ParentPropName="FactoriesRow" />
+      <msdata:Relationship name="Factories_Colors_FK1" msdata:parent="ColorSummariesFactoriesDataTable" msdata:child="Factories_Colors" msdata:parentkey="Id" msdata:childkey="Id" msprop:Generator_UserChildTable="Factories_Colors" msprop:Generator_ChildPropName="GetFactories_ColorsRows" msprop:Generator_UserRelationName="Factories_Colors_FK1" msprop:Generator_ParentPropName="ColorSummariesFactoriesDataTableRow" msprop:Generator_RelationVarName="relationFactories_Colors_FK1" msprop:Generator_UserParentTable="ColorSummariesFactoriesDataTable" />
+      <msdata:Relationship name="Factories_Observations_FK1" msdata:parent="ColorSummariesFactoriesDataTable" msdata:child="Factories_Obs" msdata:parentkey="Id" msdata:childkey="Id" msprop:Generator_UserChildTable="Factories_Obs" msprop:Generator_ChildPropName="GetFactories_ObsRows" msprop:Generator_UserRelationName="Factories_Observations_FK1" msprop:Generator_ParentPropName="ColorSummariesFactoriesDataTableRow" msprop:Generator_RelationVarName="relationFactories_Observations_FK1" msprop:Generator_UserParentTable="ColorSummariesFactoriesDataTable" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

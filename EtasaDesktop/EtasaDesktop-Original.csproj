@@ -1,0 +1,1466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C9CB1936-45C6-424E-9670-F6BD3EFF4CCF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EtasaDesktop</RootNamespace>
+    <AssemblyName>EtasaDesktop</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\AUSERTEC14\Desktop\gegege\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>C6AB0D9F2A48A252352D956FEE8A192CA7D69261</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>EtasaDesktop_1_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="Fluent, Version=6.1.0.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fluent.Ribbon.6.1.0.233\lib\net45\Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.NotificationHubs, Version=2.16.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.NotificationHubs.1.0.9\lib\net45-full\Microsoft.Azure.NotificationHubs.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Maps.MapControl.WPF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Maps.MapControl.WPF.1.0.0.3\lib\net40-Client\Microsoft.Maps.MapControl.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2017.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\VtNetConnect.Renci.SshNet.1.0.3\lib\netstandard2.0\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="SshNet.Security.Cryptography, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SshNet.Security.Cryptography.1.3.0\lib\net45\SshNet.Security.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Billing\BillingDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BillingDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Billing\BillingFrame.xaml.cs">
+      <DependentUpon>BillingFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Billing\BillingViewModel.cs" />
+    <Compile Include="Billing\BillingFormViewModel.cs" />
+    <Compile Include="Billing\BillingFormWindow.xaml.cs">
+      <DependentUpon>BillingFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Billing\MainBilling.xaml.cs">
+      <DependentUpon>MainBilling.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Billing\ConfigurationTab.xaml.cs">
+      <DependentUpon>ConfigurationTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Billing\PersonalDataTab.xaml.cs">
+      <DependentUpon>PersonalDataTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Auth\Group.cs" />
+    <Compile Include="Common\Auth\Users\UserDataSet.cs">
+      <DependentUpon>UserDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Auth\Users\UserDataSet.Designer.cs">
+      <DependentUpon>UserDataSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Auth\Users\UserFormViewModel.cs" />
+    <Compile Include="Common\Auth\Users\UserFormWindow.xaml.cs">
+      <DependentUpon>UserFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Auth\Users\Userframe.xaml.cs">
+      <DependentUpon>Userframe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Auth\Users\UserViewModel.cs" />
+    <Compile Include="Common\MainViewModel.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Tools\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Distribution\Assignments\AssignmentsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssignmentsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Assignments\DSAssigmentsData.cs">
+      <DependentUpon>DSAssigmentsData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Assignments\DSAssigmentsData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSAssigmentsData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Assignments\Import\AssignmentImportDataViewModel.cs" />
+    <Compile Include="Distribution\Assignments\Form\AssignmentsFormViewModel.cs">
+      <DependentUpon>AssignmentsFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Assignments\Import\AssignmentsImportViewModel.cs">
+      <DependentUpon>AssignmentsImportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Assignments\AssignmentViewModel.cs">
+      <DependentUpon>AssignmentsFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Assignments\SearchTrailerViewModel.cs" />
+    <Compile Include="Distribution\Assignments\SearchCabViewModel.cs" />
+    <Compile Include="Distribution\Assignments\SearchDriverViewModel.cs" />
+    <Compile Include="Common\Tools\SearchElementViewModel.cs">
+      <DependentUpon>SearchElementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Operators\OperatorDataset.cs">
+      <DependentUpon>OperatorDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Operators\OperatorDataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OperatorDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Operators\OperatorFormViewModel.cs" />
+    <Compile Include="Distribution\Operators\OperatorFormWindow.xaml.cs">
+      <DependentUpon>OperatorFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Operators\OperatorFrame.xaml.cs">
+      <DependentUpon>OperatorFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Operators\OperatorViewModel.cs" />
+    <Compile Include="Distribution\Clients\ClientDataSet.cs">
+      <DependentUpon>ClientDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Clients\ClientDataSet.Designer.cs">
+      <DependentUpon>ClientDataSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Clients\ClientFormViewModel.cs" />
+    <Compile Include="Distribution\Clients\ClientFrame.xaml.cs">
+      <DependentUpon>ClientFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Clients\ClientViewModel.cs" />
+    <Compile Include="Distribution\Drivers\DriversDataSet.cs">
+      <DependentUpon>DriversDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Drivers\DriversDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DriversDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Drivers\Driverframe.xaml.cs">
+      <DependentUpon>Driverframe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Drivers\DriverViewModel.cs" />
+    <Compile Include="Distribution\Drivers\DriverFormViewModel.cs" />
+    <Compile Include="Distribution\Drivers\DriverFormWindow.xaml.cs">
+      <DependentUpon>DriverFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Factories\FactoryDataSet.cs">
+      <DependentUpon>FactoryDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Factories\FactoryDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FactoryDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Factories\FactoryFrame.xaml.cs">
+      <DependentUpon>FactoryFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Factories\FactoryViewModel.cs" />
+    <Compile Include="Distribution\Factories\FactoryFormViewModel.cs" />
+    <Compile Include="Distribution\Factories\FactoryFormWindow.xaml.cs">
+      <DependentUpon>FactoryFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Form\OrderDataSet.cs">
+      <DependentUpon>OrderDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Form\OrderDataSet.Designer.cs">
+      <DependentUpon>OrderDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Distribution\Orders\Form\OrderFormViewModel.cs" />
+    <Compile Include="Distribution\Orders\Form\OrderFormWindow.xaml.cs">
+      <DependentUpon>OrderFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Form\OrderFrame.xaml.cs">
+      <DependentUpon>OrderFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Form\OrderViewModel.cs" />
+    <Compile Include="Distribution\Orders\Imports\ImportColumnConfigurationViewModel.cs">
+      <DependentUpon>ImportColumnConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Imports\ImportConfigurationViewModel.cs">
+      <DependentUpon>ImportConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Imports\ImportDataViewModel.cs">
+      <DependentUpon>ImportData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Tools\FrameControl.cs" />
+    <Compile Include="Common\Tools\OverrideCursor.cs" />
+    <Compile Include="Common\Tools\ViewModelLocator.cs" />
+    <Compile Include="Distribution\Orders\Imports\ImportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Imports\ImportOrdersViewModel.cs">
+      <DependentUpon>ImportOrdersFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Imports\ImportRequester.cs" />
+    <Compile Include="Distribution\Orders\List\ColumnFilter.xaml.cs">
+      <DependentUpon>ColumnFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Form\OrderFormLightViewModel.cs" />
+    <Compile Include="Distribution\Orders\Form\OrderFormLightWindow.xaml.cs">
+      <DependentUpon>OrderFormLightWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Imports\ImportConfigWindow.xaml.cs">
+      <DependentUpon>ImportConfigWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Imports\ImportHelper.cs" />
+    <Compile Include="Distribution\Orders\Imports\ImportData.cs" />
+    <Compile Include="Distribution\Orders\Imports\ImportConfiguration.cs" />
+    <Compile Include="Distribution\Orders\List\UserColumnConfig.cs" />
+    <Compile Include="Distribution\Orders\Publish\PublishDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PublishDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Publish\PublishStatus.cs" />
+    <Compile Include="Distribution\Orders\Publish\PublishViewModel.cs">
+      <DependentUpon>PublishWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\CheckVehicleType.cs" />
+    <Compile Include="Distribution\Planner\ColorDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ColorDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\ColorFormViewModel.cs" />
+    <Compile Include="Distribution\Planner\ColorFormWindow.xaml.cs">
+      <DependentUpon>ColorFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\ColorFrame.xaml.cs">
+      <DependentUpon>ColorFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\ColorViewModel.cs" />
+    <Compile Include="Distribution\Planner\Drag\DragViewOrigin.cs" />
+    <Compile Include="Distribution\Planner\Map\Marker\MarkerClientViewModel.cs">
+      <DependentUpon>MarkerClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Map\Marker\MarkerDriverViewModel.cs">
+      <DependentUpon>MarkerDriver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Map\Marker\MarkerFactoryViewModel.cs">
+      <DependentUpon>MarkerFactory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Map\Punto.cs" />
+    <Compile Include="Distribution\Planner\PlannerDataSet.cs">
+      <DependentUpon>PlannerDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\PlannerDataSet.Designer.cs">
+      <DependentUpon>PlannerDataSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\ViewModels\RouteViewModel.cs" />
+    <Compile Include="Distribution\Planner\ViewModels\TripViewModel.cs" />
+    <Compile Include="Distribution\Planner\PlannerViewModel.cs">
+      <DependentUpon>PlannerFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\ViewModels\PlannerAssignmentViewModel.cs" />
+    <Compile Include="Distribution\Orders\Publish\PublishDataViewModel.cs" />
+    <Compile Include="Distribution\Orders\Publish\PublishWindow.xaml.cs">
+      <DependentUpon>PublishWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\EditAddModifyWindow.xaml.cs">
+      <DependentUpon>EditAddModifyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\EditElementsWindow.xaml.cs">
+      <DependentUpon>EditElementsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\EditFiltersWindow.xaml.cs">
+      <DependentUpon>EditFiltersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\FreightDeliveryReturnWindow.xaml.cs">
+      <DependentUpon>FreightDeliveryReturnWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\SearchExistingBranchOfficeWindow.xaml.cs">
+      <DependentUpon>SearchExistingBranchOfficeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\SearchExistingCustomersWindow.xaml.cs">
+      <DependentUpon>SearchExistingCustomersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\SearchExistingDriversWindow.xaml.cs">
+      <DependentUpon>SearchExistingDriversWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\SearchExistingFactoryWindow.xaml.cs">
+      <DependentUpon>SearchExistingFactoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\SearchExistingRentedWindow.xaml.cs">
+      <DependentUpon>SearchExistingRentedWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\SearchExistingTrailerWindow.xaml.cs">
+      <DependentUpon>SearchExistingTrailerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\SearchExistingTruckWindow.xaml.cs">
+      <DependentUpon>SearchExistingTruckWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Billing\Data\CodigoFactoria.cs" />
+    <Compile Include="Common\Auth\Session.cs" />
+    <Compile Include="Common\Auth\User.cs" />
+    <Compile Include="Common\OperatorNotFoundException.cs" />
+    <Compile Include="Common\Data\ContactData.cs" />
+    <Compile Include="Common\Data\Entity.cs" />
+    <Compile Include="Common\Data\LocationData.cs" />
+    <Compile Include="Billing\Data\DataCistern.cs" />
+    <Compile Include="Common\ClientNotFoundException.cs" />
+    <Compile Include="Common\ProductNotFoundException.cs" />
+    <Compile Include="Common\FactoryNotFoundException.cs" />
+    <Compile Include="Distribution\Data\Assignment.cs" />
+    <Compile Include="Distribution\Data\Cab.cs" />
+    <Compile Include="Distribution\Products\ProductDataSet.Designer.cs" />
+    <Compile Include="Distribution\Products\ProductFormViewModel.cs" />
+    <Compile Include="Distribution\Products\ProductFormWindow.xaml.cs">
+      <DependentUpon>ProductFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Products\ProductFrame.xaml.cs">
+      <DependentUpon>ProductFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Products\ProductViewModel.cs" />
+    <Compile Include="Distribution\Vehicles\DataSearchCharger.cs" />
+    <Compile Include="Distribution\Vehicles\DataSearchTowing.cs" />
+    <Compile Include="Common\Data\Factory.cs" />
+    <Compile Include="Billing\Data\ForFaits.cs" />
+    <Compile Include="Billing\Data\Maintenance.cs" />
+    <Compile Include="Billing\Data\PersonalData.cs" />
+    <Compile Include="Billing\Data\Suplidos.cs" />
+    <Compile Include="Billing\Data\TamañoVehiculo.cs" />
+    <Compile Include="Billing\Data\TipoManguera.cs" />
+    <Compile Include="Common\Data\Operator.cs" />
+    <Compile Include="Common\Data\Product.cs" />
+    <Compile Include="Distribution\Data\Trailer.cs" />
+    <Compile Include="Distribution\Data\Vehicle.cs" />
+    <Compile Include="Distribution\Data\VehicleLocationData.cs" />
+    <Compile Include="Common\EntityNotFoundException.cs" />
+    <Compile Include="Distribution\Orders\Imports\ImportColumnConfiguration.cs" />
+    <Compile Include="Distribution\Orders\Imports\ImportCalendarControl.xaml.cs">
+      <DependentUpon>ImportCalendarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Imports\ImportOperator.cs" />
+    <Compile Include="Distribution\Assignments\Import\AssignmentsImportWindow.xaml.cs">
+      <DependentUpon>AssignmentsImportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Tools\SearchElementWindow.xaml.cs">
+      <DependentUpon>SearchElementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Filter\FilterView.xaml.cs">
+      <DependentUpon>FilterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Colors\PlannerColors.cs" />
+    <Compile Include="Distribution\Planner\Map\Marker\MarkerDriver.xaml.cs">
+      <DependentUpon>MarkerDriver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Map\Marker\MarkerFactory.xaml.cs">
+      <DependentUpon>MarkerFactory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\PlannerRequester.cs" />
+    <Compile Include="Distribution\Planner\PlannerUtils.cs" />
+    <Compile Include="Distribution\Planner\ViewModels\PlannerOrderViewModel.cs" />
+    <Compile Include="Distribution\Vehicles\CisternDataTab.xaml.cs">
+      <DependentUpon>CisternDataTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\ListVehicleView.xaml.cs">
+      <DependentUpon>ListVehicleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\PrincipalDataTab.xaml.cs">
+      <DependentUpon>PrincipalDataTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\SearchChargerWindow.xaml.cs">
+      <DependentUpon>SearchChargerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\SearchTowingWindow.xaml.cs">
+      <DependentUpon>SearchTowingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\SearchVehiclesPrincipalData.xaml.cs">
+      <DependentUpon>SearchVehiclesPrincipalData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\TowingDataTab.xaml.cs">
+      <DependentUpon>TowingDataTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\TractorDataTab.xaml.cs">
+      <DependentUpon>TractorDataTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\MainVehicle.xaml.cs">
+      <DependentUpon>MainVehicle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Json\Json.cs" />
+    <Compile Include="Files\Sftp\Sftp.cs" />
+    <Page Include="Billing\BillingFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Billing\BillingFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Billing\MainBilling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Billing\ConfigurationTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Billing\PersonalDataTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="Common\Auth\AuthDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuthDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Crypt\Crypt.cs" />
+    <Compile Include="Common\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Data\Driver.cs" />
+    <Compile Include="Common\Data\Client.cs" />
+    <Compile Include="Distribution\Orders\List\ColumnConfigurationWindow.xaml.cs">
+      <DependentUpon>ColumnConfigurationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\OrdersListFrame.xaml.cs">
+      <DependentUpon>OrdersListFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\List\SearchExistingOrdersWindow.xaml.cs">
+      <DependentUpon>SearchExistingOrdersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Drivers\Conductores.xaml.cs">
+      <DependentUpon>Conductores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Drivers\DatosGenerales.xaml.cs">
+      <DependentUpon>DatosGenerales.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Orders\Imports\ImportOrdersFrame.xaml.cs">
+      <DependentUpon>ImportOrdersFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Colors\ColorItem.xaml.cs">
+      <DependentUpon>ColorItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Colors\ColorWindow.xaml.cs">
+      <DependentUpon>ColorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Clients\ClientFormWindow.xaml.cs">
+      <DependentUpon>ClientFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Map\Marker\MarkerViewModel.cs" />
+    <Compile Include="Distribution\Planner\Map\PlannerMapControl.xaml.cs">
+      <DependentUpon>PlannerMapControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\PlannerFrame.xaml.cs">
+      <DependentUpon>PlannerFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Planner\Map\Marker\MarkerClient.xaml.cs">
+      <DependentUpon>MarkerClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Assignments\Form\AssignmentsFormWindow.xaml.cs">
+      <DependentUpon>AssignmentsFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Assignments\AssignmentsFrame.xaml.cs">
+      <DependentUpon>AssignmentsFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Assignments\AssignmentDataViewModel.cs" />
+    <Compile Include="Distribution\Orders\OrderCommands.cs" />
+    <Compile Include="Distribution\Vehicles\VehiclesNew\VehicleDataSet1.Designer.cs">
+      <DependentUpon>VehicleDataSet1.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\VehiclesNew\VehicleFormViewModel.cs" />
+    <Compile Include="Distribution\Vehicles\VehiclesNew\VehicleFormWindow.xaml.cs">
+      <DependentUpon>VehicleFormWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\VehiclesNew\Vehiclesframe.xaml.cs">
+      <DependentUpon>Vehiclesframe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Distribution\Vehicles\VehiclesNew\VehiclesViewModel.cs" />
+    <Compile Include="EtasaDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtasaDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Json\Planning.cs" />
+    <Compile Include="Files\Json\Planning_Vitogas_InsertDataSet.cs">
+      <DependentUpon>Planning_Vitogas_InsertDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Json\Planning_Vitogas_InsertDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Planning_Vitogas_InsertDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DrapAndDrop\DragAdorner.cs" />
+    <Compile Include="Resources\DrapAndDrop\ListViewDragDropManager.cs" />
+    <Compile Include="Resources\DrapAndDrop\MouseUtilities.cs" />
+    <Compile Include="Files\Json\JsonFrame.xaml.cs">
+      <DependentUpon>JsonFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Json\JsonFrameViewModel.cs" />
+    <Compile Include="Files\Sftp\SftpFrameViewModel.cs" />
+    <Compile Include="Files\Sftp\SftpFrame.xaml.cs">
+      <DependentUpon>SftpFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Converters\VisibilityEmptyConverter.cs" />
+    <Compile Include="Distribution\Vehicles\Vehicle.cs" />
+    <Compile Include="Distribution\Vehicles\VehicleBBDD.cs" />
+    <Compile Include="Resources\Converters\HexColorToBrushConverter.cs" />
+    <Compile Include="Resources\Converters\LeftMarginMultiplierConverter.cs" />
+    <Compile Include="Resources\Extensions\ColorExtension.cs" />
+    <Compile Include="Resources\Extensions\TreeViewItemExtension.cs" />
+    <Compile Include="Resources\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Page Include="Common\Auth\LoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\Auth\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Common\Auth\Users\UserFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Common\Auth\Users\Userframe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Operators\OperatorFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Operators\OperatorFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Clients\ClientFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Drivers\Driverframe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Drivers\DriverFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Factories\FactoryFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Factories\FactoryFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Orders\Form\OrderFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Orders\Form\OrderFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Orders\List\ColumnFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Orders\Form\OrderFormLightWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Orders\Imports\ImportConfigWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Orders\Publish\PublishWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\EditAddModifyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\EditElementsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\EditFiltersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\FreightDeliveryReturnWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\SearchExistingBranchOfficeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\SearchExistingCustomersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\SearchExistingDriversWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\SearchExistingFactoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\SearchExistingRentedWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\SearchExistingTrailerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\SearchExistingTruckWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\Imports\ImportCalendarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Assignments\Import\AssignmentsImportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\Tools\SearchElementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Planner\ColorFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Planner\ColorFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Planner\Filter\FilterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Planner\Map\Marker\MarkerDriver.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Planner\Map\Marker\MarkerFactory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Planner\PlannerStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Products\ProductFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Products\ProductFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Vehicles\ListVehicleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Vehicles\VehiclesNew\VehicleFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Vehicles\VehiclesNew\Vehiclesframe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Files\Json\JsonFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Files\Sftp\SftpFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\IconResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\ColumnConfigurationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\OrdersListFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\List\SearchExistingOrdersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Drivers\Conductores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Drivers\DatosGenerales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Orders\Imports\ImportOrdersFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Planner\Colors\ColorItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Planner\Colors\ColorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Clients\ClientFormWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Planner\Map\PlannerMapControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Planner\PlannerFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Planner\Map\Marker\MarkerClient.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Vehicles\SearchChargerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Vehicles\SearchTowingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Vehicles\SearchVehiclesPrincipalData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Assignments\Form\AssignmentsFormWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Assignments\AssignmentsFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Theme\ButtonImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Theme\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Theme\Hyperlink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Theme\Ribbon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Theme\TitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Theme\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\CommonControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ThemeResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\ListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\ScrollViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\Separator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\TextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\TreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Distribution\Vehicles\CisternDataTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Vehicles\PrincipalDataTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Vehicles\TowingDataTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Vehicles\TractorDataTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Distribution\Vehicles\MainVehicle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Data\Order.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Billing\BillingDataSet.xsc">
+      <DependentUpon>BillingDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Billing\BillingDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BillingDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Billing\BillingDataSet.xss">
+      <DependentUpon>BillingDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Common\Auth\AuthDataSet.xsc">
+      <DependentUpon>AuthDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Common\Auth\AuthDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AuthDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Common\Auth\AuthDataSet.xss">
+      <DependentUpon>AuthDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Common\Auth\Users\UserDataSet.xsc">
+      <DependentUpon>UserDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Common\Auth\Users\UserDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>UserDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Common\Auth\Users\UserDataSet.xss">
+      <DependentUpon>UserDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Assignments\AssignmentsDataSet.xsc">
+      <DependentUpon>AssignmentsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Assignments\AssignmentsDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AssignmentsDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Distribution\Assignments\AssignmentsDataSet.xss">
+      <DependentUpon>AssignmentsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Assignments\DSAssigmentsData.xsc">
+      <DependentUpon>DSAssigmentsData.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Assignments\DSAssigmentsData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSAssigmentsData1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Distribution\Assignments\DSAssigmentsData.xss">
+      <DependentUpon>DSAssigmentsData.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Clients\ClientDataSet.xsc">
+      <DependentUpon>ClientDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Clients\ClientDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ClientDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Distribution\Clients\ClientDataSet.xss">
+      <DependentUpon>ClientDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Drivers\DriversDataSet.xsc">
+      <DependentUpon>DriversDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Drivers\DriversDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DriversDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Distribution\Drivers\DriversDataSet.xss">
+      <DependentUpon>DriversDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Factories\FactoryDataSet.xsc">
+      <DependentUpon>FactoryDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Factories\FactoryDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FactoryDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Distribution\Factories\FactoryDataSet.xss">
+      <DependentUpon>FactoryDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Operators\OperatorDataset.xsc">
+      <DependentUpon>OperatorDataset.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Operators\OperatorDataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OperatorDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Distribution\Operators\OperatorDataset.xss">
+      <DependentUpon>OperatorDataset.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Orders\Form\OrderDataSet.xsc">
+      <DependentUpon>OrderDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Orders\Form\OrderDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Distribution\Orders\Form\OrderDataSet.xss">
+      <DependentUpon>OrderDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Orders\Imports\ImportDataSet.xsc">
+      <DependentUpon>ImportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Orders\Imports\ImportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ImportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Distribution\Orders\Imports\ImportDataSet.xss">
+      <DependentUpon>ImportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Orders\Publish\PublishDataSet.xsc">
+      <DependentUpon>PublishDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Orders\Publish\PublishDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PublishDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Distribution\Orders\Publish\PublishDataSet.xss">
+      <DependentUpon>PublishDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Planner\ColorDataSet.xsc">
+      <DependentUpon>ColorDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Planner\ColorDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ColorDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Distribution\Planner\ColorDataSet.xss">
+      <DependentUpon>ColorDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Planner\PlannerDataSet.xsc">
+      <DependentUpon>PlannerDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Planner\PlannerDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PlannerDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Distribution\Planner\PlannerDataSet.xss">
+      <DependentUpon>PlannerDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Products\ProductDataSet.xsc">
+      <DependentUpon>ProductDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Products\ProductDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProductDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Distribution\Products\ProductDataSet.xss">
+      <DependentUpon>ProductDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Vehicles\VehiclesNew\VehicleDataSet1.xsc">
+      <DependentUpon>VehicleDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="Distribution\Vehicles\VehiclesNew\VehicleDataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VehicleDataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Distribution\Vehicles\VehiclesNew\VehicleDataSet1.xss">
+      <DependentUpon>VehicleDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="EtasaDataSet.xsc">
+      <DependentUpon>EtasaDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="EtasaDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EtasaDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="EtasaDataSet.xss">
+      <DependentUpon>EtasaDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Files\Json\Planning_Vitogas_InsertDataSet.xsc">
+      <DependentUpon>Planning_Vitogas_InsertDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Files\Json\Planning_Vitogas_InsertDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Planning_Vitogas_InsertDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Files\Json\Planning_Vitogas_InsertDataSet.xss">
+      <DependentUpon>Planning_Vitogas_InsertDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\marker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\truck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\icon_distribution.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\map_road.png" />
+    <Resource Include="Resources\Images\map_satellite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\calendar_outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\icon_billing.png" />
+    <Resource Include="Resources\Images\dropfile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\comment_outline.png" />
+    <Resource Include="Resources\Images\note_outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\order_import.png" />
+    <Resource Include="Resources\Images\Toolbar\order_list.png" />
+    <Resource Include="Resources\Images\Toolbar\order_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\order_colors.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\client.png" />
+    <Resource Include="Resources\Images\Toolbar\driver.png" />
+    <Resource Include="Resources\Images\Toolbar\factory.png" />
+    <Resource Include="Resources\Images\Toolbar\vehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\product.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\assignments.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\group.png" />
+    <Resource Include="Resources\Images\Toolbar\group_admin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\redo_s.png" />
+    <Resource Include="Resources\Images\Toolbar\refresh_s.png" />
+    <Resource Include="Resources\Images\Toolbar\save.png" />
+    <Resource Include="Resources\Images\Toolbar\save_s.png" />
+    <Resource Include="Resources\Images\Toolbar\undo_s.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\close.png" />
+    <Resource Include="Resources\Images\arrow_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\infosquared.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\synchronize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\waypointmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\truckright.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\compose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\plusmath.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\bomb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\binoculars.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\remove.png" />
+    <Resource Include="Resources\Images\route.png" />
+    <Resource Include="Resources\Images\switch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\link.png" />
+    <Resource Include="Resources\Images\available_updates.png" />
+    <Resource Include="Resources\Images\settings_outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\open_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\calendar_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\planner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\factory_outline.png" />
+    <Resource Include="Resources\Images\vehicle_outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\edit_outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\filter_outline.png" />
+    <Resource Include="Resources\Images\scope_outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\icon_white_outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\Converters\" />
+    <Folder Include="Distribution\Planner\Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\download_folder_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\folder_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\order_publish.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\city_outline.png" />
+    <Resource Include="Resources\Images\country_es.png" />
+    <Resource Include="Resources\Images\country_pt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\orden.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\Json.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\sftp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\operador.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Toolbar\worker.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
