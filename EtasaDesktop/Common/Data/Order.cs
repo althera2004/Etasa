@@ -74,7 +74,18 @@ namespace EtasaDesktop.Common.Data
         public int Status { get; set; }
         public string Description { get; set; }
         public string Observations { get; set; }
-        public int? TripId { get; set; }
+        public long? TripId { get; set; }
+
+        public long? RouteId { get; set; }
+        public long? AssignmentId { get; set; }
+
+        public string Notes
+        {
+            get
+            {
+                return this.Observations;
+            }
+        }
 
 
         //TXAPUZKA

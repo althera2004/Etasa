@@ -86,7 +86,7 @@ namespace EtasaDesktop.Distribution.Orders.Form
             {
                 if (string.IsNullOrEmpty(Order.Observations))
                 {
-                    return string.Empty;
+                    return "weke";
                 }
 
                 return Order.Observations;

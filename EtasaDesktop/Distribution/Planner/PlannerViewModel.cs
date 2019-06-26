@@ -120,16 +120,17 @@ namespace EtasaDesktop.Distribution.Planner
             _colors = PlannerRequester.RequestColors().ToList();
         }
 
-
-        public IEnumerable<Order> GetAssignmentOrdersToNew(long assignment, int IdRoute)
+        // Juan Castilla - no se usa
+        /*public IEnumerable<Order> GetAssignmentOrdersToNew(ObservableCollection<Order> orders,long assignment, int IdRoute)
         {
-            var reqOrders = PlannerRequester.RequestOrders(assignment, IdRoute);
+            var reqOrders = PlannerRequester.RequestOrders(orders, assignment, IdRoute);
             foreach (Order order in reqOrders)
             {
                 SetColor(order);
                 yield return order;
             }
-        }
+        }*/
+
         private void UpdateAssignmentOrders(long assignment)
         {
             //var assign = Assignments.First(assignvm => assignvm.Assignment.Id == assignment);
@@ -239,7 +240,7 @@ namespace EtasaDesktop.Distribution.Planner
                 {
                     plannerAssignment = new PlannerAssignmentViewModel(assignment);
                     AssignmentRoutes.Add(plannerAssignment);
-                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(assignment.Id, assignment.RoutesId);
+                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(Orders, assignment.Id, assignment.RoutesId);
 
                     if (reqOrders.Count() > 0)
                     {
@@ -283,7 +284,7 @@ namespace EtasaDesktop.Distribution.Planner
                 {
                     plannerAssignment = new PlannerAssignmentViewModel(assignment);
                     AssignmentRoutes.Add(plannerAssignment);
-                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(assignment.Id, assignment.RoutesId);
+                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(Orders, assignment.Id, assignment.RoutesId);
 
                     if (reqOrders.Count() > 0)
                     {
@@ -322,7 +323,7 @@ namespace EtasaDesktop.Distribution.Planner
                 {
                     plannerAssignment2 = new PlannerAssignmentViewModel(assignment);
                     AssignmentRoutes.Add(plannerAssignment2);
-                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(assignment.Id, assignment.RoutesId);
+                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(Orders, assignment.Id, assignment.RoutesId);
 
                     if (reqOrders.Count() > 0)
                     {

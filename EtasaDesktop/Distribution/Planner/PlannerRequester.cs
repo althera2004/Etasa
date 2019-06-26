@@ -127,6 +127,21 @@ namespace EtasaDesktop.Distribution.Planner
                                     Description = rdr.GetString(20)
                                 };
 
+                                if (!rdr.IsDBNull(74))
+                                {
+                                    newOrder.TripId = rdr.GetInt64(74);
+                                }
+
+                                if (!rdr.IsDBNull(81))
+                                {
+                                    newOrder.RouteId = rdr.GetInt64(81);
+                                }
+
+                                if (!rdr.IsDBNull(82))
+                                {
+                                    newOrder.AssignmentId = rdr.GetInt64(82);
+                                }
+
                                 data.Add(newOrder);
                             }
                         }
@@ -156,7 +171,7 @@ namespace EtasaDesktop.Distribution.Planner
 
         public static IEnumerable<Order> RequestOrders(DateTime dateTime, string operatorsIds, string clientsIds, string factoriesIds, string productsIds)
         {
-            Console.WriteLine("RequestOrders2 " + dateTime.ToShortDateString());
+            /*Console.WriteLine("RequestOrders2 " + dateTime.ToShortDateString());
             operatorsIds = string.IsNullOrWhiteSpace(operatorsIds) ? "0" : "0," + operatorsIds;
             clientsIds = string.IsNullOrWhiteSpace(clientsIds) ? "0" : "0," + clientsIds;
             factoriesIds = string.IsNullOrWhiteSpace(factoriesIds) ? "0" : "0," + factoriesIds;
@@ -177,13 +192,46 @@ namespace EtasaDesktop.Distribution.Planner
             foreach (DataRow row in table.Rows)
             {
                 yield return ConvertToOrder(row, table);
+            }*/
+
+            var res = RequestOrders(dateTime);
+
+            if (!string.IsNullOrEmpty(operatorsIds))
+            {
+                var ids = operatorsIds.Split(',');
+                res = res.Where(o => ids.Contains(o.Operator.Id.ToString())).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(clientsIds))
+            {
+                var ids = operatorsIds.Split(',');
+                res = res.Where(o => ids.Contains(o.Client.Id.ToString())).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(factoriesIds))
+            {
+                var ids = operatorsIds.Split(',');
+                res = res.Where(o => ids.Contains(o.Factory.Id.ToString())).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(productsIds))
+            {
+                var ids = operatorsIds.Split(',');
+                res = res.Where(o => ids.Contains(o.Product.Id.ToString())).ToList();
+            }
+
+
+            foreach (var order in res)
+            {
+                yield return order;
             }
 
             Console.WriteLine("End RequestOrders2 " + dateTime.ToShortDateString());
         }
-        public static IEnumerable<Order>RequestOrders (long AssignmentId, int IdRoute)
+        public static IEnumerable<Order>RequestOrders (ObservableCollection<Order> orders, long AssignmentId, int IdRoute)
         {
-            PlannerDataSet ds = new PlannerDataSet
+            // Juan Castilla - Nos basamos en las orders que ya tenemos y nos ahorramos el ConvertToOrderFromPlanner
+            /*PlannerDataSet ds = new PlannerDataSet
             {
                 EnforceConstraints = false
             };
@@ -197,10 +245,15 @@ namespace EtasaDesktop.Distribution.Planner
             foreach (DataRow row in table.Rows)
             {
                 yield return ConvertToOrderFromPlanner(row, table);
+            }*/
 
+            var res = orders.Where(o => o.RouteId == IdRoute && o.AssignmentId == AssignmentId).ToList();
+            foreach (var order in res)
+            {
+                yield return order;
             }
-
         }
+
         private static Order ConvertToOrder(DataRow row, PlannerDataSet.PlannerOrdersDataTable table)
         {
             Console.WriteLine("ConvertToOrder");
@@ -364,7 +417,8 @@ namespace EtasaDesktop.Distribution.Planner
             return order;
         }
 
-        private static Order ConvertToOrderFromPlanner(DataRow row, PlannerDataSet.PlannerAssignmentsDataTable table)
+        // Juan Castilla - ya no es necesario
+        /*private static Order ConvertToOrderFromPlanner(DataRow row, PlannerDataSet.PlannerAssignmentsDataTable table)
         {
             Order order = new Order();
             PlannerDataSet dataset = new PlannerDataSet();
@@ -566,7 +620,7 @@ namespace EtasaDesktop.Distribution.Planner
 
             Console.WriteLine("End ConvertToOrderFromPlanner");
             return order;
-        }
+        }*/
 
         public static string GetColorFactory(int idFactory)
         {

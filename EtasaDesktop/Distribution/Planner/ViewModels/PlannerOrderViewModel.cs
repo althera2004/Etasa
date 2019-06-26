@@ -30,9 +30,9 @@ namespace EtasaDesktop.Distribution.Planner.ViewModels
         }
 
 
-        public RelayCommand EditCommand { get; private set; }
+        /*public RelayCommand EditCommand { get; private set; }
         public RelayCommand ShowObservationsCommand { get; private set; }
-        public RelayCommand ShowNotesCommand { get; private set; }
+        public RelayCommand ShowNotesCommand { get; private set; }*/
 
 
         public string Reference
