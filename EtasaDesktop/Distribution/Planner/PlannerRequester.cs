@@ -30,26 +30,133 @@ namespace EtasaDesktop.Distribution.Planner
         }
 
 
-        public static IEnumerable<Order> RequestOrders(DateTime dateTime)
+        public static IEnumerable<Order> RequestOrders(DateTime fecha)
         {
-            PlannerDataSet ds = new PlannerDataSet();
+            Console.WriteLine("RequestOrders " + fecha.ToShortDateString());
+            // Juan Castilla - Se hace una llamada directa a un stored
+            /*PlannerDataSet ds = new PlannerDataSet();
             ds.EnforceConstraints = false;
             PlannerDataSetTableAdapters.PlannerOrdersTableAdapter adapter = new PlannerDataSetTableAdapters.PlannerOrdersTableAdapter();
-            adapter.FillByPending(ds.PlannerOrders, dateTime.ToString(),"0","0","0","0");
+            adapter.FillByPending(ds.PlannerOrders, fecha.ToString(),"0","0","0","0");
             //adapter.FillByPendingsp(ds.PlannerOrders, dateTime, "0", "0", "0", "0");
 
-            var table = ds.PlannerOrders;
-
-            foreach (DataRow row in table.Rows)
+            var table = ds.PlannerOrders;*/
+            var data = new List<Order>();
+            using (var cmd = new SqlCommand("Orders_ByDate"))
             {
-                yield return ConvertToOrder(row, table);
+                using (var cnn = new SqlConnection(Properties.Settings.Default.EtasaConnectionString))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = cnn;
+                    cmd.Parameters.Add(new SqlParameter("@Date", SqlDbType.DateTime));
+                    cmd.Parameters["@Date"].Direction = ParameterDirection.Input;
+                    cmd.Parameters["@Date"].Value = fecha;
+                    try
+                    {
+                        cmd.Connection.Open();
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                var newOrder = new Order
+                                {
+                                    Id = rdr.GetInt64(0),
+                                    Reference = rdr.GetString(1),
+                                    StartDate = rdr.GetDateTime(2),
+                                    FinalDate = rdr.GetDateTime(3),
+                                    CreatedDate = rdr.GetDateTime(4),
+                                    ModifiedDate = rdr.GetDateTime(5),
+                                    Location = new LocationData
+                                    {
+                                        Address = rdr.GetString(6),
+                                        City = rdr.GetString(7),
+                                        PostCode = rdr.GetString(8),
+                                        Province = rdr.GetString(9),
+                                        Country = rdr.GetString(10)
+                                    },
+                                    Factory = new Factory
+                                    {
+                                        Id = rdr.GetInt32(56),
+                                        Code = rdr.GetString(57),
+                                        Name = rdr.GetString(58),
+                                        Location = new LocationData
+                                        {
+                                            Address = rdr.GetString(59),
+                                            City = rdr.GetString(60),
+                                            PostCode = rdr.GetString(61),
+                                            Province = rdr.GetString(62),
+                                            Country = rdr.GetString(63)
+                                        },
+                                        HexColor = rdr.GetString(75)
+                                    },
+                                    Client = new Client
+                                    {
+                                        Id = rdr.GetInt32(38),
+                                        Code = rdr.GetString(39),
+                                        Name = rdr.GetString(40),
+                                        Cif = rdr.GetString(41),
+                                        Location = new LocationData
+                                        {
+                                            Address = rdr.GetString(42),
+                                            City = rdr.GetString(43),
+                                            PostCode = rdr.GetString(44),
+                                            Province = rdr.GetString(45),
+                                            Country = rdr.GetString(46),
+                                            Latitude = rdr.GetFloat(53),
+                                            Longitude = rdr.GetFloat(54)
+                                        },
+                                        Enabled = rdr.GetBoolean(55)
+                                    },
+                                    Product = new Product
+                                    {
+                                        Id = rdr.GetInt32(67),
+                                        Code = rdr.GetString(68),
+                                        Name = rdr.GetString(69),
+                                        Density = rdr.GetDecimal(70),
+                                        MeasureUnit = rdr.GetInt16(71),
+                                        Enabled = rdr.GetBoolean(72)
+                                    },
+                                    Operator = new Operator
+                                    {
+                                        Id = rdr.GetInt32(22),
+                                        Code = rdr.GetString(23),
+                                        Name = rdr.GetString(24),
+                                        Cif = rdr.GetString(25)
+                                    },
+                                    Observations = rdr.GetString(21),
+                                    Description = rdr.GetString(20)
+                                };
+
+                                data.Add(newOrder);
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        if (cmd.Connection.State != ConnectionState.Closed)
+                        {
+                            cmd.Connection.Close();
+                        }
+                    }
+                }
             }
+
+            // Juan Castilla - Se trabaja con datos de tipo Order directamente
+            //foreach (DataRow row in table.Rows)
+            //{
+            //    yield return ConvertToOrder(row, table);
+            //}
+            foreach (var order in data)
+            {
+                yield return order;
+            }
+
+            Console.WriteLine("End RequestOrders " + fecha.ToShortDateString());
         }
-
-
 
         public static IEnumerable<Order> RequestOrders(DateTime dateTime, string operatorsIds, string clientsIds, string factoriesIds, string productsIds)
         {
+            Console.WriteLine("RequestOrders2 " + dateTime.ToShortDateString());
             operatorsIds = string.IsNullOrWhiteSpace(operatorsIds) ? "0" : "0," + operatorsIds;
             clientsIds = string.IsNullOrWhiteSpace(clientsIds) ? "0" : "0," + clientsIds;
             factoriesIds = string.IsNullOrWhiteSpace(factoriesIds) ? "0" : "0," + factoriesIds;
@@ -70,13 +177,16 @@ namespace EtasaDesktop.Distribution.Planner
             foreach (DataRow row in table.Rows)
             {
                 yield return ConvertToOrder(row, table);
-              
             }
+
+            Console.WriteLine("End RequestOrders2 " + dateTime.ToShortDateString());
         }
         public static IEnumerable<Order>RequestOrders (long AssignmentId, int IdRoute)
         {
-            PlannerDataSet ds = new PlannerDataSet();
-            ds.EnforceConstraints = false;
+            PlannerDataSet ds = new PlannerDataSet
+            {
+                EnforceConstraints = false
+            };
             PlannerDataSetTableAdapters.PlannerAssignmentsTableAdapter adapter = new PlannerDataSetTableAdapters.PlannerAssignmentsTableAdapter();
             adapter.FillByAssigments(ds.PlannerAssignments, AssignmentId, IdRoute);
 
@@ -93,8 +203,9 @@ namespace EtasaDesktop.Distribution.Planner
         }
         private static Order ConvertToOrder(DataRow row, PlannerDataSet.PlannerOrdersDataTable table)
         {
+            Console.WriteLine("ConvertToOrder");
             Order order = new Order();
-            string putEmergencycolor = ""; 
+            string putEmergencycolor = string.Empty; 
 
             order.Id = Convert.ToInt64(row[table.IdColumn.ColumnName]);
             order.Reference = row[table.ReferenceColumn.ColumnName].ToString();
@@ -249,6 +360,7 @@ namespace EtasaDesktop.Distribution.Planner
 
             order.SizeName = VehicleType.GetVehicleSizeName((int) order.VehicleType);
 
+            Console.WriteLine("End ConvertToOrder");
             return order;
         }
 
@@ -258,6 +370,7 @@ namespace EtasaDesktop.Distribution.Planner
             PlannerDataSet dataset = new PlannerDataSet();
 
             order.Id = Convert.ToInt64(row[table.OrderIdColumn.ColumnName]);
+            Console.WriteLine("ConvertToOrderFromPlanner " + order.Id.ToString());
 
             order.Reference = row[table.ReferenceColumn.ColumnName].ToString();
 
@@ -272,10 +385,8 @@ namespace EtasaDesktop.Distribution.Planner
             }
             else
             {
-
                 order.TripId = Convert.ToInt32(row[table.TripIdColumn.ColumnName].ToString());
             }
-
 
             order.HexColor = GetColorLoaded(Convert.ToInt32(order.TripId.ToString()));
 
@@ -453,6 +564,7 @@ namespace EtasaDesktop.Distribution.Planner
             //UpdateStatusOrders(order.Id);
 
 
+            Console.WriteLine("End ConvertToOrderFromPlanner");
             return order;
         }
 

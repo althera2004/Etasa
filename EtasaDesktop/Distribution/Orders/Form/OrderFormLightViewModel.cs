@@ -84,7 +84,12 @@ namespace EtasaDesktop.Distribution.Orders.Form
         {
             get
             {
-                return Order.Observations ?? string.Empty;
+                if (string.IsNullOrEmpty(Order.Observations))
+                {
+                    return string.Empty;
+                }
+
+                return Order.Observations;
             }
             set
             {
