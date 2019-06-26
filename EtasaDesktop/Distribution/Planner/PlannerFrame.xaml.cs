@@ -59,7 +59,7 @@
         private void dtTicker(object sender,EventArgs e)
         {
             // Cada 60 segundos se actualiza la interfaz gráfica
-            Refresh();
+            //Refresh();
         }
 
         public override void Refresh()
@@ -81,6 +81,7 @@
 
         private void OnOrdersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (PlannerViewModel.BlockOrderUpdate) { return; }
             Map.Orders = _viewModel.Orders;
             Map.Center();
         }

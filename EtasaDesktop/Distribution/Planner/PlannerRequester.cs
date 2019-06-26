@@ -30,7 +30,7 @@ namespace EtasaDesktop.Distribution.Planner
         }
 
 
-        public static IEnumerable<Order> RequestOrders(DateTime fecha)
+        public static ObservableCollection<Order> RequestOrders(DateTime fecha)
         {
             Console.WriteLine("RequestOrders " + fecha.ToShortDateString());
             // Juan Castilla - Se hace una llamada directa a un stored
@@ -41,7 +41,7 @@ namespace EtasaDesktop.Distribution.Planner
             //adapter.FillByPendingsp(ds.PlannerOrders, dateTime, "0", "0", "0", "0");
 
             var table = ds.PlannerOrders;*/
-            var data = new List<Order>();
+            var data = new ObservableCollection<Order>();
             using (var cmd = new SqlCommand("Orders_ByDate"))
             {
                 using (var cnn = new SqlConnection(Properties.Settings.Default.EtasaConnectionString))
@@ -161,102 +161,62 @@ namespace EtasaDesktop.Distribution.Planner
             //{
             //    yield return ConvertToOrder(row, table);
             //}
-            foreach (var order in data)
-            {
-                yield return order;
-            }
+            //foreach (var order in data)
+            //{
+            //    yield return order;
+            //}
 
             Console.WriteLine("End RequestOrders " + fecha.ToShortDateString());
+            return data;
         }
 
         public static IEnumerable<Order> RequestOrders(DateTime dateTime, string operatorsIds, string clientsIds, string factoriesIds, string productsIds)
         {
-            /*Console.WriteLine("RequestOrders2 " + dateTime.ToShortDateString());
+            Console.WriteLine("RequestOrders2 " + dateTime.ToShortDateString());
             operatorsIds = string.IsNullOrWhiteSpace(operatorsIds) ? "0" : "0," + operatorsIds;
             clientsIds = string.IsNullOrWhiteSpace(clientsIds) ? "0" : "0," + clientsIds;
             factoriesIds = string.IsNullOrWhiteSpace(factoriesIds) ? "0" : "0," + factoriesIds;
             productsIds = string.IsNullOrWhiteSpace(productsIds) ? "0" : "0," + productsIds;
 
-            string fecha  = dateTime.ToString();
+            string fecha = dateTime.ToString();
             PlannerDataSet ds = new PlannerDataSet();
             ds.EnforceConstraints = false;
             PlannerDataSetTableAdapters.PlannerOrdersTableAdapter adapter = new PlannerDataSetTableAdapters.PlannerOrdersTableAdapter();
             //adapter.FillByPending(ds.PlannerOrders, dateTime.ToString(), operatorsIds, clientsIds, factoriesIds, productsIds);
             adapter.FillByPendingsp(ds.PlannerOrders, dateTime, operatorsIds, clientsIds, factoriesIds, productsIds);
             //adapter.FillByPendingtestInner(ds.PlannerOrders, dateTime.ToString() ,operatorsIds, clientsIds, factoriesIds, productsIds);
-     
 
-       
-             var table = ds.PlannerOrders;
+
+
+            var table = ds.PlannerOrders;
 
             foreach (DataRow row in table.Rows)
             {
                 yield return ConvertToOrder(row, table);
-            }*/
-
-            var res = RequestOrders(dateTime);
-
-            if (!string.IsNullOrEmpty(operatorsIds))
-            {
-                var ids = operatorsIds.Split(',');
-                res = res.Where(o => ids.Contains(o.Operator.Id.ToString())).ToList();
             }
-
-            if (!string.IsNullOrEmpty(clientsIds))
-            {
-                var ids = operatorsIds.Split(',');
-                res = res.Where(o => ids.Contains(o.Client.Id.ToString())).ToList();
-            }
-
-            if (!string.IsNullOrEmpty(factoriesIds))
-            {
-                var ids = operatorsIds.Split(',');
-                res = res.Where(o => ids.Contains(o.Factory.Id.ToString())).ToList();
-            }
-
-            if (!string.IsNullOrEmpty(productsIds))
-            {
-                var ids = operatorsIds.Split(',');
-                res = res.Where(o => ids.Contains(o.Product.Id.ToString())).ToList();
-            }
-
-
-            foreach (var order in res)
-            {
-                yield return order;
-            }
-
             Console.WriteLine("End RequestOrders2 " + dateTime.ToShortDateString());
         }
+
         public static IEnumerable<Order>RequestOrders (ObservableCollection<Order> orders, long AssignmentId, int IdRoute)
         {
-            // Juan Castilla - Nos basamos en las orders que ya tenemos y nos ahorramos el ConvertToOrderFromPlanner
-            /*PlannerDataSet ds = new PlannerDataSet
+            PlannerDataSet ds = new PlannerDataSet
             {
                 EnforceConstraints = false
             };
+
             PlannerDataSetTableAdapters.PlannerAssignmentsTableAdapter adapter = new PlannerDataSetTableAdapters.PlannerAssignmentsTableAdapter();
             adapter.FillByAssigments(ds.PlannerAssignments, AssignmentId, IdRoute);
 
             var table = ds.PlannerAssignments;
-
- 
-
             foreach (DataRow row in table.Rows)
             {
                 yield return ConvertToOrderFromPlanner(row, table);
-            }*/
-
-            var res = orders.Where(o => o.RouteId == IdRoute && o.AssignmentId == AssignmentId).ToList();
-            foreach (var order in res)
-            {
-                yield return order;
             }
         }
 
         private static Order ConvertToOrder(DataRow row, PlannerDataSet.PlannerOrdersDataTable table)
         {
-            Console.WriteLine("ConvertToOrder");
+            Console.WriteLine("    ConvertToOrder");
             Order order = new Order();
             string putEmergencycolor = string.Empty; 
 
@@ -413,12 +373,11 @@ namespace EtasaDesktop.Distribution.Planner
 
             order.SizeName = VehicleType.GetVehicleSizeName((int) order.VehicleType);
 
-            Console.WriteLine("End ConvertToOrder");
+            Console.WriteLine("    End ConvertToOrder");
             return order;
         }
 
-        // Juan Castilla - ya no es necesario
-        /*private static Order ConvertToOrderFromPlanner(DataRow row, PlannerDataSet.PlannerAssignmentsDataTable table)
+        private static Order ConvertToOrderFromPlanner(DataRow row, PlannerDataSet.PlannerAssignmentsDataTable table)
         {
             Order order = new Order();
             PlannerDataSet dataset = new PlannerDataSet();
@@ -620,7 +579,7 @@ namespace EtasaDesktop.Distribution.Planner
 
             Console.WriteLine("End ConvertToOrderFromPlanner");
             return order;
-        }*/
+        }
 
         public static string GetColorFactory(int idFactory)
         {

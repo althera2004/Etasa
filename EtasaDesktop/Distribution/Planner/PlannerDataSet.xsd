@@ -1555,15 +1555,22 @@ FROM            dbo.Assignments AS A INNER JOIN
                          dbo.Orders.DeliveryDate, dbo.Orders.CreatedDate AS Expr1, dbo.Orders.ModifiedDate AS Expr2, dbo.Orders.Address, dbo.Orders.City, dbo.Orders.PostCode, dbo.Orders.Province, dbo.Orders.Country, dbo.Orders.Latitude, 
                          dbo.Orders.Longitude, dbo.Orders.FactoryId, dbo.Orders.ProductId, dbo.Orders.RequestedAmount, dbo.Orders.VehicleSize, dbo.Orders.ReceivedAmount, dbo.Orders.TankVolume, dbo.Orders.TankNum, dbo.Orders.TankLevel, 
                          dbo.Orders.Status, dbo.Status.Color, dbo.Trips.Id As TripId,dbo.Orders.FactoryId as FactoryId, dbo.Trips.RouteId  as routediId2,dbo.Routes.Id as routediId6
-FROM            dbo.Assignments AS A INNER JOIN
-                         dbo.Routes ON A.Id = dbo.Routes.AssignmentId  LEFT OUTER JOIN
-                         dbo.Trips ON dbo.Trips.RouteId = dbo.Routes.Id  LEFT OUTER JOIN
-                         dbo.Orders ON dbo.Orders.Id = dbo.Trips.Id_Order  LEFT OUTER JOIN
-                         dbo.Status ON dbo.Status.Id = dbo.Orders.Status  INNER JOIN
-                         dbo.Drivers AS D ON A.DriverId = D.Id  INNER JOIN
-                         dbo.Vehicles AS C ON A.CabId = C.Id  INNER JOIN
-                         dbo.Vehicles AS T ON A.TrailerId = T.Id
- WHERE  (A.Id = @Id And Routes.Id =@RoutesId)
+FROM dbo.Assignments AS A WITH(NOLOCK)
+INNER JOIN dbo.Drivers AS D  WITH(NOLOCK)
+ON A.DriverId = D.Id  
+INNER JOIN dbo.Vehicles AS C  WITH(NOLOCK)
+ON A.CabId = C.Id
+INNER JOIN dbo.Vehicles AS T  WITH(NOLOCK)
+ON A.TrailerId = T.Id
+INNER JOIN  dbo.Routes WITH(NOLOCK) 
+ON A.Id = dbo.Routes.AssignmentId
+LEFT OUTER JOIN dbo.Trips  WITH(NOLOCK)
+	LEFT OUTER JOIN dbo.Orders WITH(NOLOCK)
+		LEFT OUTER JOIN dbo.Status WITH(NOLOCK)
+		ON dbo.Status.Id = dbo.Orders.Status
+	ON dbo.Orders.Id = dbo.Trips.Id_Order
+ON dbo.Trips.RouteId = dbo.Routes.Id
+ WHERE  (A.Id = @Id And Routes.Id = @RoutesId)
 order by Trips.Position
 </CommandText>
                     <Parameters>
@@ -1688,13 +1695,23 @@ FROM            Status where Id = @Id</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AssignmentsTableAdapter" GeneratorDataComponentClassName="AssignmentsTableAdapter" Name="Assignments" UserDataComponentName="AssignmentsTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectName="Etasa.dbo.Assignments" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        Assignments.DriverId, Assignments.Id, Assignments.CabId, Assignments.TrailerId, Assignments.CreatedDate, Assignments.Date, Assignments.ModifiedDate, Assignments.Repeat, Assignments.Enabled, 
-                         Assignments_Obs.Observations
-FROM            Assignments LEFT OUTER JOIN
-                         Assignments_Obs ON Assignments.Id = Assignments_Obs.Id</CommandText>
+                    <CommandText>SELECT
+  Assignments.DriverId,
+  Assignments.Id,
+  Assignments.CabId,
+  Assignments.TrailerId,
+  Assignments.CreatedDate,
+  Assignments.Date,
+  Assignments.ModifiedDate,
+  Assignments.Repeat,
+  Assignments.Enabled, 
+  ISNULL(Assignments_Obs.Observations,'') AS Observations
+FROM  Assignments WITH(NOLOCK)
+LEFT OUTER JOIN Assignments_Obs
+ON Assignments.Id = Assignments_Obs.Id</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -1713,13 +1730,13 @@ FROM            Assignments LEFT OUTER JOIN
               <Mapping SourceColumn="Observations" DataSetColumn="Observations" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByAssigmentId" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataByAssigmentId" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByAssigmentId" UserSourceName="FillBy">
+              <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectName="Etasa.dbo.Assignments" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByAssigmentId" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataByAssigmentId" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByAssigmentId" UserSourceName="FillBy">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Assignments.DriverId, Assignments.Id, Assignments.CabId, Assignments.TrailerId, Assignments.CreatedDate, Assignments.Date, Assignments.ModifiedDate, Assignments.Repeat, Assignments.Enabled, 
-                         Assignments_Obs.Observations
-FROM            Assignments LEFT OUTER JOIN
-                         Assignments_Obs ON Assignments.Id = Assignments_Obs.Id 
+                         ISNULL(Assignments_Obs.Observations,'') AS Observations
+FROM            Assignments WITH(NOLOCK) LEFT OUTER JOIN
+                         Assignments_Obs WITH(NOLOCK) ON Assignments.Id = Assignments_Obs.Id 
                       where  Assignments.Id = @IdAssignments</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="IdAssignments" ColumnName="Id" DataSourceName="Etasa.dbo.Assignments" DataTypeServer="bigint" DbType="Int64" Direction="Input" ParameterName="@IdAssignments" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -1755,14 +1772,14 @@ FROM            Assignments LEFT OUTER JOIN
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Code, ModifiedDate, CreatedDate, Id, TankVolume, StartDate, FinalDate, Type, Size
-FROM            Vehicles</CommandText>
+FROM            Vehicles WITH(NOLOCK)</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>UPDATE [Vehicles] SET [Code] = @Code, [ModifiedDate] = @ModifiedDate, [CreatedDate] = @CreatedDate, [TankVolume] = @TankVolume, [StartDate] = @StartDate, [FinalDate] = @FinalDate, [Type] = @Type, [Size] = @Size WHERE (([Code] = @Original_Code) AND ((@IsNull_ModifiedDate = 1 AND [ModifiedDate] IS NULL) OR ([ModifiedDate] = @Original_ModifiedDate)) AND ((@IsNull_CreatedDate = 1 AND [CreatedDate] IS NULL) OR ([CreatedDate] = @Original_CreatedDate)) AND ([Id] = @Original_Id) AND ([TankVolume] = @Original_TankVolume) AND ((@IsNull_StartDate = 1 AND [StartDate] IS NULL) OR ([StartDate] = @Original_StartDate)) AND ((@IsNull_FinalDate = 1 AND [FinalDate] IS NULL) OR ([FinalDate] = @Original_FinalDate)) AND ([Type] = @Original_Type) AND ([Size] = @Original_Size));
-SELECT Code, ModifiedDate, CreatedDate, Id, TankVolume, StartDate, FinalDate, Type, Size FROM Vehicles WHERE (Id = @Id)</CommandText>
+SELECT Code, ModifiedDate, CreatedDate, Id, TankVolume, StartDate, FinalDate, Type, Size FROM Vehicles WITH (NOLOCK) WHERE (Id = @Id)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Code" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Code" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@ModifiedDate" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="ModifiedDate" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -1806,8 +1823,9 @@ SELECT Code, ModifiedDate, CreatedDate, Id, TankVolume, StartDate, FinalDate, Ty
               <DbSource ConnectionRef="EtasaConnectionString (Settings)" DbObjectName="Etasa.dbo.Vehicles" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataVehiclesById" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataVehiclesById" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataVehiclesById" UserSourceName="FillBy">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        Code, ModifiedDate, CreatedDate, Id, TankVolume, StartDate, FinalDate, Type, Size
-FROM            Vehicles Where id = @Idvehicles</CommandText>
+                    <CommandText>SELECT Code, CreatedDate, FinalDate, Id, ModifiedDate, Size, StartDate, TankVolume, Type 
+FROM Vehicles WITH(NOLOCK)
+WHERE (Id = @Idvehicles)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="Idvehicles" ColumnName="Id" DataSourceName="Etasa.dbo.Vehicles" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Idvehicles" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
@@ -1824,7 +1842,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
   <xs:element name="PlannerDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="PlannerDataSet" msprop:Generator_UserDSName="PlannerDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="FactoriesColors" msprop:Generator_TableClassName="FactoriesColorsDataTable" msprop:Generator_TableVarName="tableFactoriesColors" msprop:Generator_RowChangedName="FactoriesColorsRowChanged" msprop:Generator_TablePropName="FactoriesColors" msprop:Generator_RowDeletingName="FactoriesColorsRowDeleting" msprop:Generator_RowChangingName="FactoriesColorsRowChanging" msprop:Generator_RowEvHandlerName="FactoriesColorsRowChangeEventHandler" msprop:Generator_RowDeletedName="FactoriesColorsRowDeleted" msprop:Generator_RowClassName="FactoriesColorsRow" msprop:Generator_UserTableName="FactoriesColors" msprop:Generator_RowEvArgName="FactoriesColorsRowChangeEvent">
+        <xs:element name="FactoriesColors" msprop:Generator_TableClassName="FactoriesColorsDataTable" msprop:Generator_TableVarName="tableFactoriesColors" msprop:Generator_TablePropName="FactoriesColors" msprop:Generator_RowDeletingName="FactoriesColorsRowDeleting" msprop:Generator_RowChangingName="FactoriesColorsRowChanging" msprop:Generator_RowEvHandlerName="FactoriesColorsRowChangeEventHandler" msprop:Generator_RowDeletedName="FactoriesColorsRowDeleted" msprop:Generator_UserTableName="FactoriesColors" msprop:Generator_RowChangedName="FactoriesColorsRowChanged" msprop:Generator_RowEvArgName="FactoriesColorsRowChangeEvent" msprop:Generator_RowClassName="FactoriesColorsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="FactoryColor" msprop:Generator_ColumnVarNameInTable="columnFactoryColor" msprop:Generator_ColumnPropNameInRow="FactoryColor" msprop:Generator_ColumnPropNameInTable="FactoryColorColumn" msprop:Generator_UserColumnName="FactoryColor" minOccurs="0">
@@ -1866,7 +1884,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Vehicles_Locations" msprop:Generator_TableClassName="Vehicles_LocationsDataTable" msprop:Generator_TableVarName="tableVehicles_Locations" msprop:Generator_RowChangedName="Vehicles_LocationsRowChanged" msprop:Generator_TablePropName="Vehicles_Locations" msprop:Generator_RowDeletingName="Vehicles_LocationsRowDeleting" msprop:Generator_RowChangingName="Vehicles_LocationsRowChanging" msprop:Generator_RowEvHandlerName="Vehicles_LocationsRowChangeEventHandler" msprop:Generator_RowDeletedName="Vehicles_LocationsRowDeleted" msprop:Generator_RowClassName="Vehicles_LocationsRow" msprop:Generator_UserTableName="Vehicles_Locations" msprop:Generator_RowEvArgName="Vehicles_LocationsRowChangeEvent">
+        <xs:element name="Vehicles_Locations" msprop:Generator_TableClassName="Vehicles_LocationsDataTable" msprop:Generator_TableVarName="tableVehicles_Locations" msprop:Generator_TablePropName="Vehicles_Locations" msprop:Generator_RowDeletingName="Vehicles_LocationsRowDeleting" msprop:Generator_RowChangingName="Vehicles_LocationsRowChanging" msprop:Generator_RowEvHandlerName="Vehicles_LocationsRowChangeEventHandler" msprop:Generator_RowDeletedName="Vehicles_LocationsRowDeleted" msprop:Generator_UserTableName="Vehicles_Locations" msprop:Generator_RowChangedName="Vehicles_LocationsRowChanged" msprop:Generator_RowEvArgName="Vehicles_LocationsRowChangeEvent" msprop:Generator_RowClassName="Vehicles_LocationsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:long" />
@@ -1877,7 +1895,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Orders" msprop:Generator_TableClassName="OrdersDataTable" msprop:Generator_TableVarName="tableOrders" msprop:Generator_TablePropName="Orders" msprop:Generator_RowDeletingName="OrdersRowDeleting" msprop:Generator_RowChangingName="OrdersRowChanging" msprop:Generator_RowEvHandlerName="OrdersRowChangeEventHandler" msprop:Generator_RowDeletedName="OrdersRowDeleted" msprop:Generator_UserTableName="Orders" msprop:Generator_RowChangedName="OrdersRowChanged" msprop:Generator_RowEvArgName="OrdersRowChangeEvent" msprop:Generator_RowClassName="OrdersRow">
+        <xs:element name="Orders" msprop:Generator_TableClassName="OrdersDataTable" msprop:Generator_TableVarName="tableOrders" msprop:Generator_RowChangedName="OrdersRowChanged" msprop:Generator_TablePropName="Orders" msprop:Generator_RowDeletingName="OrdersRowDeleting" msprop:Generator_RowChangingName="OrdersRowChanging" msprop:Generator_RowEvHandlerName="OrdersRowChangeEventHandler" msprop:Generator_RowDeletedName="OrdersRowDeleted" msprop:Generator_RowClassName="OrdersRow" msprop:Generator_UserTableName="Orders" msprop:Generator_RowEvArgName="OrdersRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Reference" msprop:Generator_ColumnVarNameInTable="columnReference" msprop:Generator_ColumnPropNameInRow="Reference" msprop:Generator_ColumnPropNameInTable="ReferenceColumn" msprop:Generator_UserColumnName="Reference">
@@ -1950,7 +1968,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PlannerOrders" msprop:Generator_TableClassName="PlannerOrdersDataTable" msprop:Generator_TableVarName="tablePlannerOrders" msprop:Generator_TablePropName="PlannerOrders" msprop:Generator_RowDeletingName="PlannerOrdersRowDeleting" msprop:Generator_RowChangingName="PlannerOrdersRowChanging" msprop:Generator_RowEvHandlerName="PlannerOrdersRowChangeEventHandler" msprop:Generator_RowDeletedName="PlannerOrdersRowDeleted" msprop:Generator_UserTableName="PlannerOrders" msprop:Generator_RowChangedName="PlannerOrdersRowChanged" msprop:Generator_RowEvArgName="PlannerOrdersRowChangeEvent" msprop:Generator_RowClassName="PlannerOrdersRow">
+        <xs:element name="PlannerOrders" msprop:Generator_TableClassName="PlannerOrdersDataTable" msprop:Generator_TableVarName="tablePlannerOrders" msprop:Generator_RowChangedName="PlannerOrdersRowChanged" msprop:Generator_TablePropName="PlannerOrders" msprop:Generator_RowDeletingName="PlannerOrdersRowDeleting" msprop:Generator_RowChangingName="PlannerOrdersRowChanging" msprop:Generator_RowEvHandlerName="PlannerOrdersRowChangeEventHandler" msprop:Generator_RowDeletedName="PlannerOrdersRowDeleted" msprop:Generator_RowClassName="PlannerOrdersRow" msprop:Generator_UserTableName="PlannerOrders" msprop:Generator_RowEvArgName="PlannerOrdersRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:long" />
@@ -2320,7 +2338,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Trips" msprop:Generator_TableClassName="TripsDataTable" msprop:Generator_TableVarName="tableTrips" msprop:Generator_TablePropName="Trips" msprop:Generator_RowDeletingName="TripsRowDeleting" msprop:Generator_RowChangingName="TripsRowChanging" msprop:Generator_RowEvHandlerName="TripsRowChangeEventHandler" msprop:Generator_RowDeletedName="TripsRowDeleted" msprop:Generator_UserTableName="Trips" msprop:Generator_RowChangedName="TripsRowChanged" msprop:Generator_RowEvArgName="TripsRowChangeEvent" msprop:Generator_RowClassName="TripsRow">
+        <xs:element name="Trips" msprop:Generator_TableClassName="TripsDataTable" msprop:Generator_TableVarName="tableTrips" msprop:Generator_RowChangedName="TripsRowChanged" msprop:Generator_TablePropName="Trips" msprop:Generator_RowDeletingName="TripsRowDeleting" msprop:Generator_RowChangingName="TripsRowChanging" msprop:Generator_RowEvHandlerName="TripsRowChangeEventHandler" msprop:Generator_RowDeletedName="TripsRowDeleted" msprop:Generator_RowClassName="TripsRow" msprop:Generator_UserTableName="Trips" msprop:Generator_RowEvArgName="TripsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:long" />
@@ -2336,7 +2354,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Routes" msprop:Generator_TableClassName="RoutesDataTable" msprop:Generator_TableVarName="tableRoutes" msprop:Generator_RowChangedName="RoutesRowChanged" msprop:Generator_TablePropName="Routes" msprop:Generator_RowDeletingName="RoutesRowDeleting" msprop:Generator_RowChangingName="RoutesRowChanging" msprop:Generator_RowEvHandlerName="RoutesRowChangeEventHandler" msprop:Generator_RowDeletedName="RoutesRowDeleted" msprop:Generator_RowClassName="RoutesRow" msprop:Generator_UserTableName="Routes" msprop:Generator_RowEvArgName="RoutesRowChangeEvent">
+        <xs:element name="Routes" msprop:Generator_TableClassName="RoutesDataTable" msprop:Generator_TableVarName="tableRoutes" msprop:Generator_TablePropName="Routes" msprop:Generator_RowDeletingName="RoutesRowDeleting" msprop:Generator_RowChangingName="RoutesRowChanging" msprop:Generator_RowEvHandlerName="RoutesRowChangeEventHandler" msprop:Generator_RowDeletedName="RoutesRowDeleted" msprop:Generator_UserTableName="Routes" msprop:Generator_RowChangedName="RoutesRowChanged" msprop:Generator_RowEvArgName="RoutesRowChangeEvent" msprop:Generator_RowClassName="RoutesRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:long" />
@@ -2354,7 +2372,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Clients" msprop:Generator_TableClassName="ClientsDataTable" msprop:Generator_TableVarName="tableClients" msprop:Generator_TablePropName="Clients" msprop:Generator_RowDeletingName="ClientsRowDeleting" msprop:Generator_RowChangingName="ClientsRowChanging" msprop:Generator_RowEvHandlerName="ClientsRowChangeEventHandler" msprop:Generator_RowDeletedName="ClientsRowDeleted" msprop:Generator_UserTableName="Clients" msprop:Generator_RowChangedName="ClientsRowChanged" msprop:Generator_RowEvArgName="ClientsRowChangeEvent" msprop:Generator_RowClassName="ClientsRow">
+        <xs:element name="Clients" msprop:Generator_TableClassName="ClientsDataTable" msprop:Generator_TableVarName="tableClients" msprop:Generator_RowChangedName="ClientsRowChanged" msprop:Generator_TablePropName="Clients" msprop:Generator_RowDeletingName="ClientsRowDeleting" msprop:Generator_RowChangingName="ClientsRowChanging" msprop:Generator_RowEvHandlerName="ClientsRowChangeEventHandler" msprop:Generator_RowDeletedName="ClientsRowDeleted" msprop:Generator_RowClassName="ClientsRow" msprop:Generator_UserTableName="Clients" msprop:Generator_RowEvArgName="ClientsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -2464,7 +2482,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Operators" msprop:Generator_TableClassName="OperatorsDataTable" msprop:Generator_TableVarName="tableOperators" msprop:Generator_RowChangedName="OperatorsRowChanged" msprop:Generator_TablePropName="Operators" msprop:Generator_RowDeletingName="OperatorsRowDeleting" msprop:Generator_RowChangingName="OperatorsRowChanging" msprop:Generator_RowEvHandlerName="OperatorsRowChangeEventHandler" msprop:Generator_RowDeletedName="OperatorsRowDeleted" msprop:Generator_RowClassName="OperatorsRow" msprop:Generator_UserTableName="Operators" msprop:Generator_RowEvArgName="OperatorsRowChangeEvent">
+        <xs:element name="Operators" msprop:Generator_TableClassName="OperatorsDataTable" msprop:Generator_TableVarName="tableOperators" msprop:Generator_TablePropName="Operators" msprop:Generator_RowDeletingName="OperatorsRowDeleting" msprop:Generator_RowChangingName="OperatorsRowChanging" msprop:Generator_RowEvHandlerName="OperatorsRowChangeEventHandler" msprop:Generator_RowDeletedName="OperatorsRowDeleted" msprop:Generator_UserTableName="Operators" msprop:Generator_RowChangedName="OperatorsRowChanged" msprop:Generator_RowEvArgName="OperatorsRowChangeEvent" msprop:Generator_RowClassName="OperatorsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -2572,7 +2590,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Factories" msprop:Generator_TableClassName="FactoriesDataTable" msprop:Generator_TableVarName="tableFactories" msprop:Generator_RowChangedName="FactoriesRowChanged" msprop:Generator_TablePropName="Factories" msprop:Generator_RowDeletingName="FactoriesRowDeleting" msprop:Generator_RowChangingName="FactoriesRowChanging" msprop:Generator_RowEvHandlerName="FactoriesRowChangeEventHandler" msprop:Generator_RowDeletedName="FactoriesRowDeleted" msprop:Generator_RowClassName="FactoriesRow" msprop:Generator_UserTableName="Factories" msprop:Generator_RowEvArgName="FactoriesRowChangeEvent">
+        <xs:element name="Factories" msprop:Generator_TableClassName="FactoriesDataTable" msprop:Generator_TableVarName="tableFactories" msprop:Generator_TablePropName="Factories" msprop:Generator_RowDeletingName="FactoriesRowDeleting" msprop:Generator_RowChangingName="FactoriesRowChanging" msprop:Generator_RowEvHandlerName="FactoriesRowChangeEventHandler" msprop:Generator_RowDeletedName="FactoriesRowDeleted" msprop:Generator_UserTableName="Factories" msprop:Generator_RowChangedName="FactoriesRowChanged" msprop:Generator_RowEvArgName="FactoriesRowChangeEvent" msprop:Generator_RowClassName="FactoriesRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name">
@@ -2633,7 +2651,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Products" msprop:Generator_TableClassName="ProductsDataTable" msprop:Generator_TableVarName="tableProducts" msprop:Generator_RowChangedName="ProductsRowChanged" msprop:Generator_TablePropName="Products" msprop:Generator_RowDeletingName="ProductsRowDeleting" msprop:Generator_RowChangingName="ProductsRowChanging" msprop:Generator_RowEvHandlerName="ProductsRowChangeEventHandler" msprop:Generator_RowDeletedName="ProductsRowDeleted" msprop:Generator_RowClassName="ProductsRow" msprop:Generator_UserTableName="Products" msprop:Generator_RowEvArgName="ProductsRowChangeEvent">
+        <xs:element name="Products" msprop:Generator_TableClassName="ProductsDataTable" msprop:Generator_TableVarName="tableProducts" msprop:Generator_TablePropName="Products" msprop:Generator_RowDeletingName="ProductsRowDeleting" msprop:Generator_RowChangingName="ProductsRowChanging" msprop:Generator_RowEvHandlerName="ProductsRowChangeEventHandler" msprop:Generator_RowDeletedName="ProductsRowDeleted" msprop:Generator_UserTableName="Products" msprop:Generator_RowChangedName="ProductsRowChanged" msprop:Generator_RowEvArgName="ProductsRowChangeEvent" msprop:Generator_RowClassName="ProductsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -2659,7 +2677,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PlannerAssignments" msprop:Generator_TableClassName="PlannerAssignmentsDataTable" msprop:Generator_TableVarName="tablePlannerAssignments" msprop:Generator_TablePropName="PlannerAssignments" msprop:Generator_RowDeletingName="PlannerAssignmentsRowDeleting" msprop:Generator_RowChangingName="PlannerAssignmentsRowChanging" msprop:Generator_RowEvHandlerName="PlannerAssignmentsRowChangeEventHandler" msprop:Generator_RowDeletedName="PlannerAssignmentsRowDeleted" msprop:Generator_UserTableName="PlannerAssignments" msprop:Generator_RowChangedName="PlannerAssignmentsRowChanged" msprop:Generator_RowEvArgName="PlannerAssignmentsRowChangeEvent" msprop:Generator_RowClassName="PlannerAssignmentsRow">
+        <xs:element name="PlannerAssignments" msprop:Generator_TableClassName="PlannerAssignmentsDataTable" msprop:Generator_TableVarName="tablePlannerAssignments" msprop:Generator_RowChangedName="PlannerAssignmentsRowChanged" msprop:Generator_TablePropName="PlannerAssignments" msprop:Generator_RowDeletingName="PlannerAssignmentsRowDeleting" msprop:Generator_RowChangingName="PlannerAssignmentsRowChanging" msprop:Generator_RowEvHandlerName="PlannerAssignmentsRowChangeEventHandler" msprop:Generator_RowDeletedName="PlannerAssignmentsRowDeleted" msprop:Generator_RowClassName="PlannerAssignmentsRow" msprop:Generator_UserTableName="PlannerAssignments" msprop:Generator_RowEvArgName="PlannerAssignmentsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="AssigmentId" msprop:Generator_ColumnVarNameInTable="columnAssigmentId" msprop:Generator_ColumnPropNameInRow="AssigmentId" msprop:Generator_ColumnPropNameInTable="AssigmentIdColumn" msprop:Generator_UserColumnName="AssigmentId" type="xs:long" />
@@ -2932,7 +2950,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Status" msprop:Generator_TableClassName="StatusDataTable" msprop:Generator_TableVarName="tableStatus" msprop:Generator_RowChangedName="StatusRowChanged" msprop:Generator_TablePropName="Status" msprop:Generator_RowDeletingName="StatusRowDeleting" msprop:Generator_RowChangingName="StatusRowChanging" msprop:Generator_RowEvHandlerName="StatusRowChangeEventHandler" msprop:Generator_RowDeletedName="StatusRowDeleted" msprop:Generator_RowClassName="StatusRow" msprop:Generator_UserTableName="Status" msprop:Generator_RowEvArgName="StatusRowChangeEvent">
+        <xs:element name="Status" msprop:Generator_TableClassName="StatusDataTable" msprop:Generator_TableVarName="tableStatus" msprop:Generator_TablePropName="Status" msprop:Generator_RowDeletingName="StatusRowDeleting" msprop:Generator_RowChangingName="StatusRowChanging" msprop:Generator_RowEvHandlerName="StatusRowChangeEventHandler" msprop:Generator_RowDeletedName="StatusRowDeleted" msprop:Generator_UserTableName="Status" msprop:Generator_RowChangedName="StatusRowChanged" msprop:Generator_RowEvArgName="StatusRowChangeEvent" msprop:Generator_RowClassName="StatusRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
@@ -2953,7 +2971,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Assignments" msprop:Generator_TableClassName="AssignmentsDataTable" msprop:Generator_TableVarName="tableAssignments" msprop:Generator_RowChangedName="AssignmentsRowChanged" msprop:Generator_TablePropName="Assignments" msprop:Generator_RowDeletingName="AssignmentsRowDeleting" msprop:Generator_RowChangingName="AssignmentsRowChanging" msprop:Generator_RowEvHandlerName="AssignmentsRowChangeEventHandler" msprop:Generator_RowDeletedName="AssignmentsRowDeleted" msprop:Generator_RowClassName="AssignmentsRow" msprop:Generator_UserTableName="Assignments" msprop:Generator_RowEvArgName="AssignmentsRowChangeEvent">
+        <xs:element name="Assignments" msprop:Generator_TableClassName="AssignmentsDataTable" msprop:Generator_TableVarName="tableAssignments" msprop:Generator_TablePropName="Assignments" msprop:Generator_RowDeletingName="AssignmentsRowDeleting" msprop:Generator_RowChangingName="AssignmentsRowChanging" msprop:Generator_RowEvHandlerName="AssignmentsRowChangeEventHandler" msprop:Generator_RowDeletedName="AssignmentsRowDeleted" msprop:Generator_UserTableName="Assignments" msprop:Generator_RowChangedName="AssignmentsRowChanged" msprop:Generator_RowEvArgName="AssignmentsRowChangeEvent" msprop:Generator_RowClassName="AssignmentsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="DriverId" msprop:Generator_ColumnVarNameInTable="columnDriverId" msprop:Generator_ColumnPropNameInRow="DriverId" msprop:Generator_ColumnPropNameInTable="DriverIdColumn" msprop:Generator_UserColumnName="DriverId" type="xs:int" />
@@ -2975,7 +2993,7 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Vehicles" msprop:Generator_TableClassName="VehiclesDataTable" msprop:Generator_TableVarName="tableVehicles" msprop:Generator_RowChangedName="VehiclesRowChanged" msprop:Generator_TablePropName="Vehicles" msprop:Generator_RowDeletingName="VehiclesRowDeleting" msprop:Generator_RowChangingName="VehiclesRowChanging" msprop:Generator_RowEvHandlerName="VehiclesRowChangeEventHandler" msprop:Generator_RowDeletedName="VehiclesRowDeleted" msprop:Generator_RowClassName="VehiclesRow" msprop:Generator_UserTableName="Vehicles" msprop:Generator_RowEvArgName="VehiclesRowChangeEvent">
+        <xs:element name="Vehicles" msprop:Generator_TableClassName="VehiclesDataTable" msprop:Generator_TableVarName="tableVehicles" msprop:Generator_TablePropName="Vehicles" msprop:Generator_RowDeletingName="VehiclesRowDeleting" msprop:Generator_RowChangingName="VehiclesRowChanging" msprop:Generator_RowEvHandlerName="VehiclesRowChangeEventHandler" msprop:Generator_RowDeletedName="VehiclesRowDeleted" msprop:Generator_UserTableName="Vehicles" msprop:Generator_RowChangedName="VehiclesRowChanged" msprop:Generator_RowEvArgName="VehiclesRowChangeEvent" msprop:Generator_RowClassName="VehiclesRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnPropNameInTable="CodeColumn" msprop:Generator_UserColumnName="Code">
@@ -3057,14 +3075,14 @@ FROM            Vehicles Where id = @Idvehicles</CommandText>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Route_Trip_FK" msdata:parent="Routes" msdata:child="Trips" msdata:parentkey="Id" msdata:childkey="RouteId" msprop:Generator_UserChildTable="Trips" msprop:Generator_ChildPropName="GetTripsRows" msprop:Generator_UserRelationName="Route_Trip_FK" msprop:Generator_ParentPropName="RoutesRow" msprop:Generator_RelationVarName="relationRoute_Trip_FK" msprop:Generator_UserParentTable="Routes" />
-      <msdata:Relationship name="Factories_Colors_FK" msdata:parent="Factories" msdata:child="FactoriesColors" msdata:parentkey="Id" msdata:childkey="Id" msprop:Generator_UserChildTable="FactoriesColors" msprop:Generator_ChildPropName="GetFactoriesColorsRows" msprop:Generator_UserRelationName="Factories_Colors_FK" msprop:Generator_ParentPropName="FactoriesRow" msprop:Generator_RelationVarName="relationFactories_Colors_FK" msprop:Generator_UserParentTable="Factories" />
-      <msdata:Relationship name="Assignment_Route_FK" msdata:parent="Assignments" msdata:child="Routes" msdata:parentkey="Id" msdata:childkey="AssignmentId" msprop:Generator_UserChildTable="Routes" msprop:Generator_ChildPropName="GetRoutesRows" msprop:Generator_UserRelationName="Assignment_Route_FK" msprop:Generator_ParentPropName="AssignmentsRow" msprop:Generator_RelationVarName="relationAssignment_Route_FK" msprop:Generator_UserParentTable="Assignments" />
-      <msdata:Relationship name="Location_Vehicle_FK" msdata:parent="Vehicles" msdata:child="Vehicles_Locations" msdata:parentkey="Id" msdata:childkey="VehicleId" msprop:Generator_UserChildTable="Vehicles_Locations" msprop:Generator_ChildPropName="GetVehicles_LocationsRows" msprop:Generator_UserRelationName="Location_Vehicle_FK" msprop:Generator_ParentPropName="VehiclesRow" msprop:Generator_RelationVarName="relationLocation_Vehicle_FK" msprop:Generator_UserParentTable="Vehicles" />
-      <msdata:Relationship name="Assignment_Cab_FK" msdata:parent="Vehicles" msdata:child="PlannerAssignments" msdata:parentkey="Id" msdata:childkey="CabId" msprop:Generator_UserChildTable="PlannerAssignments" msprop:Generator_ChildPropName="GetPlannerAssignmentsRowsByAssignment_Cab_FK" msprop:Generator_UserRelationName="Assignment_Cab_FK" msprop:Generator_ParentPropName="VehiclesRowByAssignment_Cab_FK" msprop:Generator_RelationVarName="relationAssignment_Cab_FK" msprop:Generator_UserParentTable="Vehicles" />
-      <msdata:Relationship name="Assignment_Trailer_FK" msdata:parent="Vehicles" msdata:child="PlannerAssignments" msdata:parentkey="Id" msdata:childkey="TrailerId" msprop:Generator_UserChildTable="PlannerAssignments" msprop:Generator_ChildPropName="GetPlannerAssignmentsRowsByAssignment_Trailer_FK" msprop:Generator_UserRelationName="Assignment_Trailer_FK" msprop:Generator_ParentPropName="VehiclesRowByAssignment_Trailer_FK" msprop:Generator_RelationVarName="relationAssignment_Trailer_FK" msprop:Generator_UserParentTable="Vehicles" />
-      <msdata:Relationship name="Assignment_Cab_FK1" msdata:parent="Vehicles" msdata:child="Assignments" msdata:parentkey="Id" msdata:childkey="CabId" msprop:Generator_UserChildTable="Assignments" msprop:Generator_ChildPropName="GetAssignmentsRowsByAssignment_Cab_FK1" msprop:Generator_UserRelationName="Assignment_Cab_FK1" msprop:Generator_ParentPropName="VehiclesRowByAssignment_Cab_FK1" msprop:Generator_RelationVarName="relationAssignment_Cab_FK1" msprop:Generator_UserParentTable="Vehicles" />
-      <msdata:Relationship name="Assignment_Trailer_FK1" msdata:parent="Vehicles" msdata:child="Assignments" msdata:parentkey="Id" msdata:childkey="TrailerId" msprop:Generator_UserChildTable="Assignments" msprop:Generator_ChildPropName="GetAssignmentsRowsByAssignment_Trailer_FK1" msprop:Generator_UserRelationName="Assignment_Trailer_FK1" msprop:Generator_ParentPropName="VehiclesRowByAssignment_Trailer_FK1" msprop:Generator_RelationVarName="relationAssignment_Trailer_FK1" msprop:Generator_UserParentTable="Vehicles" />
+      <msdata:Relationship name="Route_Trip_FK" msdata:parent="Routes" msdata:child="Trips" msdata:parentkey="Id" msdata:childkey="RouteId" msprop:Generator_UserChildTable="Trips" msprop:Generator_ChildPropName="GetTripsRows" msprop:Generator_UserRelationName="Route_Trip_FK" msprop:Generator_RelationVarName="relationRoute_Trip_FK" msprop:Generator_UserParentTable="Routes" msprop:Generator_ParentPropName="RoutesRow" />
+      <msdata:Relationship name="Factories_Colors_FK" msdata:parent="Factories" msdata:child="FactoriesColors" msdata:parentkey="Id" msdata:childkey="Id" msprop:Generator_UserChildTable="FactoriesColors" msprop:Generator_ChildPropName="GetFactoriesColorsRows" msprop:Generator_UserRelationName="Factories_Colors_FK" msprop:Generator_RelationVarName="relationFactories_Colors_FK" msprop:Generator_UserParentTable="Factories" msprop:Generator_ParentPropName="FactoriesRow" />
+      <msdata:Relationship name="Assignment_Route_FK" msdata:parent="Assignments" msdata:child="Routes" msdata:parentkey="Id" msdata:childkey="AssignmentId" msprop:Generator_UserChildTable="Routes" msprop:Generator_ChildPropName="GetRoutesRows" msprop:Generator_UserRelationName="Assignment_Route_FK" msprop:Generator_RelationVarName="relationAssignment_Route_FK" msprop:Generator_UserParentTable="Assignments" msprop:Generator_ParentPropName="AssignmentsRow" />
+      <msdata:Relationship name="Location_Vehicle_FK" msdata:parent="Vehicles" msdata:child="Vehicles_Locations" msdata:parentkey="Id" msdata:childkey="VehicleId" msprop:Generator_UserChildTable="Vehicles_Locations" msprop:Generator_ChildPropName="GetVehicles_LocationsRows" msprop:Generator_UserRelationName="Location_Vehicle_FK" msprop:Generator_RelationVarName="relationLocation_Vehicle_FK" msprop:Generator_UserParentTable="Vehicles" msprop:Generator_ParentPropName="VehiclesRow" />
+      <msdata:Relationship name="Assignment_Cab_FK" msdata:parent="Vehicles" msdata:child="PlannerAssignments" msdata:parentkey="Id" msdata:childkey="CabId" msprop:Generator_UserChildTable="PlannerAssignments" msprop:Generator_ChildPropName="GetPlannerAssignmentsRowsByAssignment_Cab_FK" msprop:Generator_UserRelationName="Assignment_Cab_FK" msprop:Generator_RelationVarName="relationAssignment_Cab_FK" msprop:Generator_UserParentTable="Vehicles" msprop:Generator_ParentPropName="VehiclesRowByAssignment_Cab_FK" />
+      <msdata:Relationship name="Assignment_Trailer_FK" msdata:parent="Vehicles" msdata:child="PlannerAssignments" msdata:parentkey="Id" msdata:childkey="TrailerId" msprop:Generator_UserChildTable="PlannerAssignments" msprop:Generator_ChildPropName="GetPlannerAssignmentsRowsByAssignment_Trailer_FK" msprop:Generator_UserRelationName="Assignment_Trailer_FK" msprop:Generator_RelationVarName="relationAssignment_Trailer_FK" msprop:Generator_UserParentTable="Vehicles" msprop:Generator_ParentPropName="VehiclesRowByAssignment_Trailer_FK" />
+      <msdata:Relationship name="Assignment_Cab_FK1" msdata:parent="Vehicles" msdata:child="Assignments" msdata:parentkey="Id" msdata:childkey="CabId" msprop:Generator_UserChildTable="Assignments" msprop:Generator_ChildPropName="GetAssignmentsRowsByAssignment_Cab_FK1" msprop:Generator_UserRelationName="Assignment_Cab_FK1" msprop:Generator_RelationVarName="relationAssignment_Cab_FK1" msprop:Generator_UserParentTable="Vehicles" msprop:Generator_ParentPropName="VehiclesRowByAssignment_Cab_FK1" />
+      <msdata:Relationship name="Assignment_Trailer_FK1" msdata:parent="Vehicles" msdata:child="Assignments" msdata:parentkey="Id" msdata:childkey="TrailerId" msprop:Generator_UserChildTable="Assignments" msprop:Generator_ChildPropName="GetAssignmentsRowsByAssignment_Trailer_FK1" msprop:Generator_UserRelationName="Assignment_Trailer_FK1" msprop:Generator_RelationVarName="relationAssignment_Trailer_FK1" msprop:Generator_UserParentTable="Vehicles" msprop:Generator_ParentPropName="VehiclesRowByAssignment_Trailer_FK1" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -47,6 +47,9 @@ namespace EtasaDesktop.Distribution.Planner
     {
         private string con = Properties.Settings.Default.EtasaConnectionString;
 
+        public static bool BlockOrderUpdate { get; set; }
+        public static bool BlockFilterListEvent { get; set; }
+
         private DateTime _selectedDate;
         public DateTime SelectedDate
         {
@@ -56,7 +59,9 @@ namespace EtasaDesktop.Distribution.Planner
                 if (value != _selectedDate)
                 {
                     Set(ref _selectedDate, value);
+                    BlockFilterListEvent = true;
                     UpdateOrders(_selectedDate);
+                    BlockFilterListEvent = false;
                     UpdateAssignments(_selectedDate);
                 }
             }
@@ -85,8 +90,10 @@ namespace EtasaDesktop.Distribution.Planner
 
             DateTime FechaFinal =  DateTime.Now;
             Console.WriteLine( "1: " + diferenceHoursMinutesSecondMilisecons(Fechainicio, FechaFinal));
-         
+
+            BlockOrderUpdate = true;
             UpdateOrders(SelectedDate);
+            BlockOrderUpdate = false;
             DateTime FechaFinal2 =  DateTime.Now;
             Console.WriteLine("2: " + diferenceHoursMinutesSecondMilisecons(FechaFinal, FechaFinal2));
                
@@ -492,7 +499,10 @@ namespace EtasaDesktop.Distribution.Planner
                 if (value != _filterOperators)
                 {
                     Set(ref _filterOperators, value);
-                    UpdateOrders(SelectedDate);
+                    if (!BlockFilterListEvent)
+                    {
+                        UpdateOrders(SelectedDate);
+                    }
                 }
             }
         }
@@ -504,7 +514,10 @@ namespace EtasaDesktop.Distribution.Planner
                 if (value != _filterClients)
                 {
                     Set(ref _filterClients, value);
-                    UpdateOrders(SelectedDate);
+                    if (!BlockFilterListEvent)
+                    {
+                        UpdateOrders(SelectedDate);
+                    }
                 }
             }
         }
@@ -516,10 +529,14 @@ namespace EtasaDesktop.Distribution.Planner
                 if (value != _filterFactories)
                 {
                     Set(ref _filterFactories, value);
-                    UpdateOrders(SelectedDate);
+                    if (!BlockFilterListEvent)
+                    {
+                        UpdateOrders(SelectedDate);
+                    }
                 }
             }
         }
+
         public string FilterProducts
         {
             get => _filterProducts;
@@ -528,11 +545,13 @@ namespace EtasaDesktop.Distribution.Planner
                 if (value != _filterProducts)
                 {
                     Set(ref _filterProducts, value);
-                    UpdateOrders(SelectedDate);
+                    if (!BlockFilterListEvent)
+                    {
+                        UpdateOrders(SelectedDate);
+                    }
                 }
             }
         }
-
 
         private bool IsFiltering { get; set; }
 
@@ -547,10 +566,13 @@ namespace EtasaDesktop.Distribution.Planner
        
             Orders.CollectionChanged += OnOrdersCollectionChanged;
         }
+
         private void UpdateOrders(DateTime dateTime)
         {
-            IsFiltering = !String.IsNullOrWhiteSpace(FilterOperators) || !String.IsNullOrWhiteSpace(FilterClients) || !String.IsNullOrWhiteSpace(FilterFactories) || !String.IsNullOrWhiteSpace(FilterProducts);
+            Console.WriteLine("UpdateOrders " + dateTime.ToShortDateString());
+            IsFiltering = !string.IsNullOrWhiteSpace(FilterOperators) || !string.IsNullOrWhiteSpace(FilterClients) || !string.IsNullOrWhiteSpace(FilterFactories) || !string.IsNullOrWhiteSpace(FilterProducts);
 
+            BlockOrderUpdate = true;
             Orders.Clear();
             var reqOrders = PlannerRequester.RequestOrders(dateTime, FilterOperators, FilterClients, FilterFactories, FilterProducts);
             foreach (Order order in reqOrders)
@@ -559,35 +581,48 @@ namespace EtasaDesktop.Distribution.Planner
                 Orders.Add(order);
             }
 
+            BlockOrderUpdate = false;
+            OnOrdersCollectionChanged(null, null);
         }
 
         private void OnOrdersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            Console.WriteLine("OnOrdersCollectionChanged");
+            if (BlockOrderUpdate) { return; }
             if (!IsFiltering)
             {
+                BlockFilterListEvent = true;
                 OrdersOperators.Clear();
                 OrdersClients.Clear();
                 OrdersFactories.Clear();
-                OrdersProducts.Clear();
-              
+                OrdersProducts.Clear();              
 
                 for (int i = Orders.Count - 1; i >= 0; i--)
                 {
                     var order = Orders[i];
-
                     if (!OrdersOperators.Any(item => item.Id == order.Operator.Id))
+                    {
                         OrdersOperators.Add(order.Operator);
+                    }
 
                     if (!OrdersClients.Any(item => item.Id == order.Client.Id))
+                    {
                         OrdersClients.Add(order.Client);
+                    }
 
                     if (!OrdersFactories.Any(item => item.Id == order.Factory.Id))
+                    {
                         OrdersFactories.Add(order.Factory);
+                    }
 
                     if (!OrdersProducts.Any(item => item.Id == order.Product.Id))
+                    {
                         OrdersProducts.Add(order.Product);
+                    }
 
                 }
+
+                BlockFilterListEvent = false;
             }
         }
 
