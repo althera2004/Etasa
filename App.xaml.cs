@@ -1,18 +1,18 @@
-﻿using EtasaDesktop.Common.Auth;
-using EtasaDesktop.Common;
-using Fluent;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using WpfOfficeTheme;
-
-namespace EtasaDesktop
+﻿namespace EtasaDesktop
 {
+    using EtasaDesktop.Common.Auth;
+    using EtasaDesktop.Common;
+    using Fluent;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Data;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Media;
+    using WpfOfficeTheme;
+
     /// <summary>
     /// Lógica de interacción para App.xaml
     /// </summary>
@@ -21,12 +21,9 @@ namespace EtasaDesktop
         protected override void OnStartup(StartupEventArgs e)
         {
             SetStyle();
-
             base.OnStartup(e);
-
             Login();
         }
-
 
         private void Login()
         {
@@ -49,17 +46,14 @@ namespace EtasaDesktop
             }
         }
 
-
-
         private void SetStyle()
         {
-            if (TryFindResource("AccentColorBrush") is SolidColorBrush accentBrush)
+            if (TryFindResource("AccentColorBrush") is SolidColorBrush accentBrush){
                 accentBrush.Color.CreateAccentColors();
+            }
 
             ThemeManager.AddAccent("CustomFluentTheme", new Uri("pack://application:,,,/EtasaDesktop;component/Resources/Theme/Ribbon.xaml"));
-
             Tuple<AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Application.Current);
-
             ThemeManager.ChangeAppStyle(Application.Current,
                                         ThemeManager.GetAccent("CustomFluentTheme"),
                                         theme.Item1);

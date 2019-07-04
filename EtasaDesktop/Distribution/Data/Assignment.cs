@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EtasaDesktop.Distribution.Data
+﻿namespace EtasaDesktop.Distribution.Data
 {
+    using System;
+
     public class Assignment
     {
         public long Id { get; set; }
@@ -19,8 +15,8 @@ namespace EtasaDesktop.Distribution.Data
         public DateTime ModifiedDate { get; set; }
         public int TotalAmountAssigment { get; set; }
 
-        public int? TripId{ get; set; }
-        public int RoutesId { get; set; }
+        public long? TripId{ get; set; }
+        public long RoutesId { get; set; }
         public int FactoryId { get; set; }
 
         public string FactoryName { get; set; }

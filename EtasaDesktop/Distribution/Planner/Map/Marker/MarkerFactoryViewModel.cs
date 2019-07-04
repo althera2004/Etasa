@@ -1,17 +1,9 @@
-﻿using EtasaDesktop.Common.Data;
-using EtasaDesktop.Common.Tools;
-using Microsoft.Maps.MapControl.WPF;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-
-
+﻿
 namespace EtasaDesktop.Distribution.Planner.Map
 {
+    using EtasaDesktop.Common.Data;
+    using Microsoft.Maps.MapControl.WPF;
+
     public class MarkerFactoryViewModel : MarkerViewModel
     {
         private Factory _factory;

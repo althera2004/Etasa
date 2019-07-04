@@ -81,13 +81,16 @@
 
         private void OnOrdersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (PlannerViewModel.BlockOrderUpdate) { return; }
+            Console.WriteLine("OnOrdersCollectionChanged (PF) --> " + (PlannerViewModel.BlockOrderUpdate ? "Block" : "No block"));
+            //if (PlannerViewModel.BlockOrderUpdate) { return; }
             Map.Orders = _viewModel.Orders;
             Map.Center();
         }
 
         private void OnAssignmentsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (PlannerViewModel.BlockMapUpdate) { return; }
+            Console.WriteLine("OnAssignmentsCollectionChanged " + (PlannerViewModel.BlockMapUpdate ? "Block" : "No block"));
             Map.Assignments = new ObservableCollection<Assignment>(from assign in _viewModel.AssignmentRoutes select assign.Assignment);
             Map.Center();
         }
@@ -95,8 +98,12 @@
         private void ListViewAssignmentOrders_Loaded(object sender, RoutedEventArgs e)
         {
             //Lista de pedidos asignados a rutas
+            var d0 = DateTime.Now;
             ListView listView = sender as ListView;
-            new ListViewDragDropManager<Order>(listView).ReorderedCustomAction += PlannerFrame_ReorderedAction; ;
+            new ListViewDragDropManager<Order>(listView).ReorderedCustomAction += PlannerFrame_ReorderedAction;
+            var d1 = DateTime.Now;
+            Console.WriteLine("ListViewAssignmentOrders_Loaded " + (d1 - d0).TotalMilliseconds.ToString());
+
         }
 
         private void PlannerFrame_ReorderedAction(object sender, DragEventArgs e)
@@ -106,8 +113,11 @@
 
         private void ListViewOrders_Loaded(object sender, RoutedEventArgs e)
         {
+            var d0 = DateTime.Now;
             ListView listView = sender as ListView;
             new ListViewDragDropManager<Order>(listView);
+            var d1 = DateTime.Now;
+            Console.WriteLine("ListViewOrders_Loaded " + (d1 - d0).TotalMilliseconds.ToString());
         }
 
         private void MapView_Checked(object sender, RoutedEventArgs e)
@@ -146,9 +156,10 @@
         private void OnDragEnterToList(object sender, DragEventArgs e)
         {
             e.Effects = DragDropEffects.Move;
-
-            if(_dragViewOrigin is null)
+            if (_dragViewOrigin is null)
+            {
                 _dragViewOrigin = new DragViewOrigin(sender as ListView, DragViewOrigin.LIST_TYPE);
+            }
 
         
         }
@@ -195,11 +206,12 @@
 
         private void OnDragEnterToMap(object sender, DragEventArgs e)
         {
-          
+            Console.WriteLine("Entrar en el mapa");
             e.Effects = DragDropEffects.Move;
-
             if (_dragViewOrigin is null)
+            {
                 _dragViewOrigin = new DragViewOrigin(sender as ListView, DragViewOrigin.MAP_TYPE);
+            }
         }
         private void OnDragLeaveFromMap(object sender, DragEventArgs e)
         {
@@ -209,11 +221,12 @@
         //dejamos en el mapa borramos la asignación y le agregamos la orden
         private void OnDropToMap(object sender, DragEventArgs e)
         {
+            Console.WriteLine("Soltar en el mapa");
             int routedId = 0;
             if (e.Effects == DragDropEffects.None)
                 return;
 
-            Order order = e.Data.GetData(typeof(Order)) as Order;
+            var order = e.Data.GetData(typeof(Order)) as Order;
 
             if (_dragViewOrigin.ListView == null)
             {

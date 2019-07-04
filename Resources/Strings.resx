@@ -177,6 +177,9 @@
   <data name="Toolbar_Admin_Users_New" xml:space="preserve">
     <value>Nuevo usuario</value>
   </data>
+  <data name="Toolbar_Billing_Group" xml:space="preserve">
+    <value>Facturación</value>
+  </data>
   <data name="Toolbar_Clients_Group" xml:space="preserve">
     <value>Clientes</value>
   </data>

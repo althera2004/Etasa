@@ -49,6 +49,7 @@ namespace EtasaDesktop.Distribution.Planner
 
         public static bool BlockOrderUpdate { get; set; }
         public static bool BlockFilterListEvent { get; set; }
+        public static bool BlockMapUpdate { get; set; }
 
         private DateTime _selectedDate;
         public DateTime SelectedDate
@@ -69,10 +70,14 @@ namespace EtasaDesktop.Distribution.Planner
 
         public List<FactoryColors> _colors;
 
+        public ReadOnlyCollection<Factory> Factories;
+        public ReadOnlyCollection<Product> Products;
+        public ReadOnlyCollection<Operator> Operators;
+
 
         public PlannerViewModel()
         {
-            
+            InitAuxiliars();
 
             InitOrders();
             InitAssignments();
@@ -81,7 +86,6 @@ namespace EtasaDesktop.Distribution.Planner
             SelectedDate = DateTime.Today;
             Refresh();
         }
-
 
         public void Refresh()
         {
@@ -156,7 +160,7 @@ namespace EtasaDesktop.Distribution.Planner
 
         private void SetColor(Order order)
         {
-            string putEmergencycolor = "";
+            //string putEmergencycolor = "";
             var colors = _colors.Where(pc => pc.FactoryId == order.Factory.Id);
             System.Windows.Media.Color color;
             bool isLastDay;
@@ -170,6 +174,7 @@ namespace EtasaDesktop.Distribution.Planner
                 color = colors.Count() > 0 ? colors.ToArray()[0].ClientColor : Colors.Gray;
                 isLastDay = false;
             }
+
             order.HexColor = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B));
             order.IsLastDay = isLastDay;
 
@@ -178,20 +183,19 @@ namespace EtasaDesktop.Distribution.Planner
             order.Factory.HexColor = ColorTranslator.ToHtml(System.Drawing.Color.FromArgb(fcolor.A, fcolor.R, fcolor.G, fcolor.B));
 
             //si el nombre del cliente contiene en las primeras inciales MGC es un vehiculo de emergencia y lo ponemos con el color de emergencia de la factoria
-            putEmergencycolor = order.Client.Name.Substring(0, 3);
-            if (putEmergencycolor == "MRG")
+            //putEmergencycolor = order.Client.Name.Substring(0, 3);
+            if (order.Client.Name.StartsWith("MRG", StringComparison.OrdinalIgnoreCase))
             {
-                order.HexColor = GetColorEmergency(order.Factory.Id);
+                // Juan Castilla - ya está en el objeto Factory
+                //order.HexColor = GetColorEmergency(order.Factory.Id);
+                order.HexColor = Factories.First(f => f.Id == order.Factory.Id).Colors.Urgent;
             }
             else
             {
                 order.HexColor = order.Factory.HexColor;
             }
-
-
-
-
         }
+
         public static string GetColorEmergency(int orderFactoryId)
         {
             PlannerDataSet ds = new PlannerDataSet();
@@ -231,6 +235,7 @@ namespace EtasaDesktop.Distribution.Planner
             Assignments.CollectionChanged += OnAssignmentCollectionChanged;
             AssignmentRoutes = new ObservableCollection<PlannerAssignmentViewModel>();
         }
+
         private void UpdateAssignments(DateTime dateTime)
         {
             AssignmentRoutes.Clear();
@@ -241,13 +246,24 @@ namespace EtasaDesktop.Distribution.Planner
             var reqAssigns = PlannerRequester.RequestAssignments(dateTime,"");
 
             PlannerAssignmentViewModel plannerAssignment;
-            foreach (Assignment assignment in reqAssigns.DistinctBy(p => p.RoutesId))
+
+            BlockMapUpdate = true;
+            var cont = 0;
+            var candidates = reqAssigns.DistinctBy(p => p.RoutesId);
+            foreach (var assignment in candidates)
             {
+                cont++;
+                if(cont == candidates.Count())
+                {
+                    Console.WriteLine("Liberar mapa");
+                    BlockMapUpdate = false;
+                }
+
                 try
                 {
                     plannerAssignment = new PlannerAssignmentViewModel(assignment);
                     AssignmentRoutes.Add(plannerAssignment);
-                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(Orders, assignment.Id, assignment.RoutesId);
+                    var reqOrders = PlannerRequester.RequestOrders(assignment.Id, assignment.RoutesId);
 
                     if (reqOrders.Count() > 0)
                     {
@@ -262,15 +278,14 @@ namespace EtasaDesktop.Distribution.Planner
                     }
 
                 }
-
                 catch (Exception excp)
                 {
                     Console.WriteLine(excp.Message);
-
                 }
             }
+
             //rellenamos el filtro de matricula 
-            foreach (Assignment assignment in reqAssigns.DistinctBy(p => p.Trailer.Id))
+            foreach (var assignment in reqAssigns.DistinctBy(p => p.Trailer.Id))
             {
                 OrdersVehicles.Add(assignment.Trailer);
             }       
@@ -291,7 +306,7 @@ namespace EtasaDesktop.Distribution.Planner
                 {
                     plannerAssignment = new PlannerAssignmentViewModel(assignment);
                     AssignmentRoutes.Add(plannerAssignment);
-                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(Orders, assignment.Id, assignment.RoutesId);
+                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(assignment.Id, assignment.RoutesId);
 
                     if (reqOrders.Count() > 0)
                     {
@@ -321,7 +336,7 @@ namespace EtasaDesktop.Distribution.Planner
             bool totalAmount = true;
 
             //asignacion de ruta aqui
-            var reqAssigns = PlannerRequester.RequestAssignments(dateTime,"");
+            var reqAssigns = PlannerRequester.RequestAssignments(dateTime, string.Empty);
 
             PlannerAssignmentViewModel plannerAssignment2;
             foreach (Assignment assignment in reqAssigns.DistinctBy(p => p.RoutesId))
@@ -330,7 +345,7 @@ namespace EtasaDesktop.Distribution.Planner
                 {
                     plannerAssignment2 = new PlannerAssignmentViewModel(assignment);
                     AssignmentRoutes.Add(plannerAssignment2);
-                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(Orders, assignment.Id, assignment.RoutesId);
+                    IEnumerable<Order> reqOrders = PlannerRequester.RequestOrders(assignment.Id, assignment.RoutesId);
 
                     if (reqOrders.Count() > 0)
                     {
@@ -355,7 +370,7 @@ namespace EtasaDesktop.Distribution.Planner
         }
 
 
-        public bool UpdateTotalAmount(PlannerAssignmentViewModel listOrder, long assignmentId, int routeId)
+        public bool UpdateTotalAmount(PlannerAssignmentViewModel listOrder, long assignmentId, long routeId)
         {
             bool ok = true;
             //recorremos todos los pedidos para actualizar los datos de la ruta totalamount y mensaje
@@ -367,48 +382,47 @@ namespace EtasaDesktop.Distribution.Planner
             //miramos si hay pedidos en al lista
             if (listOrders.Count > 0)
             {
-                    PlannerDataSetTableAdapters.RoutesTableAdapter routestable = new PlannerDataSetTableAdapters.RoutesTableAdapter();
-                    PlannerDataSet.RoutesDataTable dataTableroutes = routestable.GetDatarRoutedIdByAssigmentandIdAndRoutedID(Convert.ToInt32(assignmentId), Convert.ToInt32(routeId));
-                    if (dataTableroutes.Rows.Count > 0)
+                PlannerDataSetTableAdapters.RoutesTableAdapter routestable = new PlannerDataSetTableAdapters.RoutesTableAdapter();
+                PlannerDataSet.RoutesDataTable dataTableroutes = routestable.GetDatarRoutedIdByAssigmentandIdAndRoutedID(Convert.ToInt32(assignmentId), Convert.ToInt32(routeId));
+                if (dataTableroutes.Rows.Count > 0)
+                {
+                    foreach (Order order in listOrder.test)
                     {
-                            foreach (Order order in listOrder.test)
+
+                        //obtenemos la ruta y acumulamos toda las cantiadad de los pedidos
+                        foreach (PlannerDataSet.RoutesRow row in dataTableroutes.Rows)
+                        {
+                            row["TotalAmount"] = 0;
+                            if (order.ReceivedAmount == 0)
                             {
-
-                                    //obtenemos la ruta y acumulamos toda las cantiadad de los pedidos
-                                    foreach (PlannerDataSet.RoutesRow row in dataTableroutes.Rows)
-                                    {
-                                            row["TotalAmount"] = 0;
-                                            if (order.ReceivedAmount == 0)
-                                            {
-                                                row["TotalAmount"] = Convert.ToInt32(row["TotalAmount"]) + order.RequestedAmount;
-                                            }
-                                            else
-                                            {
-                                                row["TotalAmount"] = Convert.ToInt32(row["TotalAmount"]) + order.ReceivedAmount;
-                                            }
-                                            //acumulamos toda la cantidad de los pedidos 
-                                            sumaacumuladadeCntidadepedidos = sumaacumuladadeCntidadepedidos + Convert.ToInt32(row["TotalAmount"]);
-                                            row["TotalAmount"] = sumaacumuladadeCntidadepedidos;
-                                            rowfinalupdate = row;
-                                    }
+                                row["TotalAmount"] = Convert.ToInt32(row["TotalAmount"]) + order.RequestedAmount;
                             }
-                            //actualizamos los datos de la ruta (comparamos los datos de la acumulación de los pedido para actualizar el mensaje con el peso) 
-                            reponse = CompareAndUpdateDatasRoute(assignmentId, sumaacumuladadeCntidadepedidos, rowfinalupdate, routestable);
+                            else
+                            {
+                                row["TotalAmount"] = Convert.ToInt32(row["TotalAmount"]) + order.ReceivedAmount;
+                            }
+                            //acumulamos toda la cantidad de los pedidos 
+                            sumaacumuladadeCntidadepedidos = sumaacumuladadeCntidadepedidos + Convert.ToInt32(row["TotalAmount"]);
+                            row["TotalAmount"] = sumaacumuladadeCntidadepedidos;
+                            rowfinalupdate = row;
+                        }
+                    }
+                    //actualizamos los datos de la ruta (comparamos los datos de la acumulación de los pedido para actualizar el mensaje con el peso) 
+                    reponse = CompareAndUpdateDatasRoute(assignmentId, sumaacumuladadeCntidadepedidos, rowfinalupdate, routestable);
 
-                    }
-                    else
-                    {
-                        ok = false;
-                    }
+                }
+                else
+                {
+                    ok = false;
+                }
             }
             else
             {
                 ok = false;
             }
-      return ok;
-     }
 
-
+            return ok;
+        }
 
         public bool IsNullOrEmpty(object obj)
         {
@@ -567,27 +581,49 @@ namespace EtasaDesktop.Distribution.Planner
             Orders.CollectionChanged += OnOrdersCollectionChanged;
         }
 
+        private void InitAuxiliars()
+        {
+            Factories = PlannerRequester.RequestFactories();
+            Operators = PlannerRequester.RequestOperators();
+            Products = PlannerRequester.RequestProducts();
+        }
+
         private void UpdateOrders(DateTime dateTime)
         {
-            Console.WriteLine("UpdateOrders " + dateTime.ToShortDateString());
+            if (BlockOrderUpdate) { return; }
+            Console.WriteLine("UpdateOrders " + dateTime.ToShortDateString() + "  " + (BlockOrderUpdate ? "Block" : "No block"));
             IsFiltering = !string.IsNullOrWhiteSpace(FilterOperators) || !string.IsNullOrWhiteSpace(FilterClients) || !string.IsNullOrWhiteSpace(FilterFactories) || !string.IsNullOrWhiteSpace(FilterProducts);
 
             BlockOrderUpdate = true;
             Orders.Clear();
             var reqOrders = PlannerRequester.RequestOrders(dateTime, FilterOperators, FilterClients, FilterFactories, FilterProducts);
-            foreach (Order order in reqOrders)
-            {
-                SetColor(order);
-                Orders.Add(order);
-            }
 
-            BlockOrderUpdate = false;
-            OnOrdersCollectionChanged(null, null);
+            if (reqOrders.Count() > 0)
+            {
+                // Juan Castilla - Sólo cuando se lance el último, actualizamos las listas
+                var cont = 0;
+                foreach (var order in reqOrders)
+                {
+                    cont++;
+                    if (cont == reqOrders.Count())
+                    {
+                        BlockOrderUpdate = false;
+                    }
+
+                    SetColor(order);
+                    Orders.Add(order);
+                }
+            }
+            else
+            {
+                BlockOrderUpdate = false;
+                Orders.Clear();
+            }
         }
 
         private void OnOrdersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            Console.WriteLine("OnOrdersCollectionChanged");
+            Console.WriteLine("OnOrdersCollectionChanged (PVM) --> " + (PlannerViewModel.BlockOrderUpdate ? "Block" : "No block"));
             if (BlockOrderUpdate) { return; }
             if (!IsFiltering)
             {

@@ -1,43 +1,17 @@
-﻿using EtasaDesktop.Common.Data;
-using EtasaDesktop.Distribution.Clients;
-using EtasaDesktop.Distribution.Orders;
-using Microsoft.Maps.MapControl.WPF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using EtasaDesktop.Resources.DrapAndDrop;
-
-namespace EtasaDesktop.Distribution.Planner.Map
+﻿namespace EtasaDesktop.Distribution.Planner.Map
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using EtasaDesktop.Common.Data;
+    using EtasaDesktop.Resources.DrapAndDrop;
+    using Microsoft.Maps.MapControl.WPF;
+
     public partial class MarkerClient : UserControl
     {
        
         private MarkerClientViewModel _viewModel;
         public Location localizacion = null;
-
-        /* antiguo
-        public MarkerClient(MarkerClientViewModel viewModel)
-        {
-            InitializeComponent();
-            _viewModel = viewModel;
-            MapLayer.SetPositionOrigin(this, PositionOrigin.BottomCenter);
-            new ListViewDragDropManager<Order>(ListClientOrders);
-            MapLayer.SetPosition(this, new Location(_viewModel.Client.Location.Latitude, _viewModel.Client.Location.Longitude));
-            this.DataContext = _viewModel;
-        }
-        */
-
 
         public MarkerClient(MarkerClientViewModel viewModel, ref float floatlogitudeNoFind)
         {
@@ -62,24 +36,32 @@ namespace EtasaDesktop.Distribution.Planner.Map
             // (left-down)-----------(right-down)  
 
             //esquina de arriba a la izquierda 
-            Punto leftup = new Punto();
-            leftup.latitude = Convert.ToSingle(44.488444);
-            leftup.longitude = Convert.ToSingle(-10.267331);
+            Punto leftup = new Punto
+            {
+                latitude = Convert.ToSingle(44.488444),
+                longitude = Convert.ToSingle(-10.267331)
+            };
 
             //esquina derecha de arriba 
-            Punto rightup = new Punto();
-            rightup.latitude = Convert.ToSingle(42.476091);
-            rightup.longitude = Convert.ToSingle(5.416559);
+            Punto rightup = new Punto
+            {
+                latitude = Convert.ToSingle(42.476091),
+                longitude = Convert.ToSingle(5.416559)
+            };
 
             //esquina de abajo izquierda  
-            Punto leftdown = new Punto();
-            leftdown.latitude = Convert.ToSingle(36.199297);
-            leftdown.longitude = Convert.ToSingle(-11.641810);
+            Punto leftdown = new Punto
+            {
+                latitude = Convert.ToSingle(36.199297),
+                longitude = Convert.ToSingle(-11.641810)
+            };
 
             //esquina de abajo derecha 
-            Punto rightdown = new Punto();
-            rightdown.latitude = Convert.ToSingle(35.3397912);
-            rightdown.longitude = Convert.ToSingle(1.732230);
+            Punto rightdown = new Punto
+            {
+                latitude = Convert.ToSingle(35.3397912),
+                longitude = Convert.ToSingle(1.732230)
+            };
 
             //miramos si el punto obtenido esta  dentro del rectangulo definido
             //si es asi dejamos la factoria en su lugar 

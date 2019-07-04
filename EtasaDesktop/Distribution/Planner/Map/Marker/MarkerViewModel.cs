@@ -1,50 +1,45 @@
-﻿using GalaSoft.MvvmLight;
-using Microsoft.Maps.MapControl.WPF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-
-namespace EtasaDesktop.Distribution.Planner.Map
+﻿namespace EtasaDesktop.Distribution.Planner.Map
 {
+    using System.Windows.Media;
+    using GalaSoft.MvvmLight;
+    using Microsoft.Maps.MapControl.WPF;
+
     public class MarkerViewModel : ViewModelBase
     {
-        private Brush _fill = Brushes.Gray;
-        private string _title;
-        private string _content;
-        private string _alert;
-        private Location _location;
+        private Brush fill = Brushes.Gray;
+        private string title;
+        private string content;
+        private string alert;
+        private Location location;
 
         public Brush Fill
         {
-            get => _fill;
-            set => Set(ref _fill, value);
+            get => fill;
+            set => Set(ref fill, value);
         }
 
         public string Title
         {
-            get => _title;
-            set => Set(ref _title, value);
+            get => title;
+            set => Set(ref title, value);
         }
 
         public string Content
         {
-            get => _content;
-            set => Set(ref _content, value);
+            get => content;
+            set => Set(ref content, value);
         }
 
         public string Alert
         {
-            get => _alert;
-            set => Set(ref _alert, value);
+            get => alert;
+            set => Set(ref alert, value);
         }
 
         public Location Location
         {
-            get => _location;
-            set => Set(ref _location, value);
+            get => location;
+            set => Set(ref location, value);
         }
     }
 }

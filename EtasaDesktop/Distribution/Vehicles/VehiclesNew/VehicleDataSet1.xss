@@ -8,9 +8,9 @@
   <Shapes>
     <Shape ID="DesignTable:Vehicles_Sizes" ZOrder="9" X="1037" Y="585" Height="153" Width="225" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="102" />
     <Shape ID="DesignTable:Vehicles_Types" ZOrder="8" X="1468" Y="567" Height="134" Width="231" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="83" />
-    <Shape ID="DesignTable:Vehicles" ZOrder="1" X="1002" Y="165" Height="362" Width="256" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
-    <Shape ID="DesignTable:Vehicles_Obs" ZOrder="5" X="715" Y="426" Height="153" Width="266" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignTable:VehiclesSummaries" ZOrder="2" X="329" Y="328" Height="305" Width="256" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
+    <Shape ID="DesignTable:Vehicles" ZOrder="2" X="1002" Y="165" Height="362" Width="256" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
+    <Shape ID="DesignTable:Vehicles_Obs" ZOrder="1" X="715" Y="426" Height="153" Width="266" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
+    <Shape ID="DesignTable:VehiclesSummaries" ZOrder="3" X="329" Y="328" Height="305" Width="256" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:Vehicles_Sizes_FK" ZOrder="7" LineWidth="11">
@@ -41,7 +41,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:Vehicle_Observation_FK" ZOrder="4" LineWidth="11">
+    <Connector ID="DesignRelation:Vehicle_Observation_FK" ZOrder="5" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>1002</X>
@@ -53,7 +53,7 @@
         </Point>
       </RoutePoints>
     </Connector>
-    <Connector ID="DesignRelation:Vehicle_Observation_FK1" ZOrder="3" LineWidth="11">
+    <Connector ID="DesignRelation:Vehicle_Observation_FK1" ZOrder="4" LineWidth="11">
       <RoutePoints>
         <Point>
           <X>585</X>

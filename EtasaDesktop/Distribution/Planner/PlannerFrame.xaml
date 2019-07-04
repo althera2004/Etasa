@@ -206,7 +206,7 @@
                                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
                                          x:Name="ListAssignementsOrders"
                                         Height="Auto" MinHeight="40"
-                                        Padding="0,8"
+                                        Padding="0"
                                         
                                         Background="#FAFAFA" BorderThickness="0,0.75" DragEnter="OnDragEnterToAssignment" DragLeave="OnDragLeaveFromAssignment" Drop="OnDropToAssignment" 
                                         ItemContainerStyle="{StaticResource AssignedOrderViewItem}"                                     
@@ -228,11 +228,13 @@
                                                             Fill="#CCCCCC" />-->
 
                                                     <Ellipse
+                                                        VerticalAlignment="Top"
                                                         Grid.Column="0"
+                                                        Margin="2"
                                                         Width="12" Height="12"
                                                         Fill="{Binding HexColor}" />
 
-                                                    <Grid Grid.Column="1" Margin="0,8">
+                                                    <Grid Grid.Column="1" Margin="0">
 
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition />
@@ -255,7 +257,7 @@
                                                             Grid.Row="0" Grid.Column="1"
                                                             Margin="2" HorizontalAlignment="Right"
                                                             FontSize="14" FontWeight="SemiBold"
-                                                            Text="{Binding RequestedAmount}" />
+                                                            Text="{Binding RequestedAmountText}" />
 
                                                         <TextBlock
                                                             Grid.Row="1" Grid.Column="0"
@@ -267,12 +269,12 @@
                                                             Grid.Row="1" Grid.Column="1"
                                                             HorizontalAlignment="Right"
                                                             FontSize="12"
-                                                            Text="{Binding ReceivedAmount}" />
+                                                            Text="{Binding ReceivedAmountText}" />
 
                                                         <TextBlock
                                                             Grid.Row="2" Grid.Column="0"
-                                                            FontSize="12"
-                                                            Text="{Binding Reference}" />
+                                                            FontSize="12"                                                            
+                                                            Text="{Binding ProductName}" />
                                                     </Grid>
                                                 </Grid>
                                             </DataTemplate>

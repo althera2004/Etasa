@@ -240,25 +240,22 @@ namespace EtasaDesktop.Distribution.Orders.Imports
 
 
 
-
+        // Juan Castilla - Corregir UTF
         public static IEnumerable<ImportData> FromDat(FileInfo file, ImportConfiguration configuration, int expirationDays)
         {
-
-            List<ImportData> orders = new List<ImportData>();
-            string line = "";
-            Boolean final = false;
-            ImportData Orden = new ImportData();
-            ImportData OrdenCabecera = new ImportData();
+            var orders = new List<ImportData>();
+            string line = string.Empty;
+            var final = false;
+            var Orden = new ImportData();
+            var OrdenCabecera = new ImportData();
             int VersionEnvioPedido = 0;
             string cabecera = "";
             int contadorlinias = -1;
             try
-            {
-             
+            {            
                 //leemos el fichero seleccionado linea por linea 
-                using (System.IO.StreamReader sr = new System.IO.StreamReader(file.FullName))
+                using (var sr = new StreamReader(file.FullName, Encoding.UTF7))
                 {
-
                     while ((line = sr.ReadLine()) != null && !final)
                     {   
                         //contamos linias leidas 
@@ -507,14 +504,10 @@ namespace EtasaDesktop.Distribution.Orders.Imports
                             //validación de los valores de geocalización
                             if (!string.IsNullOrEmpty(gps[0]) && !string.IsNullOrEmpty(gps[1]))
                             {
-
-
                                 latitud = gps[0];
                                 longitud = gps[1];
                             }
-
-
-
+                            
                             //conversion del opeardor de cepsa
                             if (Orden.Operador00 == "910106")
                             {
@@ -530,7 +523,6 @@ namespace EtasaDesktop.Distribution.Orders.Imports
                     }
                     sr.Close();                  
                 }
-
             }
             catch (Exception exp)
             {
@@ -543,9 +535,8 @@ namespace EtasaDesktop.Distribution.Orders.Imports
         //conversor de codigo de provincia al nombre
         private static string CodeProvinceTostring(string CodeProvince)
         {
-
-            string ProvincieName = "";
-            switch (CodeProvince)
+            string ProvincieName = string.Empty;
+            switch (CodeProvince.Trim())
             {
                 //insertamos registros de cabecera
                 case "01":
@@ -713,8 +704,8 @@ namespace EtasaDesktop.Distribution.Orders.Imports
         private static string[] Geocode(string direction, string postalCode, string province)
         {
             string[] gps = new string[2];
-            string strURL = "";
-            string strResult = "";
+            string strURL = string.Empty;
+            string strResult = string.Empty;
             HttpWebRequest wbrq; // = new HttpWebRequest();    
             HttpWebResponse wbrs; // = new HttpWebResponse ();
             StreamReader sr; // = new StreamReader();
@@ -722,13 +713,13 @@ namespace EtasaDesktop.Distribution.Orders.Imports
             if (!direction.Trim().Equals(""))
             {
                 string direccion2 = direction.Trim().ToLower();
-                direccion2 = direccion2.Replace("c/", "");
-                direccion2 = direccion2.Replace("av.", "");
-                direccion2 = direccion2.Replace("calle", "");
-                direccion2 = direccion2.Replace("carrer", "");
-                direccion2 = direccion2.Replace("avinguda", "");
-                direccion2 = direccion2.Replace("avenida", "");
-                direccion2 = direccion2.Replace("pg.", "");
+                direccion2 = direccion2.Replace("c/", string.Empty);
+                direccion2 = direccion2.Replace("av.", string.Empty);
+                direccion2 = direccion2.Replace("calle", string.Empty);
+                direccion2 = direccion2.Replace("carrer", string.Empty);
+                direccion2 = direccion2.Replace("avinguda", string.Empty);
+                direccion2 = direccion2.Replace("avenida", string.Empty);
+                direccion2 = direccion2.Replace("pg.", string.Empty);
 
                 string direccionparam = direccion2;
 
@@ -768,7 +759,7 @@ namespace EtasaDesktop.Distribution.Orders.Imports
                 nposini = strResult.IndexOf("<lng>") + 5;
                 nposfin = strResult.IndexOf("</lng>");
 
-                string sLng = "";
+                string sLng = string.Empty;
                 if (nposfin > nposini)
                     sLng = strResult.Substring(nposini, (nposfin - nposini));
 

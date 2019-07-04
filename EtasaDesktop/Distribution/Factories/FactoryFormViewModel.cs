@@ -286,7 +286,6 @@ namespace EtasaDesktop.Distribution.Factories
         {
             try
             {
-
                 FactoryDataSet dataset = new FactoryDataSet();
                 FactoryDataSetTableAdapters.FactoriesTableAdapter TableFactory = new FactoryDataSetTableAdapters.FactoriesTableAdapter();
                 FactoryDataSet.FactoriesDataTable dataTable = TableFactory.GetDataFactoryById(IdFactory);
@@ -314,12 +313,15 @@ namespace EtasaDesktop.Distribution.Factories
 
                     SelectedProvince = InitializeComboBoxProvince(Province);
 
-                    _row_obs = (FactoryDataSet.Factories_ObsRow)dataTable_Obs.Rows[0];
-                    RaisePropertyChanged(nameof(Observations));
+                    if (dataTable_Obs.Rows.Count > 0)
+                    {
+                        _row_obs = (FactoryDataSet.Factories_ObsRow)dataTable_Obs.Rows[0];
+                        RaisePropertyChanged(nameof(Observations));
+                    }
                     
                 }
-                FormLoadFinished?.Invoke();
-                
+
+                FormLoadFinished?.Invoke();                
             }
             catch (Exception e)
             {

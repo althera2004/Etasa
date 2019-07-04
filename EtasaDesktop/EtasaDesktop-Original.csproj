@@ -197,6 +197,7 @@
       <DependentUpon>Userframe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\Auth\Users\UserViewModel.cs" />
+    <Compile Include="Common\Data\FactoryColors.cs" />
     <Compile Include="Common\MainViewModel.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

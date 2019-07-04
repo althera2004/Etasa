@@ -37,7 +37,8 @@ namespace EtasaDesktop.Distribution.Planner.Map
             set
             {
                 Set(ref _orders, value);
-                RefreshNum();
+                Num = _orders.Sum(o => o.RequestedAmount);
+                //RefreshNum();
             }
         }
 
@@ -56,10 +57,11 @@ namespace EtasaDesktop.Distribution.Planner.Map
 
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            RefreshNum();
+            Num = Orders.Sum(o => o.RequestedAmount);
+            //RefreshNum();
         }
 
-        public void RefreshNum()
+        /*public void RefreshNum()
         {
             int num = 0;
 
@@ -67,6 +69,6 @@ namespace EtasaDesktop.Distribution.Planner.Map
                 num += order.RequestedAmount;
 
             Num = num / 1000;
-        }
+        }*/
     }
 }

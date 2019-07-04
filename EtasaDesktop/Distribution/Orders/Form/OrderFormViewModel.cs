@@ -745,7 +745,7 @@ namespace EtasaDesktop.Distribution.Orders.Form
                         if (numeroderegistros > 0)
                         {
                             //actualizamos la observacion
-                            tableAdapterOrderObs.UpdateOrderObs(_row_obs.Observations, _row_obs.Description, _row.Id);
+                            tableAdapterOrderObs.UpdateOrderObs(_row_obs.Description, _row_obs.Observations, _row.Id);
                         }
                     }
                     //insertamos el nuevo Orders  y las observaciones (orders_obs)

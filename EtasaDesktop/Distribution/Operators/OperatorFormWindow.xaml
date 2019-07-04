@@ -203,7 +203,7 @@
                         <!-- Observaciones -->
                         <StackPanel Style="{StaticResource InputBox}">
                             <Label Content="Observaciones" FontSize="12" Margin="0,0,-280,0" />
-                            <TextBox Style="{StaticResource FormTextBox}" Text="{Binding Observations, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Height="173" Margin="4,2,-280,2" />
+                            <TextBox Style="{StaticResource FormTextBox}" Text="{Binding Observations, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Height="173" Margin="4,2,-280,2" VerticalContentAlignment="Top" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>

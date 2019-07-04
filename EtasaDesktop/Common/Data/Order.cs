@@ -1,14 +1,8 @@
-﻿using EtasaDesktop.Distribution.Data;
-using Microsoft.Maps.MapControl.WPF;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EtasaDesktop.Common.Data
+﻿namespace EtasaDesktop.Common.Data
 {
+    using System;
+    using System.Globalization;
+
     public partial class Order
     {
         public Order(){}
@@ -66,6 +60,40 @@ namespace EtasaDesktop.Common.Data
         public int RequestedAmount { get; set; }
         public int? ReceivedAmount { get; set; }
         public int? LoadedAmount { get; set; }
+
+        public string ProductName
+        {
+            get
+            {
+                return string.Format(CultureInfo.InvariantCulture, "{2} - {0}-{1}", this.Product.Code, this.Product.Name, this.Reference);
+            }
+        }
+
+        public string RequestedAmountText
+        {
+            get
+            {
+                if (ReceivedAmount != null)
+                {
+                    return string.Format("{0:#,###0}", this.RequestedAmount);
+                }
+
+                return "-";
+            }
+        }
+
+        public string ReceivedAmountText
+        {
+            get
+            {
+                if (ReceivedAmount != null)
+                {
+                    return string.Format(CultureInfo.InvariantCulture, "{0:#,##0}", this.ReceivedAmount).Replace(',', '.');
+                }
+
+                return "-";
+            }
+        }
 
         public string TankNum { get; set; }
         public string TankVolume { get; set; }

@@ -11,5 +11,7 @@ namespace EtasaDesktop.Common.Data
         public LocationData Location { get; set; }
         //TXAPUZKA
         public string HexColor { get; set; }
+
+        public FactoryColors Colors { get; set; }
     }
 }

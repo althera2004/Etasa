@@ -9,20 +9,19 @@ namespace EtasaDesktop.Distribution.Planner.Drag
 {
     public class DragViewOrigin
     {
-        public const String MAP_TYPE = "map";
-        public const String LIST_TYPE = "list";
-        public const String ASSIGN_TYPE = "assign";
+        public const string MAP_TYPE = "map";
+        public const string LIST_TYPE = "list";
+        public const string ASSIGN_TYPE = "assign";
 
         public ListView ListView { get; set; }
-        public String Type { get; set; }
+        public string Type { get; set; }
 
         public long? AssignId
         {
             get
             {
-                if (Type == ASSIGN_TYPE)
+                if (Type.Equals(ASSIGN_TYPE, StringComparison.OrdinalIgnoreCase))
                 {
-
                     try
                     {
                         return ListView.Tag as long?;
@@ -33,6 +32,7 @@ namespace EtasaDesktop.Distribution.Planner.Drag
                     }
 
                 }
+
                 return null;
             }
         }

@@ -113,6 +113,14 @@ namespace EtasaDesktop.Distribution.Planner
             }
         }
 
+        public string TotalAmountText
+        {
+            get
+            {
+                return string.Format("{0:#,###0}", _assignment.TotalAmountAssigment);
+            }
+        }
+
 
         public string MessageOverAmount
         {

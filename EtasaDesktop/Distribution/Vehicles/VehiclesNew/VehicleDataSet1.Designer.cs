@@ -7834,7 +7834,8 @@ SELECT Id, Code, Name, MaxTankVolume FROM Vehicles_Sizes WHERE (Id = @Id)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT Id FROM Vehicles_Obs WHERE (Id = @id_obs)";
+            this._commandCollection[1].CommandText = "SELECT Id, ISNULL(Observations,\'\') AS Observations FROM Vehicles_Obs WHERE (Id = " +
+                "@id_obs)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id_obs", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();

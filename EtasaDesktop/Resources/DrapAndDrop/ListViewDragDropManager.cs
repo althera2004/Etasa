@@ -349,8 +349,8 @@ namespace EtasaDesktop.Resources.DrapAndDrop
 			if( data == null )
 				return;
 
-			// Get the ObservableCollection<ItemType> which contains the dropped data object.
-			ObservableCollection<ItemType> itemsSource = this.listView.ItemsSource as ObservableCollection<ItemType>;
+			// Obtener las orders del destino
+			var itemsSource = this.listView.ItemsSource as ObservableCollection<ItemType>;
             if (itemsSource == null)
             {
                 return;
@@ -692,17 +692,23 @@ namespace EtasaDesktop.Resources.DrapAndDrop
 
 		void PerformDragOperation()
 		{
-			ItemType selectedItem = this.listView.SelectedItem as ItemType;
+            ItemType selectedItem = this.listView.SelectedItem as ItemType;
 			DragDropEffects allowedEffects = DragDropEffects.Move | DragDropEffects.Move | DragDropEffects.Link;
 
             //Order order = (Order)this.listView.SelectedItem;
-   
-            if ( DragDrop.DoDragDrop( this.listView, selectedItem, allowedEffects ) != DragDropEffects.None )
-			{
-				// The item was dropped into a new location,
-				// so make it the new selected item.
-				this.listView.SelectedItem = selectedItem;
-			}
+            try
+            {
+                if (DragDrop.DoDragDrop(this.listView, selectedItem, allowedEffects) != DragDropEffects.None)
+                {
+                    // The item was dropped into a new location,
+                    // so make it the new selected item.
+                    this.listView.SelectedItem = selectedItem;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.Write("PerformDragOperation error");
+            }
 		}
 
 			#endregion // PerformDragOperation

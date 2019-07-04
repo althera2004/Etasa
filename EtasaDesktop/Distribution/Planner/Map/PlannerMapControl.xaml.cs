@@ -1,26 +1,18 @@
-﻿using EtasaDesktop.Common.Data;
-using EtasaDesktop.Distribution.Data;
-using Microsoft.Maps.MapControl.WPF;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace EtasaDesktop.Distribution.Planner.Map
+﻿namespace EtasaDesktop.Distribution.Planner.Map
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Data;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using EtasaDesktop.Common.Data;
+    using EtasaDesktop.Distribution.Data;
+    using Microsoft.Maps.MapControl.WPF;
+
     public partial class PlannerMapControl : UserControl
     {
         bool firstTime = true;
@@ -40,6 +32,11 @@ namespace EtasaDesktop.Distribution.Planner.Map
         }
         protected virtual void OnOrdersChanged(IEnumerable<Order> orders)
         {
+            if (PlannerViewModel.BlockOrderUpdate)
+            {
+                Console.WriteLine("OnOrdersChanged blocked");
+                return;
+            }
 
             //Limpia los antiguos marcadores
             ClearClientMarkers();
@@ -150,6 +147,7 @@ namespace EtasaDesktop.Distribution.Planner.Map
             }
            
         }
+
         private void Center(List<MarkerViewModel> markers)
         {
             double maxLat = -80;
@@ -166,48 +164,54 @@ namespace EtasaDesktop.Distribution.Planner.Map
                     cameraLocations.Add(locatable.Location);
                 }
 
-                foreach (Location location in cameraLocations)
+                cameraLocations = cameraLocations.Where(c => c.Latitude != 0).Distinct().ToList();
+
+                /*foreach (Location location in cameraLocations)
                 {
                     if (location.Latitude > maxLat) { maxLat = location.Latitude; }
                     if (location.Latitude < minLat) { minLat = location.Latitude; }
                     if (location.Longitude > maxLon) { maxLon = location.Longitude; }
                     if (location.Longitude < minLon) { minLon = location.Longitude; }
-                }
+                }*/
 
+                minLat = cameraLocations.Min(cl => cl.Latitude);
+                minLon = cameraLocations.Min(cl => cl.Longitude);
+                maxLat = cameraLocations.Max(cl => cl.Latitude);
+                maxLon = cameraLocations.Max(cl => cl.Longitude);
+
+                //44.488444, -10.267331 (left-up)                   
+                //42.476091, 5.416559 (right-up)
+                //36.199297, -11.641810 (left-down)
+                //35.339791, 1.732230 (right-down) 
             }
 
             var padding = 0.10;
             var latPadding = (maxLat - minLat) * padding;
             var lonPadding = (maxLon - minLon) * padding;
 
-            cameraLocations.Add(new Location(minLat - latPadding, maxLon + lonPadding));
-            cameraLocations.Add(new Location(maxLat + latPadding, minLon - lonPadding));
-
-            Map.SetView(new LocationRect(cameraLocations));
+            //cameraLocations.Add(new Location(minLat - latPadding, maxLon + lonPadding));
+            //cameraLocations.Add(new Location(maxLat + latPadding, minLon - lonPadding));
+            //new LocationRect(cameraLocations)
+            Map.SetView(new Location(40.4381311, -3.8196198), 6);
 
 
             if (Map.ZoomLevel > 15)
             {
                 Map.ZoomLevel = 15;
             }
-
-
-           
-          
         }
-
 
         private void AddClientMarker(Order order)
         {
-            MarkerClientViewModel clientViewModel = GetClientMarkerByOrder(order);
-
+            var clientViewModel = GetClientMarkerByOrder(order);
             if (order.HexColor == null)
             {
                 order.HexColor = "#C0C0C0";
             }
+
             if (clientViewModel == null)
             {
-                clientViewModel = new MarkerClientViewModel()
+                clientViewModel = new MarkerClientViewModel
                 {
                     Client = order.Client,
                     Orders = new ObservableCollection<Order>() { order },
@@ -221,25 +225,33 @@ namespace EtasaDesktop.Distribution.Planner.Map
                 clientViewModel.Orders.Add(order);
 
                 if (order.IsLastDay)
+                {
                     clientViewModel.Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom(order.HexColor));
+                }
 
-                clientViewModel.RefreshNum();
+                //clientViewModel.RefreshNum();
+
+                clientViewModel.Num = clientViewModel.Orders.Sum(o => o.RequestedAmount);
             }
         }
+
         private void AddFactoryMarker(Order order)
         {
 
-            MarkerFactoryViewModel factoryViewModel = new MarkerFactoryViewModel();
+            MarkerFactoryViewModel factoryViewModel = new MarkerFactoryViewModel
+            {
+                Factory = order.Factory
+            };
 
-            factoryViewModel.Factory = order.Factory;
-            if (order.Client.Name.Substring(0, 3).ToString().Trim() == "MGP")
-            {                      
-                factoryViewModel.Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom(GetColorEmergency(Convert.ToInt32(order.Factory.Id.ToString()))));
+            if (order.Client.Name.StartsWith("MGP", StringComparison.OrdinalIgnoreCase))
+            {
+                //factoryViewModel.Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom(GetColorEmergency(Convert.ToInt32(order.Factory.Id.ToString()))));
+                factoryViewModel.Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom(order.Factory.Colors.Urgent));
             }
             else
             {
                 factoryViewModel.Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom(order.Factory.HexColor));
-            }            
+            }           
            
             _markerFactories.Add(factoryViewModel);      
             // };
@@ -258,17 +270,25 @@ namespace EtasaDesktop.Distribution.Planner.Map
 
         private void AddAssignmentMarker(Assignment assignment)
         {
-           if (CheckIfAssignmentMarkerExists(assignment))
+           if (!CheckIfAssignmentMarkerExists(assignment))
            {
-                MarkerAssignmentViewModel assignmentViewModel = new MarkerAssignmentViewModel()
+                try
                 {
-                    Assignment = assignment,
-                    Fill = Brushes.RoyalBlue
-                };
+                    MarkerAssignmentViewModel assignmentViewModel = new MarkerAssignmentViewModel
+                    {
+                        Assignment = assignment,
+                        Fill = Brushes.RoyalBlue
+                    };
 
-                _markerAssignments.Add(assignmentViewModel);
+                    _markerAssignments.Add(assignmentViewModel);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
            };
         }
+
         private void AddRoute()
         {
 
@@ -280,7 +300,7 @@ namespace EtasaDesktop.Distribution.Planner.Map
             bool type = false;
             float logitudeNoFind = Convert.ToSingle(-9.942771);
             LocationCollection locationCollection = new LocationCollection();
-            foreach (MarkerClientViewModel mcvm in _markerClients)
+            foreach (var mcvm in _markerClients)
             {
                 var marker = new MarkerClient(mcvm, ref logitudeNoFind);
                 ClientLayer.Children.Add(marker);
@@ -299,19 +319,18 @@ namespace EtasaDesktop.Distribution.Planner.Map
             //pintamos el mapa con las lineas entre los pedidos
             PaintLineMaps(locationCollection, type);
         }
-        //ejemplo
-        //url https://social.msdn.microsoft.com/Forums/vstudio/en-US/e4f4760a-aeb3-4aed-97c1-7c9f3df731ac/strange-bing-maps-behavior-with-mappolyline?forum=bingmapssilverlightwpfcontrols
+
         private void DrawFactoryMarkers()
         {
             //si es true pintamos de color rojo las factorias para distinguirlas de los pedidos 
             bool type = true;
 
             Double logitudeNotFind = Convert.ToSingle(-9.942771);
-            LocationCollection locationCollection = new LocationCollection();
-            foreach (MarkerFactoryViewModel mfvm in _markerFactories.DistinctBy(p => p.Factory.Id))
+            var locationCollection = new LocationCollection();
+            foreach (var mfvm in _markerFactories.DistinctBy(p => p.Factory.Id))
             {
                 
-                MarkerFactory marker = new MarkerFactory(mfvm, ref logitudeNotFind);  
+                var marker = new MarkerFactory(mfvm, ref logitudeNotFind);  
                 //agregamos los punteros de las factorias 
                 FactoryLayer.Children.Add(marker);
                 //solo agregamos la localizaciones que estan dentro del mapa 
@@ -331,11 +350,13 @@ namespace EtasaDesktop.Distribution.Planner.Map
             PaintLineMaps(locationCollection,type);
 
         }
+
         private void DrawFleetMarkers()
         {
+            Double logitudeNotFind = Convert.ToSingle(-9.942771);
             foreach (MarkerAssignmentViewModel mavm in _markerAssignments)
             {
-                var marker = new MarkerDriver(mavm);
+                var marker = new MarkerDriver(mavm, ref logitudeNotFind);
                 FleetLayer.Children.Add(marker);
             }
         }
@@ -408,6 +429,7 @@ namespace EtasaDesktop.Distribution.Planner.Map
         {
             return _markerFactories.Any(FactoryMarker => FactoryMarker.Factory.Id == factory.Id);
         }
+
         private bool CheckIfAssignmentMarkerExists(Assignment assignment)
         {
             return _markerAssignments.Any(AssignmentMarker => AssignmentMarker.Assignment.Id == assignment.Id);
@@ -430,7 +452,7 @@ namespace EtasaDesktop.Distribution.Planner.Map
         {
             if (Map.Mode is RoadMode)
             {
-                Map.Mode = new AerialMode()
+                Map.Mode = new AerialMode
                 {
                     Labels = true
                 };
@@ -448,7 +470,5 @@ namespace EtasaDesktop.Distribution.Planner.Map
         }
 
         #endregion
-
-
     }
 }

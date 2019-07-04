@@ -480,10 +480,21 @@ namespace EtasaDesktop.Distribution.Vehicles.VehiclesNew
                     if (dataTable.Rows.Count > 0)
                     {
 
+                        int brandId = 0;
+
+                        try
+                        {
+                            brandId = _row.Brand;
+                        }
+                        catch(Exception ex)
+                        {
+                            brandId = 0;
+                        }
+
                         var rowVehicle = dataset.Vehicles.NewVehiclesRow();
                         rowVehicle = dataTable[0];
                         rowVehicle["LicensePlate"] = _row.LicensePlate;
-                        rowVehicle["Brand"] = _row.Brand;               
+                        rowVehicle["Brand"] = brandId;               
                         rowVehicle["BrandModel"] = _row.BrandModel;
                         rowVehicle["CreatedDate"] = DateTime.Now;
                         rowVehicle["ModifiedDate"] = DateTime.Now;
